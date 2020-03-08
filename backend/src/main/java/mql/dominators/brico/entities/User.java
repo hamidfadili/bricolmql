@@ -7,16 +7,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-@Data @ToString
+@Data
+@ToString
 @Document(collection = "users")
-public class User implements Serializable{
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	private long id;
+	private Long id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -25,6 +24,5 @@ public class User implements Serializable{
 	private String address;
 	private Date birthday;
 	private String photo;
-	
-	
+
 }
