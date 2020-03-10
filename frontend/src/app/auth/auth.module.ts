@@ -1,3 +1,4 @@
+import { UserService } from './../core/user.service';
 import { AuthRoutingModule } from './auth-routing.module';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +19,9 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     AuthRoutingModule
   ]
-  
+  ,providers: [
+    UserService
+  ]
 })
 
 export class AuthModule { }

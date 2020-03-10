@@ -1,3 +1,4 @@
+import { UserService } from './../../core/user.service';
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms'
 import { UserModule } from 'src/app/models/user/user.module';
@@ -19,7 +20,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(registerForm : NgForm){
-    
   }
 
 }
