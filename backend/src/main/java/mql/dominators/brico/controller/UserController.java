@@ -27,14 +27,14 @@ public class UserController {
 	@GetMapping(path = "/users")
 	public List<User> getAllUsers() {
 
-		return this.userService.findAllsUsers();
+		return this.userService.findAllUsers();
 	}
 
 	@GetMapping(path = "/users/{lastname}")
 	public User getUserByLastName(@PathVariable(name = "lastname") String lastname) {
 		User user = this.userService.getUserByLastName(lastname);
 		if (user == null)
-			throw new RuntimeException("This user is not fount !");
+			throw new RuntimeException("This user is not found !");
 		return user;
 	}
 
