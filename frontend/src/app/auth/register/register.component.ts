@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms'
+import { UserModule } from 'src/app/models/user/user.module';
 
 @Component({
   selector: 'app-register',
@@ -8,16 +9,8 @@ import {NgForm} from '@angular/forms'
 })
 export class RegisterComponent implements OnInit {
 
-  registerData = {
-    firstName:"",
-    lastName:"",
-    email:"",
-    password:"",
-    confirmPassword:""
-  }
-
-
-
+  user : UserModule = new UserModule();
+  confirmPassword : string = null;
   val;
 
   constructor() { }
