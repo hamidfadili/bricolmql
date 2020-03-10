@@ -1,3 +1,4 @@
+import { UserService } from './../../core/user.service';
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms'
 
@@ -12,21 +13,18 @@ export class RegisterComponent implements OnInit {
     firstName:"",
     lastName:"",
     email:"",
-    password:"",
-    confirmPassword:""
+    password:""
   }
 
+  constructor(userService:UserService) {
 
-
-  val;
-
-  constructor() { }
+   }
 
   ngOnInit() {
   }
 
   onSubmit(registerForm : NgForm){
-    
+     this.registerData
   }
 
 }
