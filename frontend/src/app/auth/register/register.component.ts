@@ -24,7 +24,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(registerForm : NgForm){
-     this.registerData
   }
 
 }
