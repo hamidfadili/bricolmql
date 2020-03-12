@@ -18,7 +18,7 @@
         </div>
 
         <br />
-        <input type="password" class="form-control" placeholder="Password" required="true" [(ngModel)]="user.passowrd"
+        <input type="password" class="form-control" placeholder="Password" required="true" [(ngModel)]="user.password"
             #password="ngModel" name="user.password" minlength="6" />
 
         <div *ngIf="(password.dirty || password.touched) && password.invalid">

@@ -127,6 +127,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "bricomql"
+    }
+  },
+  "defaultProject": "bricomql",
+  "cli": {
+    "analytics": "51726021-ea8b-4641-b383-3455cc81d557"
+  }
 }
