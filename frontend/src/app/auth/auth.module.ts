@@ -1,10 +1,10 @@
 import { UserService } from './../core/user.service';
 import { AuthRoutingModule } from './auth-routing.module';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -16,8 +16,8 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    FormsModule
   ]
   ,providers: [
     UserService

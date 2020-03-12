@@ -11,14 +11,14 @@ import { CommonModule } from '@angular/common';
 })
 export class UserModule { 
 
-  idUser : number = null;
-  firstName : string;
-  lastName : string;
-  email : string;
-  password : string;
-  phone : string = null;
-  address : string = null;
-  birthday : string = null;
-  photo : string = null;
+  idUser? : number;
+  firstName? : string;
+  lastName? : string;
+  email? : string;
+  password? : string;
+  phone? : string;
+  address? : string;
+  birthday? : string;
+  photo? : string;
 
 }
