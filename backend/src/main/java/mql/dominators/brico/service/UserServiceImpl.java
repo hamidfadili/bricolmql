@@ -3,6 +3,7 @@ package mql.dominators.brico.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,9 @@ import mql.dominators.brico.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
+	private BCryptPasswordEncoder bCrypt;
+
+	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
@@ -24,6 +28,7 @@ public class UserServiceImpl implements UserService {
 	public User saveUser(User user) {
 
 		user.setIdUser(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
+		user.setPassword(bCrypt.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
 

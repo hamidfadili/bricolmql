@@ -14,7 +14,11 @@ import mql.dominators.brico.entities.User;
 import mql.dominators.brico.service.UserService;
 
 @RestController
+<<<<<<< HEAD
 @CrossOrigin(origins = "*")
+=======
+@CrossOrigin(origins = "http://localhost:4200")
+>>>>>>> 01700c57dd967415dc49219af077f6f6574d49a0
 public class UserController {
 
 	@Autowired
