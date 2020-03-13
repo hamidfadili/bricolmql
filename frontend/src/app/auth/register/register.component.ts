@@ -14,24 +14,27 @@ export class RegisterComponent implements OnInit {
   user : UserModule = new UserModule();
   confirmPassword : string;
   
-  constructor(private userService:UserService,private router: Router) { }
+  constructor(
+    private userService:UserService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
   onSubmit(registerForm : NgForm){  
     this.userService.registerUser(this.user).subscribe(
-      res => this.onRegisterDone(res),
+      res => this.router.navigateByUrl('/'),
       err => console.log(err)
     )
   }
 
-  onRegisterDone(res){
-    this.router.navigateByUrl('/login');
-  }
-
   isMatch() : boolean{
     return this.user.password == this.confirmPassword;
+  }
+
+  generateUsername(email:string){
+    this.user.username = email.substring(0,email.indexOf("@"));
   }
 
 }

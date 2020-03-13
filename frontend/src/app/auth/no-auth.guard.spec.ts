@@ -1,15 +1,15 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { AuthGuard } from './auth.guard';
+import { NoAuthGuard } from './no-auth.guard';
 
-describe('AuthGuard', () => {
+describe('NoAuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthGuard]
+      providers: [NoAuthGuard]
     });
   });
 
-  it('should ...', inject([AuthGuard], (guard: AuthGuard) => {
+  it('should ...', inject([NoAuthGuard], (guard: NoAuthGuard) => {
     expect(guard).toBeTruthy();
   }));
 });

@@ -18,6 +18,6 @@ export class JwtService {
   }
 
   hasToken():boolean{
-    return !!localStorage['jwtToken'];
+    return localStorage['jwtToken'] != null;
   }
 }

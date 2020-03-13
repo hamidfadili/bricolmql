@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { NoAuthGuard } from './no-auth.guard';
 
 
 
@@ -18,10 +19,11 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     AuthRoutingModule,
     FormsModule
+  ],providers: [
+    UserService,
+    NoAuthGuard
   ]
-  ,providers: [
-    UserService
-  ]
+    
 })
 
 export class AuthModule { }

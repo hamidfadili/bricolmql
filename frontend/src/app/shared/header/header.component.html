@@ -1,0 +1,12 @@
+<nav class="navbar navbar-dark bg-primary">
+    <a [routerLink]="['/']" class="navbar-brand">BricoMQL</a>
+    <a [routerLink]="['/login']" class="navbar-brand">LOG IN</a>
+    <div *ngIf="!isAuth" class="login-div">
+        <a [routerLink]="['/login']" >Login</a>
+        <a [routerLink]="['/register']">Register</a>
+    </div>
+    <div *ngIf="isAuth" class="login-div">
+        <a (click)="logout()" [routerLink]="['/']">{{ user.firstName }}</a>
+        <a (click)="logout()" [routerLink]="['/']">Log out</a>
+    </div>
+</nav>
