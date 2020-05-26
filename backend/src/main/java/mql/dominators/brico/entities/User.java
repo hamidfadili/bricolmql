@@ -1,14 +1,15 @@
 package mql.dominators.brico.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,29 +22,35 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Document(collection = "users")
+//@Document(collection = "users")
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = 1L;
 
-	@Transient
-	public static final String SEQUENCE_NAME = "users_sequence";
+//	@Transient
+//	public static final String SEQUENCE_NAME = "users_sequence";
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUser;
+
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
 	private String phone;
 	private String address;
+
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date birthday;
+
 	private String photo;
 
-	@DBRef
-	private Collection<Role> roles = new ArrayList<>();
+//	@DBRef
+//	private Collection<Role> roles = new ArrayList<>();
 
 	public User(Long idUser, String lastName, String password) {
 		super();
@@ -51,4 +58,11 @@ public class User implements Serializable {
 		this.lastName = lastName;
 		this.password = password;
 	}
+
+	public User(String lastName, String password) {
+		super();
+		this.lastName = lastName;
+		this.password = password;
+	}
+
 }
