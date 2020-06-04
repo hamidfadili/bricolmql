@@ -17,21 +17,17 @@ public class CustomUserDetailsImpl implements UserDetailsService {
 	@Autowired
 	private UserService userService;
 
-//	@Autowired
-//	private UserRepository userRepository;
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		mql.dominators.brico.entities.User user = userService.getUserByLastName(username);
-		System.out.println("Hello : " + user.getLastName());
-
+		mql.dominators.brico.entities.User user = userService.getUserByUsername(username);
+		System.out.println(user.getUsername());
 		if (user == null)
 			throw new UsernameNotFoundException("Username not found!");
 
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 //		user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
 
-		return new User(user.getLastName(), user.getPassword(), authorities);
+		return new User(user.getUsername(), user.getPassword(), authorities);
 	}
 
 }

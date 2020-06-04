@@ -37,13 +37,12 @@ public class AccountServiceImpl implements AccountService {
 	public void addRoleToUser(String username, String roleName) {
 
 //		Role role = roleRepository.findByRoleName(roleName);
-		User user = userRepository.findByLastName(username);
+//		User user = userRepository.findByLastName(username);
 //		user.getRoles().add(role);
 	}
 
 	@Override
 	public User findUserByUsername(String username) {
-		System.out.println("LastName : " + username);
 		return userRepository.findByLastName(username);
 	}
 

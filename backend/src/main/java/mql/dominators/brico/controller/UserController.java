@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import mql.dominators.brico.entities.AuthRequest;
 import mql.dominators.brico.entities.User;
+import mql.dominators.brico.entities.UserDTO;
 import mql.dominators.brico.jwt.api.util.JwtUtil;
 import mql.dominators.brico.service.UserService;
 
@@ -33,21 +33,21 @@ public class UserController {
 
 	@PostMapping(path = "/register")
 	public User save(@RequestBody User user) {
-		System.out.println(user);
 		return userService.saveUser(user);
 	}
 
 	@PostMapping("/authenticate")
-	public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+	public String generateToken(@RequestBody UserDTO userDto) throws Exception {
 
+		System.out.println(userDto);
 		try {
 			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
+					new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
 		} catch (Exception ex) {
 			throw new Exception("inavalid username/password");
 		}
 		System.out.println("Authentication had succed !");
-		return jwtUtil.generateToken(authRequest.getUserName());
+		return jwtUtil.generateToken(userDto.getUsername());
 	}
 
 	@GetMapping(path = "/users")
