@@ -45,8 +45,6 @@ public class BricoApplication implements CommandLineRunner {
 //		accountService.addRoleToUser("said", "USER");
 //		accountService.addRoleToUser("youness", "USER");
 
-		System.out.println("**********************\n");
-		userService.findAllUsers().forEach(System.out::println);
 	}
 
 }

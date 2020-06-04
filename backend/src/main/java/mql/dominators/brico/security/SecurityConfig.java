@@ -14,11 +14,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import mql.dominators.brico.config.JwtAuthenticationEntryPoint;
 import mql.dominators.brico.jwt.api.filter.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Autowired
+	private JwtAuthenticationEntryPoint entryPoint;
 
 	@Autowired
 	private UserDetailsService userDetailService;
@@ -44,15 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-//		http.csrf().disable();
-//		http.formLogin();
-//		http.authorizeRequests().anyRequest().authenticated();
-
 		http.csrf().disable().authorizeRequests().antMatchers("/authenticate", "/register").permitAll().anyRequest()
-				.authenticated().and().exceptionHandling().and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+				.authenticated().and().exceptionHandling().authenticationEntryPoint(entryPoint).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 }

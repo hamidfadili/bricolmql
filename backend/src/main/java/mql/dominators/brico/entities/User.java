@@ -39,6 +39,7 @@ public class User implements Serializable {
 
 	private String firstName;
 	private String lastName;
+	private String username;
 	private String email;
 	private String password;
 	private String phone;
@@ -59,9 +60,9 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public User(String lastName, String password) {
+	public User(String username, String password) {
 		super();
-		this.lastName = lastName;
+		this.username = username;
 		this.password = password;
 	}
 
