@@ -34,7 +34,9 @@ export class RegisterComponent implements OnInit {
   }
 
   generateUsername(email:string){
-    this.user.username = email.substring(0,email.indexOf("@"));
+    if(email != null){
+      this.user.username = email.substring(0,email.indexOf("@"));
+    }
   }
 
 }

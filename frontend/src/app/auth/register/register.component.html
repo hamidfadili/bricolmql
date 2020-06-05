@@ -1,61 +1,84 @@
-<div class="logreg-forms">
-       <form class="form-signup" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm.value)">
-              <div class="social-login">
-                     <button class="btn facebook-btn social-btn" type="button"><span><i class="fa fa-facebook-f"></i>
-                                   Sign up with Facebook</span> </button>
-              </div>
-              <div class="social-login">
-                     <button class="btn google-btn social-btn" type="button"><span><i class="fa fa-google"></i> Sign up
-                                   with Google+</span> </button>
-              </div>
+<section>
+    <div class="block remove-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="account-popup-area signup-popup-box static">
+                        <div class="account-popup">
+                            <div *ngIf="first_name.touched && first_name.invalid">
+                                <p class="alert alert-danger" *ngIf="first_name.errors.required">The first name of user should not be null</p>
+                                <p class="alert alert-danger" *ngIf="first_name.errors.minlength">The first name of user must be greater than 2 characters</p>
+                            </div>
+                            <div *ngIf="last_name.touched && last_name.invalid">
+                                <p class="alert alert-danger" *ngIf="last_name.errors.required">The last name of user should not be null</p>
+                                <p class="alert alert-danger" *ngIf="last_name.errors.minlength">The last name of user must be greater than 2 characters</p>
+                            </div>
+                            <div *ngIf="username.touched && username.invalid">
+                                <p class="alert alert-danger" *ngIf="username.errors.required">Username should not be null</p>
+                            </div>
+                            <div *ngIf="email.touched && email.invalid">
+                                <p class="alert alert-danger" *ngIf="email.errors.required">Email of user should not be null</p>
+                                <p class="alert alert-danger" *ngIf="email.errors.email">This is invalid email, please repeat valid email ....</p>
+                            </div>
+                            <div *ngIf="password.touched && password.invalid">
+                                <p class="alert alert-danger" *ngIf="password.errors.required">Password of user should not be null</p>
+                                <p class="alert alert-danger" *ngIf="password.errors.minlength">Password of user should contains at least 6 characters</p>
+                            </div>
+                            <div *ngIf="confirm_password.touched && !isMatch()">
+                                <p class="alert alert-danger">Must match password</p>
+                            </div>
+                            <h3>Register</h3>
+                            
+                            <span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
+                                ullamcorper</span>
+                             
+                            <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm.value)">
+                                <div class="cfield">
+                                    <input type="text" placeholder="Votre Nom"  required [(ngModel)]="user.firstName"
+                                    name="user.firstName" #first_name="ngModel" minlength="3">
+                                    <i class="la la-user"></i>
+                                </div>
+                                 
+                                <div class="cfield">
+                                    <input type="text" placeholder="Votre Prénom" required
+                                    [(ngModel)]="user.lastName" name="user.lastName" #last_name="ngModel" minlength="3">
+                                    <i class="la la-user"></i>
+                                </div>
 
-              <p style="text-align:center">OR</p>
+                                <div class="cfield">
+                                    <input type="email" name="email" placeholder="Email" required
+                                    [(ngModel)]="user.email" #email="ngModel" email="true" (blur)="generateUsername(user.email)" >
+                                    <i class="la la-envelope-o"></i>
+                                </div>
 
-              <input type="text" class="form-control" placeholder="First name" required [(ngModel)]="user.firstName"
-                     name="user.firstName" #first_name="ngModel" minlength="3" />
-
-              <div *ngIf="first_name.touched && first_name.invalid">
-                     <p class="alert alert-danger" *ngIf="first_name.errors.required">The first name of user should not be null</p>
-                     <p class="alert alert-danger" *ngIf="first_name.errors.minlength">The first name of user must be greater than 2 characters</p>
-              </div>
-              <input name="last-name" type="text" class="form-control" placeholder="Last name" required
-                     [(ngModel)]="user.lastName" #last_name="ngModel" minlength="3" />
-
-              <div *ngIf="last_name.touched && last_name.invalid">
-                     <p class="alert alert-danger" *ngIf="last_name.errors.required">The last name of user should not be null</p>
-                     <p class="alert alert-danger" *ngIf="last_name.errors.minlength">The last name of user must be greater than 2 characters</p>
-              </div>
-
-              <input name="email" type="email" class="form-control" placeholder="Email address" required
-                     [(ngModel)]="user.email" #email="ngModel" email="true" (blur)="generateUsername(user.email)" />
-
-              <div *ngIf="email.touched && email.invalid">
-                     <p class="alert alert-danger" *ngIf="email.errors.required">Email of user should not be null</p>
-                     <p class="alert alert-danger" *ngIf="email.errors.email">This is invalid email, please repeat valid email ....</p>
-              </div>
-              <input name="username" type="text" class="form-control" placeholder="Username" required
-                     [(ngModel)]="user.username" #username="ngModel" />
-
-              <div *ngIf="username.touched && username.invalid">
-                     <p class="alert alert-danger" *ngIf="email.errors.required">Username should not be null</p>
-              </div>
-              <input name="password" type="password" class="form-control" placeholder="Password" required
-                     [(ngModel)]="user.password" #password="ngModel" minlength="6" />
-
-              <div *ngIf="password.touched && password.invalid">
-                     <p class="alert alert-danger" *ngIf="password.errors.required">Password of user should not be null</p>
-                     <p class="alert alert-danger" *ngIf="password.errors.minlength">Password of user should contains at least 6 characters</p>
-              </div>
-
-              <input name="confirmPassword" type="password" class="form-control" placeholder="Repeat Password" 
-                     [(ngModel)]="confirmPassword" #confirm_password="ngModel" required/>
-
-              <div *ngIf="confirm_password.touched && !isMatch()">
-                     <p class="alert alert-danger">Must match password</p>
-              </div>
-
-              <button class="btn btn-primary btn-block" [disabled]="registerForm.invalid || !isMatch()"><i
-                            class="fa fa-user-plus"></i> Sign Up</button>
-              <a id="cancel_signup" routerLink="/login"><i class="fa fa-angle-left"></i> Back</a>
-       </form>       
-</div>
+                                <div class="cfield">
+                                    <input type="text" placeholder="Username" required
+                                    [(ngModel)]="user.username" #username="ngModel" name="username">
+                                    <i class="la la-user"></i>
+                                </div>
+                                <div class="cfield">
+                                    <input type="password" name="password" placeholder="Mot de passe" required
+                                    [(ngModel)]="user.password" #password="ngModel" minlength="6" >
+                                    <i class="la la-key"></i>
+                                </div>
+                                <div class="cfield">
+                                    <input type="password" name="confirmPassword" placeholder="Confirmer le mot de passe" [(ngModel)]="confirmPassword" #confirm_password="ngModel" required>
+                                    <i class="la la-key"></i>
+                                </div>
+                               
+                                <button type="submit">S'inscrire</button>
+                            </form>
+                            <div class="extra-login">
+                                <span>Or</span>
+                                <div class="login-social">
+                                    <a class="fb-login" href="#" title=""><i class="fa fa-facebook"></i></a>
+                                    <a class="tw-login" href="#" title=""><i class="fa fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- SIGNUP POPUP -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
