@@ -402,17 +402,6 @@
     padding: 14px 20px;
 }
 
-.menu-sec nav > ul > li.menu-item-has-children > a::before {
-position: absolute;
-    right: 0px;
-    width: 10px;
-    height: 10px;
-    content: "\f110";
-    font-family: lineawesome;
-    font-size: 9px;
-    top: 50%;
-    margin-top: -4px;
-}
 
 .menu-sec nav > ul > li > ul {
     opacity: 0;
@@ -582,6 +571,22 @@ position: absolute;
 
 .logo a {
     float: left;
+}
+
+header.gradient{
+    background: rgb(139,145,221);
+    background: -moz-linear-gradient(45deg,  rgba(139,145,221,1) 0%, rgba(16,25,93,1) 71%, rgba(16,25,93,1) 100%);
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(139,145,221,1)), color-stop(71%,rgba(16,25,93,1)), color-stop(100%,rgba(16,25,93,1)));
+    background: -webkit-linear-gradient(45deg,  rgba(139,145,221,1) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%);
+    background: -o-linear-gradient(45deg,  rgba(139,145,221,1) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%);
+    background: -ms-linear-gradient(45deg,  rgba(139,145,221,1) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%);
+    background: linear-gradient(45deg,  rgba(139,145,221,1) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8b91dd', endColorstr='#10195d',GradientType=1 );
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    padding-bottom: 23px;
 }
 
 .post-job-btn,

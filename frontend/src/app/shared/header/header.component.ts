@@ -45,13 +45,15 @@ export class HeaderComponent implements OnInit {
 
     /*** FIXED Menu APPEARS ON SCROLL DOWN ***/ 
     $(window).on('scroll', function(){    
-      var scroll = $(window).scrollTop();
-      if (scroll >= 50) {
-      $(".forsticky").addClass("sticky");
-      }
-      else{
-      $(".forsticky").removeClass("sticky");
-      $(".forsticky").addClass("");
+      if(!$("header").hasClass("gradient")){
+        var scroll = $(window).scrollTop();
+        if (scroll >= 50) {
+        $(".forsticky").addClass("sticky");
+        }
+        else{
+        $(".forsticky").removeClass("sticky");
+        $(".forsticky").addClass("");
+        }
       }
     });  
 
