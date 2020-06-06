@@ -17,8 +17,8 @@ public interface UserService {
 
 	public User getUserByEmail(String email);
 
-	public Optional<User> findById(long id);
+	public Optional<User> findById(long id) throws RuntimeException;
 
-	public void delete(long id);
+	public void delete(long id) throws RuntimeException;
 
 }

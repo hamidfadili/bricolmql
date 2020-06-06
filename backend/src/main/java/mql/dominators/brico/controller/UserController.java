@@ -1,5 +1,7 @@
 package mql.dominators.brico.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import mql.dominators.brico.entities.JwtResponse;
 import mql.dominators.brico.entities.User;
 import mql.dominators.brico.entities.UserDTO;
 import mql.dominators.brico.jwt.api.filter.JwtFilter;
@@ -37,32 +40,44 @@ public class UserController {
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping(path = "/register")
-	public User save(@RequestBody User user) {
-		return userService.saveUser(user);
+	public ResponseEntity<UserDTO> save(@RequestBody User user) {
+
+		User saveUser = userService.saveUser(user);
+
+		UserDTO userDTO = formatToUserDTO(saveUser);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
 	}
 
 	@PostMapping("/authenticate")
-	public String generateToken(@RequestBody UserDTO userDto) throws Exception {
+	public ResponseEntity<?> generateToken(@RequestBody UserDTO userDto) throws Exception {
 
-		System.out.println(userDto);
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
+			System.out.println("Authentication had succed !");
+			JwtResponse jwtResponse = new JwtResponse(jwtUtil.generateToken(userDto.getUsername()));
+
+			return ResponseEntity.ok(jwtResponse);
+
 		} catch (Exception ex) {
-			throw new Exception("inavalid username/password");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username / Password");
 		}
-		System.out.println("Authentication had succed !");
-		return jwtUtil.generateToken(userDto.getUsername());
 	}
 
 	@PutMapping(value = "/user/account/update")
-	public User update(@RequestBody User updatedUser) throws Exception {
+	public ResponseEntity<?> update(@RequestBody User updatedUser) {
 
 		final String username = UsernameExists();
 
 		User oldUser = this.userService.getUserByUsername(username);
 
-		return setUserInfos(oldUser, updatedUser);
+		if (oldUser != null) {
+			this.userService.saveUser(setUserInfos(oldUser, updatedUser));
+			return ResponseEntity.status(201).build();
+		}
+		return ResponseEntity.status(HttpStatus.NOT_MODIFIED)
+				.body("User can not modified, Please check your own part !");
 	}
 
 	@DeleteMapping(value = "/user/account/delete/{id}")
@@ -71,24 +86,45 @@ public class UserController {
 		final String username = UsernameExists();
 		User userFounded = this.userService.getUserByUsername(username);
 		if (userFounded.getIdUser() != id)
-			throw new RuntimeException("This is not the user that you want");
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("This is not the user that you want");
 
 		this.userService.delete(id);
 
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body("User deleted successfully");
 	}
 
 	@GetMapping(path = "/user/profile/{id}")
-	public ResponseEntity<User> findUser(@PathVariable(name = "id") long id) {
+	public ResponseEntity<?> findUser(@PathVariable(name = "id") long id) {
 
-		return ResponseEntity.ok(this.userService.findById(id).get());
+		Optional<User> user = this.userService.findById(id);
+		if (user.isPresent()) {
+			UserDTO userDTO = this.formatToUserDTO(user.get());
+			return ResponseEntity.status(200).body(userDTO);
+		}
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User that you want, not found !");
 	}
 
 	@GetMapping(path = "/user/account")
-	public ResponseEntity<User> findOwnAccount() {
+	public ResponseEntity<?> findOwnAccount() {
 
 		String username = UsernameExists();
-		return ResponseEntity.ok(this.userService.getUserByUsername(username));
+		if (this.userService.getUserByUsername(username) != null)
+			return ResponseEntity.status(HttpStatus.FOUND).body(this.userService.getUserByUsername(username));
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	}
+
+	private UserDTO formatToUserDTO(User saveUser) {
+
+		UserDTO userDTO = new UserDTO();
+		userDTO.setIdUser(saveUser.getIdUser());
+		userDTO.setEmail(saveUser.getEmail());
+		userDTO.setFirstName(saveUser.getFirstName());
+		userDTO.setLastName(saveUser.getLastName());
+		userDTO.setPhone(saveUser.getPhone());
+		userDTO.setPhoto(saveUser.getPhoto());
+
+		return userDTO;
 	}
 
 	private User setUserInfos(User oldUser, User updatedUser) {
@@ -101,7 +137,7 @@ public class UserController {
 		oldUser.setPhoto(updatedUser.getPhoto());
 		oldUser.setBirthday(updatedUser.getBirthday());
 
-		return this.userService.saveUser(oldUser);
+		return oldUser;
 	}
 
 	private String UsernameExists() {

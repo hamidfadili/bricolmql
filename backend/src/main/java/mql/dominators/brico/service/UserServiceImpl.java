@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
 	public User getUserByUsername(String username) {
 		User user = this.userRepository.findByUsername(username);
 
-		if (user == null)
-			throw new RuntimeException("User not found !");
+//		if (user == null)
+//			throw new RuntimeException("User not found !");
 
 		return user;
 	}
@@ -65,8 +65,8 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public Optional<User> findById(long id) {
 		Optional<User> optionalUser = this.userRepository.findById(id);
-		if (!optionalUser.isPresent())
-			throw new RuntimeException("User that you want, not found !");
+//		if (!optionalUser.isPresent())
+//			throw new RuntimeException("User that you want, not found !");
 
 		return optionalUser;
 	}
