@@ -1,12 +1,87 @@
-<nav class="navbar navbar-dark bg-primary">
-    <a [routerLink]="['/']" class="navbar-brand">BricoMQL</a>
-    <a [routerLink]="['/login']" class="navbar-brand">LOG IN</a>
-    <div *ngIf="!isAuth" class="login-div">
-        <a [routerLink]="['/login']" >Login</a>
-        <a [routerLink]="['/register']">Register</a>
+<div class="responsive-header">
+    <div class="responsive-menubar">
+        <div class="res-logo">
+            <a [routerLink]="['/']">
+                <img src="assets/images/logo.png" alt="">
+            </a>
+        </div>
+        <div class="menu-resaction">
+            <div class="res-openmenu">
+                <img src="assets/images/menu-icon.png" alt=""> Menu
+            </div>
+            <div class="res-closemenu">
+                <img src="assets/images/x-icon.png" alt=""> Fermer
+            </div>
+        </div>
     </div>
-    <div *ngIf="isAuth" class="login-div">
-        <a (click)="logout()" [routerLink]="['/']">{{ user.firstName }}</a>
-        <a (click)="logout()" [routerLink]="['/']">Log out</a>
+    <div class="responsive-opensec">
+        <div class="btn-extars">
+            <a href="#" title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
+            <ul *ngIf="!isAuth" class="account-btns">
+                <li class="signup-popup"><a [routerLink]="['/register']"><i class="la la-key"></i> Sign Up</a></li>
+                <li class="signin-popup"><a [routerLink]="['/login']"><i class="la la-external-link-square"></i> Login</a></li>
+            </ul>
+        </div>
+        <form class="res-search">
+            <input type="text" placeholder="Job title, keywords or company name">
+            <button type="submit"><i class="la la-search"></i></button>
+        </form>
+        <div class="responsivemenu">
+            <ul>
+                <li>
+                    <a [routerLink]="['/']" title="">Home</a>
+                </li>
+                <li class="menu-item-has-children">
+                    <a href="#" title="">SubMenu</a>
+                    <ul>
+                        <li><a title="">Simple item</a></li>>
+                        <li class="menu-item-has-children">
+                            <a href="#" title="">SubMenu</a>
+                            <ul>
+                                <li><a href="employer_manage_jobs.html" title="">SimpleItem</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-</nav>
+</div>
+
+<header class="stick-top forsticky gradient">
+    <div class="menu-sec">
+        <div class="container">
+            <div class="logo">
+                <a [routerLink]="['/']">
+                    <img class="hidesticky" src="assets/images/logo.png" alt="">
+                    <img class="showsticky" src="assets/images/logo-bleu.png" alt=""></a>
+            </div>
+            <div class="btn-extars">
+                <a href="#" title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
+                <ul *ngIf="!isAuth" class="account-btns">
+                    <li class="signup-popup"><a [routerLink]="['/register']"><i class="la la-key"></i> Sign Up</a></li>
+                    <li class="signin-popup"><a [routerLink]="['/login']"><i class="la la-external-link-square"></i> Login</a></li>
+                </ul>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a [routerLink]="['/']">Home</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a href="#" title="">SubMenu <i style="size: 10px;" class="la la-angle-down"></i></a>
+                        <ul>
+                            <li><a title="">Simple item</a></li>
+                            <li class="menu-item-has-children">
+                                <a href="#" title="">SubMenu</a>
+                                <ul>
+                                    <li><a title="">SimpleItem</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

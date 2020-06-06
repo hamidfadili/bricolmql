@@ -1,5 +1,6 @@
+import { HttpTokenInterceptorService } from './core/http-token-interceptor.service';
 import { SharedModule } from './shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthModule } from './auth/auth.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,10 @@ import { HeaderComponent } from './shared/header/header.component';
     SharedModule,
     HttpClientModule
   ],
-  providers: [UserService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptorService, multi: true },
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

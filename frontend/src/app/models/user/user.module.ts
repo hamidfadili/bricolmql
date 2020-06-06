@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
+
 export class UserModule { 
 
   idUser? : number;

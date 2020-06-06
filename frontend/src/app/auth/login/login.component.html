@@ -1,37 +1,85 @@
-<div class="logreg-forms">
-    <form class="form-signin" #login="ngForm" (ngSubmit)="onLogin(login.value)">
-        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
-        <div class="social-login">
-            <button class="btn facebook-btn social-btn" type="button"><span><i class="fa fa-facebook-f"></i> Sign in
-                    with Facebook</span> </button>
-            <button class="btn google-btn social-btn" type="button"><span><i class="fa fa-google"></i> Sign in with
-                    Google+</span> </button>
+<section>
+    <div class="block no-padding  gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner2">
+                        <div class="inner-title2">
+                            <h3>Login</h3>
+                            <span>Keep up to date with the latest news</span>
+                        </div>
+                        <div class="page-breacrumbs">
+                            <ul class="breadcrumbs">
+                                <li><a href="#" title="">Home</a></li>
+                                <li><a href="#" title="">Login</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p style="text-align:center"> OR </p>
-        <input type="email" class="form-control" placeholder="Email address" required="true" [(ngModel)]="user.email"
-            #email="ngModel" name="user.email" email="true" />
-        <div *ngIf="(email.dirty || email.touched) && email.invalid">
-            <p class="alert alert-danger" *ngIf="email.errors.required">Email of user should not
-                be null</p>
-            <p class="alert alert-danger" *ngIf="email.errors.email">This is invalid email, please repeat
-                valid email ....</p>
-        </div>
+    </div>
+</section>
 
-        <br />
-        <input type="password" class="form-control" placeholder="Password" required="true" [(ngModel)]="user.password"
-            #password="ngModel" name="user.password" minlength="6" />
 
-        <div *ngIf="(password.dirty || password.touched) && password.invalid">
-            <p class="alert alert-danger" *ngIf="password.errors.required">Password of user should not
-                be null</p>
-                <p class="alert alert-danger" *ngIf="password.errors.minlength">Password of user should contains at least 6 characters</p>
+<section>
+    <div class="block remove-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                   
+                <div class="account-popup-area signin-popup-box static">
+                    
+                <div class="account-popup">
+                    <div *ngIf="(password.dirty || password.touched) && password.invalid">
+                        <p class="alert alert-danger" *ngIf="password.errors.required">Password of user should not
+                            be null</p>
+                        <p class="alert alert-danger" *ngIf="password.errors.minlength">Password of user should contains at least 6 characters</p>
+                    </div>
+                    <div *ngIf="(email.dirty || email.touched) && email.invalid">
+                        <p class="alert alert-danger" *ngIf="email.errors.required">Email of user should not be null</p>
+                        <p class="alert alert-danger" *ngIf="email.errors.email">This is invalid email,please repeat valid email ....</p>
+                    </div>
+                <form #login="ngForm" (ngSubmit)="onLogin(login.value)">
+                    
+                    <!-- start email input-->
+                    <div class="cfield">   
+                        <input type="email" placeholder="Username" required="true" [(ngModel)]="user.email" #email="ngModel" name="user.email" email="true"><i class="la la-user"></i>
+                    </div>
+                     <!-- end email input-->
+
+
+                    <!-- start password input-->
+                    
+                   
+                   
+                    <div class="cfield">
+                        <input type="password" placeholder="********" required="true"
+                            [(ngModel)]="user.password" #password="ngModel" name="user.password" minlength="6"><i class="la la-key"></i>
+                     </div>
+                    <!-- end password input-->
+                             
+                     
+                     <p class="remember-label">
+                                    <input type="checkbox" name="cb" id="cb1"><label for="cb1">Remember me</label>
+                                </p>
+                                <a href="#" title="">Forgot Password?</a>
+                                <button type="submit" [disabled]="login.invalid">Login</button>
+                            </form>
+                            <div class="extra-login">
+                                <span>Or</span>
+                                <div class="login-social">
+                                    <a class="fb-login" href="#" title=""><i class="fa fa-facebook"></i></a>
+                                    <a class="tw-login" href="#" title=""><i class="fa fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- LOGIN POPUP -->
+                </div>
+            </div>
         </div>
-        <br />
-        <button class="btn btn-success btn-block" [disabled]="login.invalid"><i class="fa fa-sign-in"></i> Sign in</button>
-        <a href="#" id="forgot_pswd">Forgot password?</a>
-        <hr>
-        <a [routerLink]="['/register']" class="btn btn-primary btn-block new-account">
-            <i class="fa fa-user-plus"></i> Sign up New Account
-        </a>
-    </form>
-</div>
+    </div>
+</section>
+
+
+
