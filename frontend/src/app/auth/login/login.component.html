@@ -27,24 +27,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                   
                 <div class="account-popup-area signin-popup-box static">
-                    
                 <div class="account-popup">
                     <div *ngIf="(password.dirty || password.touched) && password.invalid">
                         <p class="alert alert-danger" *ngIf="password.errors.required">Password of user should not
                             be null</p>
                         <p class="alert alert-danger" *ngIf="password.errors.minlength">Password of user should contains at least 6 characters</p>
                     </div>
-                    <div *ngIf="(email.dirty || email.touched) && email.invalid">
-                        <p class="alert alert-danger" *ngIf="email.errors.required">Email of user should not be null</p>
-                        <p class="alert alert-danger" *ngIf="email.errors.email">This is invalid email,please repeat valid email ....</p>
+                    <div *ngIf="username.touched && username.invalid">
+                        <p class="alert alert-danger" *ngIf="username.errors.required">Username should not be null</p>
+                    </div>
+                    <div class="extra-login"> 
+                        <div class="login-social">
+                            <a class="fb-login" href="#" title=""><i class="fa fa-facebook"></i></a>
+                            <a class="g-login" href="#" title=""><i class="fa fa-google-plus"></i></a>
+                        </div>
+                        <span>Ou</span>
                     </div>
                 <form #login="ngForm" (ngSubmit)="onLogin(login.value)">
                     
                     <!-- start email input-->
                     <div class="cfield">   
-                        <input type="email" placeholder="Username" required="true" [(ngModel)]="user.email" #email="ngModel" name="user.email" email="true"><i class="la la-user"></i>
+                        <input type="text" placeholder="Email or Username" required="true" [(ngModel)]="user.username" #username="ngModel" name="user.username" username="true"><i class="la la-user"></i>
                     </div>
                      <!-- end email input-->
 
@@ -66,13 +70,7 @@
                                 <a href="#" title="">Forgot Password?</a>
                                 <button type="submit" [disabled]="login.invalid">Login</button>
                             </form>
-                            <div class="extra-login">
-                                <span>Or</span>
-                                <div class="login-social">
-                                    <a class="fb-login" href="#" title=""><i class="fa fa-facebook"></i></a>
-                                    <a class="tw-login" href="#" title=""><i class="fa fa-twitter"></i></a>
-                                </div>
-                            </div>
+                         
                         </div>
                     </div><!-- LOGIN POPUP -->
                 </div>

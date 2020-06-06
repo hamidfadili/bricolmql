@@ -9,9 +9,6 @@
 a {
     text-decoration: none !important;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300i,400,400i,600,600i,700,700i,800,800i|Quicksand:300,400,500,700');
-@import "~line-awesome/dist/line-awesome/css/line-awesome.css";
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -705,10 +702,10 @@ section {
     text-align: center;
     position: relative;
 }
-.extra-login::before {
+.extra-login::after {
     position: absolute;
     left: 0;
-    top: 10px;
+    bottom: 0px;
     width: 100%;
     height: 1px;
     background: #d8dcdc;
@@ -756,18 +753,18 @@ section {
     color: #3b5998;
     border-color: #3b5998;
 }
-.login-social a.tw-login {
-    color: #1da1f2;
-    border-color: #1da1f2;
+.login-social a.g-login {
+    color: #a52728;
+    border-color: #a52728;
 }
 
 .login-social a {
     font-size: 15px;
 }
 
-.login-social a.tw-login:hover{
-    background: #1da1f2;
-    border-color: #1da1f2;  
+.login-social a.g-login:hover{
+    background: #a52728;
+    border-color: #a52728;  
     color: #ffffff;
 }
 
