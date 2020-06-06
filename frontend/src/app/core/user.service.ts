@@ -13,7 +13,7 @@ import { ServerUserModule } from '../models/server-user/server-user.module';
 })
 export class UserService {
   private readonly REGISTER_URL = environment.API_URL+"register";
-  private readonly LOGIN_URL = environment.API_URL+"login";
+  private readonly LOGIN_URL = environment.API_URL+"authenticate";
   private readonly USER_URL = environment.API_URL+"user";
 
 
@@ -34,19 +34,18 @@ export class UserService {
     .pipe(
       map(data => {
         this.saveUser(data);
-        return data.user;
+        var serverUser = new ServerUserModule();
+        serverUser.email = data.email;
+        serverUser.username = data.username;
+        serverUser.password = data.password;
+        serverUser.phone = data.phone;
+        return serverUser;
       })
     );
   }
 
-  loginUser(user:UserModule):Observable<UserModule>{
-    return this.http.post<ServerUserModule>(this.LOGIN_URL,user)
-    .pipe(
-      map( data => {
-        this.saveUser(data)
-        return data.user;
-      })
-    );
+  loginUser(user:ServerUserModule):Observable<string>{
+    return this.http.post<string>(this.LOGIN_URL,user);
   }
 
   cleanSession(){
@@ -75,9 +74,9 @@ export class UserService {
 
  
 
-  private saveUser(data:ServerUserModule):void{
-    this.jwtService.saveToken(data.token);
-    this.currentUserSubject.next(data.user);
+  private saveUser(user:UserModule):void{
+    this.jwtService.saveToken("data.token");
+    this.currentUserSubject.next(user);
     this.isAuthenticatedSubject.next(true);
   }
 

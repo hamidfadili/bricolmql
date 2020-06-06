@@ -206,7 +206,7 @@
     font-size: 13px;
     color: #9299af;
     padding: 18px 30px;
-        padding-right: 30px;
+    padding-right: 30px;
     padding-right: 80px;
 }
 
@@ -257,6 +257,10 @@
     height: 1px;
     background: #ffffff;
     content: "";
+}
+
+.menu-item-has-children i {
+    font-size: 10px;
 }
 
 .responsivemenu > ul > li.menu-item-has-children > a::after {
@@ -371,12 +375,11 @@
 .menu-sec {
     float: left;
     width: 100%;
-    margin: 30px 0;
-    margin-bottom: 0;
+    padding: 10px 0;
 }
 
 .menu-sec nav {
-    float: right;
+    float: left;
     margin-right: 20px;
     margin-top: 0px;
 }
@@ -569,6 +572,10 @@
     position: relative;
 }
 
+.logo img,.res-logo img {
+    max-height: 40px;
+}
+
 .logo a {
     float: left;
 }
@@ -586,7 +593,43 @@ header.gradient{
     z-index: 2;
     float: left;
     width: 100%;
-    padding-bottom: 23px;
+}
+
+.my-profiles-sec {
+    float: right;
+    margin-left: 20px;
+}
+.my-profiles-sec > span {
+    float: left;
+    font-size: 13px;
+    color: #ffffff;
+    font-family: Open Sans;
+    line-height: 50px;
+    cursor: pointer;
+}
+.my-profiles-sec > span > img {
+    float: left;
+    
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+
+    border: 2px solid #ffffff;
+    margin-right: 18px;
+}
+.my-profiles-sec > span > i {
+    float: right;
+    line-height: 50px;
+    font-size: 20px;
+    margin-left: 12px;
+}
+
+.my-profiles-sec img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
 }
 
 .post-job-btn,

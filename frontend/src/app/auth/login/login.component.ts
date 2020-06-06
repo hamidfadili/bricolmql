@@ -1,3 +1,4 @@
+import { ServerUserModule } from './../../models/server-user/server-user.module';
 import { UserService } from './../../core/user.service';
 import { Component, OnInit } from '@angular/core';
 import { UserModule } from 'src/app/models/user/user.module';
@@ -20,11 +21,26 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLogin(user){
-    this.userService.loginUser(user).subscribe(
-      res => this.router.navigateByUrl('/'),
-      err => console.log(err)
-    );
+  onLogin(userFrom){
+    var userModule = new ServerUserModule();
+
+    if(userFrom.username.indexOf("@") > 0){
+      userModule.email = userFrom.username; 
+    }else{
+      userModule.username = userFrom.username;
+    }
+    userModule.password = userFrom.password;
+    
+    
+    this.userService.loginUser(userModule).subscribe(
+      res => {
+        this.router.navigateByUrl('/')
+      },
+      err => {
+        console.log(err.message)
+      }
+    )
+    
   }
 
 }
