@@ -1,6 +1,7 @@
 package mql.dominators.brico.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,8 +53,29 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public User getUserByUsername(String username) {
-		System.out.println("From User Service Impl : " + username);
-		return this.userRepository.findByUsername(username);
+		User user = this.userRepository.findByUsername(username);
+
+		if (user == null)
+			throw new RuntimeException("User not found !");
+
+		return user;
+	}
+
+	@Override
+	@Transactional
+	public Optional<User> findById(long id) {
+		Optional<User> optionalUser = this.userRepository.findById(id);
+		if (!optionalUser.isPresent())
+			throw new RuntimeException("User that you want, not found !");
+
+		return optionalUser;
+	}
+
+	@Override
+	@Transactional
+	public void delete(long id) {
+		Optional<User> user = findById(id);
+		this.userRepository.delete(user.get());
 	}
 
 }
