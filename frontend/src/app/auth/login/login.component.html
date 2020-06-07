@@ -31,6 +31,9 @@
                 <div class="account-popup-area signin-popup-box static">
                     
                 <div class="account-popup">
+                    <div *ngIf="errors.length > 0">
+                        <p class="alert alert-danger" *ngFor="let error of errors">{{error}}</p>
+                    </div>
                     <div *ngIf="(password.dirty || password.touched) && password.invalid">
                         <p class="alert alert-danger" *ngIf="password.errors.required">Password of user should not
                             be null</p>
@@ -49,7 +52,7 @@
                             [(ngModel)]="user.password" #password="ngModel" name="password" minlength="6" autocomplete="on"><i class="la la-key"></i>
                      </div>                     
                      <p class="remember-label">
-                                    <input type="checkbox" name="cb" id="cb1"><label for="cb1">Remember me</label>
+                                    <input type="checkbox" name="cb" id="cb1" checked="true"><label for="cb1">Remember me</label>
                                 </p>
                                 <a href="#" title="">Forgot Password?</a>
                                 <button type="submit" [disabled]="login.invalid">Login</button>

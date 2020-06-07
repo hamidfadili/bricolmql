@@ -24,7 +24,7 @@ import mql.dominators.brico.jwt.api.util.JwtUtil;
 import mql.dominators.brico.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
 	@Autowired
@@ -56,7 +56,7 @@ public class UserController {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
 			System.out.println("Authentication had succed !");
-			JwtResponse jwtResponse = new JwtResponse(jwtUtil.generateToken(userDto.getUsername()));
+			JwtResponse jwtResponse = new JwtResponse(jwtUtil.generateToken(userDto.getUsername()),null);
 
 			return ResponseEntity.ok(jwtResponse);
 

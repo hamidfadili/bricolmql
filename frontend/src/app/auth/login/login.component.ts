@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  errors = [];
   user : UserModule = new UserModule();
   
   constructor(
@@ -31,13 +31,13 @@ export class LoginComponent implements OnInit {
     }
     userModule.password = userFrom.password;
     
-    
+    this.errors = [];
     this.userService.loginUser(userModule).subscribe(
       res => {
         this.router.navigateByUrl('/')
       },
       err => {
-        console.log(err.message)
+        this.errors.push(err.error);
       }
     )
     

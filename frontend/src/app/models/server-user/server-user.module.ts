@@ -16,3 +16,8 @@ export class ServerUserModule {
   phone:string;
   password:string;
 }
+
+export class ServerResponseUserModule { 
+  token:string;
+  user:UserModule;
+}
