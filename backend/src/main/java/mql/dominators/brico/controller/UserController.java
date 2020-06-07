@@ -109,8 +109,10 @@ public class UserController {
 	public ResponseEntity<?> findOwnAccount() {
 
 		String username = UsernameExists();
-		if (this.userService.getUserByUsername(username) != null)
-			return ResponseEntity.status(HttpStatus.FOUND).body(this.userService.getUserByUsername(username));
+		if (this.userService.getUserByUsername(username) != null) {
+
+			return ResponseEntity.status(200).body(formatToUserDTO(this.userService.getUserByUsername(username)));
+		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}
 
