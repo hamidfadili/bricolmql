@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { NoAuthGuard } from './no-auth.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -13,7 +14,8 @@ import { NoAuthGuard } from './no-auth.guard';
 @NgModule({
   declarations: [
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

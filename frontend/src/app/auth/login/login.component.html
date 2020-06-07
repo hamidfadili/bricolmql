@@ -36,30 +36,18 @@
                             be null</p>
                         <p class="alert alert-danger" *ngIf="password.errors.minlength">Password of user should contains at least 6 characters</p>
                     </div>
-                    <div *ngIf="(email.dirty || email.touched) && email.invalid">
-                        <p class="alert alert-danger" *ngIf="email.errors.required">Email of user should not be null</p>
-                        <p class="alert alert-danger" *ngIf="email.errors.email">This is invalid email,please repeat valid email ....</p>
+                    <div *ngIf="username.touched && username.invalid">
+                        <p class="alert alert-danger" *ngIf="username.errors.required">Username should not be null</p>
                     </div>
                 <form #login="ngForm" (ngSubmit)="onLogin(login.value)">
-                    
-                    <!-- start email input-->
+
                     <div class="cfield">   
-                        <input type="email" placeholder="Username" required="true" [(ngModel)]="user.email" #email="ngModel" name="user.email" email="true"><i class="la la-user"></i>
+                        <input type="text" placeholder="Username" required="true" [(ngModel)]="user.username" #username="ngModel" name="username"><i class="la la-user"></i>
                     </div>
-                     <!-- end email input-->
-
-
-                    <!-- start password input-->
-                    
-                   
-                   
                     <div class="cfield">
                         <input type="password" placeholder="********" required="true"
-                            [(ngModel)]="user.password" #password="ngModel" name="user.password" minlength="6"><i class="la la-key"></i>
-                     </div>
-                    <!-- end password input-->
-                             
-                     
+                            [(ngModel)]="user.password" #password="ngModel" name="password" minlength="6" autocomplete="on"><i class="la la-key"></i>
+                     </div>                     
                      <p class="remember-label">
                                     <input type="checkbox" name="cb" id="cb1"><label for="cb1">Remember me</label>
                                 </p>
@@ -74,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- LOGIN POPUP -->
+                    </div>
                 </div>
             </div>
         </div>

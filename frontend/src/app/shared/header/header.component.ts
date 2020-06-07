@@ -14,25 +14,13 @@ export class HeaderComponent implements OnInit {
 
   user:UserModule;
   isAuth:boolean = false;
+  isMenuOpned = false;
+
   constructor(private userService:UserService) { }
   
   ngOnInit(): void {   
     this.userService.isAuthenticated.subscribe( isAuth => this.isAuth = isAuth );
     this.userService.currentUser.subscribe(user => this.user = user);
-
-    $('.res-openmenu').on('click', function(){
-      $('.responsive-header').addClass('active');
-      $('.responsive-opensec').slideDown();
-      $('.res-closemenu').removeClass('active')
-      $(this).addClass('active');
-    });
-    
-    $('.res-closemenu').on('click', function(){
-      $('.responsive-header').removeClass('active');
-      $('.responsive-opensec').slideUp();
-      $('.res-openmenu').removeClass('active')
-      $(this).addClass('active');
-    });
     
     $(".responsivemenu .menu-item-has-children > a").on("click",function(){
 	    $(this).parent().siblings().children("ul").slideUp();
@@ -61,6 +49,16 @@ export class HeaderComponent implements OnInit {
   
   logout(){
     this.userService.cleanSession();
+  }
+
+  openMenu(){
+    this.isMenuOpned = true;
+    $('.responsive-opensec').slideDown();
+  }
+
+  closeMenu(){
+    this.isMenuOpned = false;
+    $('.responsive-opensec').slideUp();
   }
 
 }
