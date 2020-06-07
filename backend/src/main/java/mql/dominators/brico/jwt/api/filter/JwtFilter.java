@@ -26,6 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private CustomUserDetailsImpl service;
+	private String userName = null;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
@@ -34,7 +35,6 @@ public class JwtFilter extends OncePerRequestFilter {
 		String authorizationHeader = httpServletRequest.getHeader("Authorization");
 
 		String token = null;
-		String userName = null;
 
 		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 			token = authorizationHeader.substring(7);
@@ -56,4 +56,9 @@ public class JwtFilter extends OncePerRequestFilter {
 		}
 		filterChain.doFilter(httpServletRequest, httpServletResponse);
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
 }

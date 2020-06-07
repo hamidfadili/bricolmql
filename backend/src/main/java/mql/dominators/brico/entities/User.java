@@ -3,11 +3,13 @@ package mql.dominators.brico.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.annotation.Transient;
 
@@ -39,6 +41,9 @@ public class User implements Serializable {
 
 	private String firstName;
 	private String lastName;
+
+	@NotEmpty
+	@Column(unique = true)
 	private String username;
 	private String email;
 	private String password;
@@ -47,7 +52,6 @@ public class User implements Serializable {
 
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date birthday;
-
 	private String photo;
 
 //	@DBRef

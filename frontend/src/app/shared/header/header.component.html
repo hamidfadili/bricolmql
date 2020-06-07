@@ -1,4 +1,4 @@
-<div class="responsive-header">
+<div class="responsive-header" [class.active]="isMenuOpned">
     <div class="responsive-menubar">
         <div class="res-logo">
             <a [routerLink]="['/']">
@@ -6,20 +6,22 @@
             </a>
         </div>
         <div class="menu-resaction">
-            <div class="res-openmenu">
-                <img src="assets/images/menu-icon.png" alt=""> Menu
+            <div class="res-openmenu" [class.active]="isMenuOpned" (click)="SlideInOut('responsive-opensec')">
+                <img src="assets/images/menu-icon.png" 
+                alt=""> Menu
             </div>
-            <div class="res-closemenu">
-                <img src="assets/images/x-icon.png" alt=""> Fermer
+            <div class="res-closemenu" [class.active]="!isMenuOpned" (click)="SlideInOut('responsive-opensec')">
+                <img src="assets/images/x-icon.png" 
+                alt=""> Fermer
             </div>
         </div>
     </div>
-    <div class="responsive-opensec">
+    <div [@slideInOut]="animationState" class="responsive-opensec">
         <div class="btn-extars">
-            <a href="#" title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
+            <a class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
             <ul *ngIf="!isAuth" class="account-btns">
-                <li class="signup-popup"><a [routerLink]="['/register']"><i class="la la-key"></i> Sign Up</a></li>
-                <li class="signin-popup"><a [routerLink]="['/login']"><i class="la la-external-link-square"></i> Login</a></li>
+                <li class="signup-popup"><a [routerLink]="['/register']" (click)="SlideInOut('responsive-opensec')"><i class="la la-key"></i> Sign Up</a></li>
+                <li class="signin-popup"><a [routerLink]="['/login']" (click)="SlideInOut('responsive-opensec')"><i class="la la-external-link-square"></i> Login</a></li>
             </ul>
         </div>
         <form class="res-search">
@@ -29,16 +31,16 @@
         <div class="responsivemenu">
             <ul>
                 <li>
-                    <a [routerLink]="['/']" title="">Home</a>
+                    <a [routerLink]="['/']">Home</a>
                 </li>
                 <li class="menu-item-has-children">
-                    <a href="#" title="">SubMenu</a>
+                    <a>SubMenu</a>
                     <ul>
                         <li><a title="">Simple item</a></li>>
                         <li class="menu-item-has-children">
-                            <a href="#" title="">SubMenu</a>
+                            <a>SubMenu</a>
                             <ul>
-                                <li><a href="employer_manage_jobs.html" title="">SimpleItem</a></li>
+                                <li><a>SimpleItem</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -56,8 +58,11 @@
                     <img class="hidesticky" src="assets/images/logo.png" alt="">
                     <img class="showsticky" src="assets/images/logo-bleu.png" alt=""></a>
             </div>
+            <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
+                <span><img src="assets/images/01.jpg" alt="">{{user.lastName}}<i (click)="logout()" class="la la-sign-out-alt"></i></span>
+            </div>
             <div class="btn-extars">
-                <a href="#" title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
+                <a title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
                 <ul *ngIf="!isAuth" class="account-btns">
                     <li class="signup-popup"><a [routerLink]="['/register']"><i class="la la-key"></i> Sign Up</a></li>
                     <li class="signin-popup"><a [routerLink]="['/login']"><i class="la la-external-link-square"></i> Login</a></li>
@@ -69,13 +74,13 @@
                         <a [routerLink]="['/']">Home</a>
                     </li>
                     <li class="menu-item-has-children">
-                        <a href="#" title="">SubMenu <i style="size: 10px;" class="la la-angle-down"></i></a>
+                        <a>SubMenu <i style="size: 10px;" class="la la-angle-down"></i></a>
                         <ul>
-                            <li><a title="">Simple item</a></li>
+                            <li><a>Simple item</a></li>
                             <li class="menu-item-has-children">
-                                <a href="#" title="">SubMenu</a>
+                                <a>SubMenu</a>
                                 <ul>
-                                    <li><a title="">SimpleItem</a></li>
+                                    <li><a>SimpleItem</a></li>
                                 </ul>
                             </li>
                         </ul>

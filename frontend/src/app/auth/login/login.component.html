@@ -45,25 +45,14 @@
                         <span>Ou</span>
                     </div>
                 <form #login="ngForm" (ngSubmit)="onLogin(login.value)">
-                    
-                    <!-- start email input-->
+
                     <div class="cfield">   
-                        <input type="text" placeholder="Email or Username" required="true" [(ngModel)]="user.username" #username="ngModel" name="user.username" username="true"><i class="la la-user"></i>
+                        <input type="text" placeholder="Email or Username" required="true" [(ngModel)]="user.username" #username="ngModel" name="username" username="true"><i class="la la-user"></i>
                     </div>
-                     <!-- end email input-->
-
-
-                    <!-- start password input-->
-                    
-                   
-                   
                     <div class="cfield">
                         <input type="password" placeholder="********" required="true"
-                            [(ngModel)]="user.password" #password="ngModel" name="user.password" minlength="6"><i class="la la-key"></i>
-                     </div>
-                    <!-- end password input-->
-                             
-                     
+                            [(ngModel)]="user.password" #password="ngModel" name="password" minlength="6" autocomplete="on"><i class="la la-key"></i>
+                     </div>                     
                      <p class="remember-label">
                                     <input type="checkbox" name="cb" id="cb1"><label for="cb1">Remember me</label>
                                 </p>
@@ -72,7 +61,7 @@
                             </form>
                          
                         </div>
-                    </div><!-- LOGIN POPUP -->
+                    </div>
                 </div>
             </div>
         </div>

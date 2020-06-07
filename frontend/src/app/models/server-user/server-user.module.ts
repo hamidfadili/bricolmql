@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class ServerUserModule { 
-  user:UserModule;
-  token:string;
+  username:string;
+  email:string;
+  phone:string;
+  password:string;
 }
