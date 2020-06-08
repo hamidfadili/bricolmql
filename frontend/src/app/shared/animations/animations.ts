@@ -4,18 +4,18 @@ export const SlideInOutAnimation = [
     trigger('slideInOut', [
         state('in', style({
             'height': '100vh', 'display': 'block',
-            'overflow-y' : 'hidden'
+            'overflow' : 'hidden'
         })),
         state('out', style({
             'height': '0px', 'display': 'block',
-            'overflow-y' : 'hidden'
+            'overflow' : 'hidden'
         })),
         transition('in => out', [group([
-            animate('500ms ease-out', style({'height': '0px'}))
+            animate('500ms ease-out', style({'height': '0px','overflow' : 'hidden'}))
         ]
         )]),
         transition('out => in', [group([
-            animate('500ms ease-out', style({'height': '100vh'}))
+            animate('500ms ease-out', style({'height': '100vh','overflow' : 'hidden'}))
         ]
         )])
     ]),
