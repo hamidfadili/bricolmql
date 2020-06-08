@@ -59,7 +59,7 @@
                     <img class="showsticky" src="assets/images/logo-bleu.png" alt=""></a>
             </div>
             <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
-                <span><img src="assets/images/01.jpg" alt="">{{user.lastName}}<i (click)="logout()" class="la la-sign-out-alt"></i></span>
+                <span><img [src]="user.photo ? user.photo : 'assets/images/profile-avatar.jpg'" alt="">{{user.lastName}}<i (click)="logout()" class="la la-sign-out-alt"></i></span>
             </div>
             <div class="btn-extars">
                 <a title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>

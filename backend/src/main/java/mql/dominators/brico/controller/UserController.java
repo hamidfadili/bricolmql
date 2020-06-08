@@ -24,7 +24,7 @@ import mql.dominators.brico.jwt.api.util.JwtUtil;
 import mql.dominators.brico.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
 	@Autowired
@@ -39,14 +39,18 @@ public class UserController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	
 	@PostMapping(path = "/register")
-	public ResponseEntity<UserDTO> save(@RequestBody User user) {
+	public ResponseEntity<JwtResponse> save(@RequestBody User user) {
 
 		User saveUser = userService.saveUser(user);
 
 		UserDTO userDTO = formatToUserDTO(saveUser);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+		JwtResponse jwtResponse = 
+				new JwtResponse(jwtUtil.generateToken(userDTO.getUsername()),userDTO);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(jwtResponse);
 	}
 
 	@PostMapping("/authenticate")
@@ -56,7 +60,8 @@ public class UserController {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
 			System.out.println("Authentication had succed !");
-			JwtResponse jwtResponse = new JwtResponse(jwtUtil.generateToken(userDto.getUsername()));
+			JwtResponse jwtResponse = 
+				new JwtResponse(jwtUtil.generateToken(userDto.getUsername()),formatToUserDTO(this.userService.getUserByUsername(userDto.getUsername())));
 
 			return ResponseEntity.ok(jwtResponse);
 
@@ -109,8 +114,10 @@ public class UserController {
 	public ResponseEntity<?> findOwnAccount() {
 
 		String username = UsernameExists();
-		if (this.userService.getUserByUsername(username) != null)
-			return ResponseEntity.status(HttpStatus.FOUND).body(this.userService.getUserByUsername(username));
+		if (this.userService.getUserByUsername(username) != null) {
+
+			return ResponseEntity.status(200).body(formatToUserDTO(this.userService.getUserByUsername(username)));
+		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}
 
@@ -119,6 +126,7 @@ public class UserController {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setIdUser(saveUser.getIdUser());
 		userDTO.setEmail(saveUser.getEmail());
+		userDTO.setUsername(saveUser.getUsername());
 		userDTO.setFirstName(saveUser.getFirstName());
 		userDTO.setLastName(saveUser.getLastName());
 		userDTO.setPhone(saveUser.getPhone());

@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtUtil {
 
-	private String secret = "bricoo";
+	private static final String SECRET = "bricoo";
 
 	public String extractUsername(String token) {
 		return extractClaim(token, Claims::getSubject);
@@ -31,7 +31,7 @@ public class JwtUtil {
 	}
 
 	private Claims extractAllClaims(String token) {
-		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+		return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
 	}
 
 	private Boolean isTokenExpired(String token) {
@@ -47,7 +47,7 @@ public class JwtUtil {
 
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-				.signWith(SignatureAlgorithm.HS256, secret).compact();
+				.signWith(SignatureAlgorithm.HS256, SECRET).compact();
 	}
 
 	public Boolean validateToken(String token, UserDetails userDetails) {

@@ -20,41 +20,52 @@ import mql.dominators.brico.service.CustomUserDetailsImpl;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+	private static final String PREFIX = "Bearer ";
+	private static final String AUTHORIZATION = "Authorization";
+	
 
 	@Autowired
 	private JwtUtil jwtUtil;
 
 	@Autowired
 	private CustomUserDetailsImpl service;
+	
 	private String userName = null;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
 			FilterChain filterChain) throws ServletException, IOException {
-
-		String authorizationHeader = httpServletRequest.getHeader("Authorization");
-
-		String token = null;
-
-		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-			token = authorizationHeader.substring(7);
+		
+		httpServletResponse.addHeader("Access-Control-Allow-Origin","*");
+		httpServletResponse.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With,Content-Type, Access-Control-Request-Method, Access-Control-RequestHeaders,authorization");
+		httpServletResponse.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials, authorization");
+		
+		if(httpServletRequest.getMethod().equals("OPTIONS")){
+			httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+			return;
+		}else if(httpServletRequest.getHeader(AUTHORIZATION) != null 
+				&& httpServletRequest.getHeader(AUTHORIZATION).startsWith(PREFIX)){
+			
+			String authorizationHeader = httpServletRequest.getHeader(AUTHORIZATION);
+			String token = authorizationHeader.substring(PREFIX.length());
 			userName = jwtUtil.extractUsername(token);
-		}
+			
+			if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-		if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+				UserDetails userDetails = service.loadUserByUsername(userName);
 
-			UserDetails userDetails = service.loadUserByUsername(userName);
+				if (jwtUtil.validateToken(token, userDetails)) {
 
-			if (jwtUtil.validateToken(token, userDetails)) {
-
-				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-						userDetails, null, userDetails.getAuthorities());
-				usernamePasswordAuthenticationToken
-						.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-				SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+					UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+							userDetails, null, userDetails.getAuthorities());
+					usernamePasswordAuthenticationToken
+							.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+				}
 			}
 		}
 		filterChain.doFilter(httpServletRequest, httpServletResponse);
+				
 	}
 
 	public String getUserName() {

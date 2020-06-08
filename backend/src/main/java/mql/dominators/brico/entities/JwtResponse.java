@@ -10,5 +10,8 @@ public class JwtResponse {
 
 	@Getter
 	private String token;
+	
+	@Getter
+	private UserDTO user;
 
 }
