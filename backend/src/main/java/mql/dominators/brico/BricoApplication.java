@@ -19,7 +19,7 @@ public class BricoApplication implements CommandLineRunner {
 
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();	
 	}
 
 	@Override

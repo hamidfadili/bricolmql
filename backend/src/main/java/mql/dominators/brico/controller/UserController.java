@@ -39,14 +39,18 @@ public class UserController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	
 	@PostMapping(path = "/register")
-	public ResponseEntity<UserDTO> save(@RequestBody User user) {
+	public ResponseEntity<JwtResponse> save(@RequestBody User user) {
 
 		User saveUser = userService.saveUser(user);
 
 		UserDTO userDTO = formatToUserDTO(saveUser);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+		JwtResponse jwtResponse = 
+				new JwtResponse(jwtUtil.generateToken(userDTO.getUsername()),userDTO);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(jwtResponse);
 	}
 
 	@PostMapping("/authenticate")
@@ -56,7 +60,8 @@ public class UserController {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
 			System.out.println("Authentication had succed !");
-			JwtResponse jwtResponse = new JwtResponse(jwtUtil.generateToken(userDto.getUsername()),null);
+			JwtResponse jwtResponse = 
+				new JwtResponse(jwtUtil.generateToken(userDto.getUsername()),formatToUserDTO(this.userService.getUserByUsername(userDto.getUsername())));
 
 			return ResponseEntity.ok(jwtResponse);
 
@@ -121,6 +126,7 @@ public class UserController {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setIdUser(saveUser.getIdUser());
 		userDTO.setEmail(saveUser.getEmail());
+		userDTO.setUsername(saveUser.getUsername());
 		userDTO.setFirstName(saveUser.getFirstName());
 		userDTO.setLastName(saveUser.getLastName());
 		userDTO.setPhone(saveUser.getPhone());

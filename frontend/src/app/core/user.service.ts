@@ -29,31 +29,20 @@ export class UserService {
     private jwtService:JwtService
     ) { }
   
-  registerUser(user:UserModule):Observable<UserModule>{ 
-    return this.http.post<ServerUserModule>(this.REGISTER_URL,user)
+  registerUser(user:UserModule):Observable<ServerResponseUserModule>{ 
+    return this.http.post<ServerResponseUserModule>(this.REGISTER_URL,user)
     .pipe(
-      map(data => {
-        this.updateUser(data);
-        var serverUser = new ServerUserModule();
-        serverUser.email = data.email;
-        serverUser.username = data.username;
-        serverUser.password = data.password;
-        serverUser.phone = data.phone;
-        return serverUser;
+      map(userAndToken => {
+        this.updateUser(userAndToken.user);
+        this.updateToken(userAndToken.token);
+        return userAndToken;
       })
     );
   }
 
   loginUser(user:ServerUserModule):Observable<ServerResponseUserModule>{
-    return this.http.post<ServerResponseUserModule>(this.LOGIN_URL,user).pipe(map(
-      (userAndToken) => {
-        userAndToken.user = {
-          idUser:10,
-          username:"hamidfadili1997",
-          firstName:"Hamid",
-          lastName:"Fadili",
-          email:"hamidfadili1997@gmail.com",
-        };
+    return this.http.post<ServerResponseUserModule>(this.LOGIN_URL,user).pipe(
+      map(userAndToken => {
         this.updateUser(userAndToken.user);
         this.updateToken(userAndToken.token);
         return userAndToken;
@@ -77,13 +66,8 @@ export class UserService {
 
   initUser(){
     if(this.jwtService.hasToken()){
-      console.log("init req")
       this.http.get<UserModule>(this.USER_URL).subscribe(
-        data => {
-          this.updateUser(data)
-          console.log("init response")
-        },
-        err => console.log("init error")
+        user => this.updateUser(user)
       );
     }else{
       this.cleanSession();
@@ -92,11 +76,11 @@ export class UserService {
 
   private updateUser(user:UserModule):void{
     this.currentUserSubject.next(user);
+    this.isAuthenticatedSubject.next(true);
   }
 
   private updateToken(token:string):void{
     this.jwtService.saveToken(token);
-    this.isAuthenticatedSubject.next(true);
   }
 
   hasToken(){
