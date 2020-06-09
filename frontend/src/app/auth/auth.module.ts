@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { UserService } from './../core/user.service';
 import { AuthRoutingModule } from './auth-routing.module';
 import { NgModule } from '@angular/core';
@@ -23,7 +24,8 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule
   ],providers: [
     UserService,
-    NoAuthGuard
+    NoAuthGuard,
+    AuthGuard
   ]
     
 })

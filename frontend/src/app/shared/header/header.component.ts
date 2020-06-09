@@ -46,15 +46,15 @@ export class HeaderComponent implements OnInit {
     });  
   }
 
-  logout(){
-    this.userService.cleanSession();
-  }
-
   SlideInOut(divName: string){
     if(divName === 'responsive-opensec'){
       this.animationState = this.animationState === 'out' ? 'in' : 'out';
     }
     this.isMenuOpned = !this.isMenuOpned;
+  }
+
+  logout(){
+    this.userService.logout();
   }
 
 }

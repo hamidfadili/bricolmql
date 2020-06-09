@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ServerUserModule, ServerResponseUserModule } from '../models/server-user/server-user.module';
 import { UserModule } from 'src/app/models/user/user.module';
 import { JwtService } from './jwt.service';
@@ -15,6 +16,7 @@ export class UserService {
   private readonly REGISTER_URL = environment.API_URL+"register";
   private readonly LOGIN_URL = environment.API_URL+"authenticate";
   private readonly USER_URL = environment.API_URL+"user/account";
+  private readonly UPDATE_USER_URL = environment.API_URL+"user/account/update";
 
 
 
@@ -26,7 +28,8 @@ export class UserService {
 
   constructor(
     private http:HttpClient,
-    private jwtService:JwtService
+    private jwtService:JwtService,
+    private router: Router
     ) { }
   
   registerUser(user:UserModule):Observable<ServerResponseUserModule>{ 
@@ -85,6 +88,11 @@ export class UserService {
 
   hasToken(){
     return this.jwtService.hasToken();
+  }
+
+  logout(){
+    this.cleanSession();
+    this.router.navigateByUrl('/');
   }
 
 }
