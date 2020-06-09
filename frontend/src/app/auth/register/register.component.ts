@@ -9,10 +9,12 @@ import { Router } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
+
 export class RegisterComponent implements OnInit {
 
   user : UserModule = new UserModule();
   confirmPassword : string;
+  errors = [];
   
   constructor(
     private userService:UserService,
@@ -23,9 +25,12 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(registerForm : NgForm){  
+    this.errors = [];
     this.userService.registerUser(this.user).subscribe(
       res => this.router.navigateByUrl('/'),
-      err => console.log(err)
+      err =>{
+        this.errors.push(err.error.message)
+      } 
     )
   }
 

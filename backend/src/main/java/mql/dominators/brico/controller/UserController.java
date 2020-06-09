@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import mql.dominators.brico.entities.JwtResponse;
 import mql.dominators.brico.entities.User;
@@ -62,11 +63,11 @@ public class UserController {
 			System.out.println("Authentication had succed !");
 			JwtResponse jwtResponse = 
 				new JwtResponse(jwtUtil.generateToken(userDto.getUsername()),formatToUserDTO(this.userService.getUserByUsername(userDto.getUsername())));
-
+			
 			return ResponseEntity.ok(jwtResponse);
 
 		} catch (Exception ex) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username / Password");
+			throw new Exception("Invalid Username / Password");
 		}
 	}
 
