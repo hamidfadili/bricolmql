@@ -1,25 +1,27 @@
 <div class="responsive-header" [class.active]="isMenuOpned">
     <div class="responsive-menubar">
         <div class="res-logo">
-            <a [routerLink]="['/']" (click)="closeMenu()">
+            <a [routerLink]="['/']">
                 <img src="assets/images/logo.png" alt="">
             </a>
         </div>
         <div class="menu-resaction">
-            <div class="res-openmenu" [class.active]="isMenuOpned" (click)="openMenu()">
-                <img src="assets/images/menu-icon.png" alt=""> Menu
+            <div class="res-openmenu" [class.active]="isMenuOpned" (click)="SlideInOut('responsive-opensec')">
+                <img src="assets/images/menu-icon.png" 
+                alt=""> Menu
             </div>
-            <div class="res-closemenu" [class.active]="!isMenuOpned" (click)="closeMenu()">
-                <img src="assets/images/x-icon.png" alt=""> Fermer
+            <div class="res-closemenu" [class.active]="!isMenuOpned" (click)="SlideInOut('responsive-opensec')">
+                <img src="assets/images/x-icon.png" 
+                alt=""> Fermer
             </div>
         </div>
     </div>
-    <div class="responsive-opensec" [class.active]="isMenuOpned">
+    <div [@slideInOut]="animationState" class="responsive-opensec">
         <div class="btn-extars">
             <a class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
             <ul *ngIf="!isAuth" class="account-btns">
-                <li class="signup-popup"><a [routerLink]="['/register']" (click)="closeMenu()"><i class="la la-key"></i> Sign Up</a></li>
-                <li class="signin-popup"><a [routerLink]="['/login']" (click)="closeMenu()"><i class="la la-external-link-square"></i> Login</a></li>
+                <li class="signup-popup"><a [routerLink]="['/register']" (click)="SlideInOut('responsive-opensec')"><i class="la la-key"></i> Sign Up</a></li>
+                <li class="signin-popup"><a [routerLink]="['/login']" (click)="SlideInOut('responsive-opensec')"><i class="la la-external-link-square"></i> Login</a></li>
             </ul>
         </div>
         <form class="res-search">
@@ -29,7 +31,7 @@
         <div class="responsivemenu">
             <ul>
                 <li>
-                    <a [routerLink]="['/']"(click)="closeMenu()">Home</a>
+                    <a [routerLink]="['/']">Home</a>
                 </li>
                 <li class="menu-item-has-children">
                     <a>SubMenu</a>
@@ -57,7 +59,7 @@
                     <img class="showsticky" src="assets/images/logo-bleu.png" alt=""></a>
             </div>
             <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
-                <span><img [src]="user.photo ? user.photo : 'assets/images/profile-avatar.jpg'" alt="">{{user.lastName}}<i (click)="logout()" class="la la-sign-out-alt"></i></span>
+                <span><img [src]="user.photo ? user.photo : 'assets/images/profile-avatar.jpg'" alt="">{{user.username}}<i (click)="logout()" class="la la-sign-out-alt"></i></span>
             </div>
             <div class="btn-extars">
                 <a title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>

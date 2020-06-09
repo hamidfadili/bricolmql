@@ -20,7 +20,6 @@ export class UserModule {
   password? : string;
   phone? : string;
   address? : string;
-  birthday? : string;
+  birthday? : Date;
   photo? : string;
-
 }

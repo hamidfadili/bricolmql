@@ -132,7 +132,9 @@ public class UserController {
 		userDTO.setLastName(saveUser.getLastName());
 		userDTO.setPhone(saveUser.getPhone());
 		userDTO.setPhoto(saveUser.getPhoto());
-
+		userDTO.setAddress(saveUser.getAddress());
+		userDTO.setBirthday(saveUser.getBirthday());
+		
 		return userDTO;
 	}
 

@@ -27,9 +27,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                   
                 <div class="account-popup-area signin-popup-box static">
-                    
                 <div class="account-popup">
                     <div *ngIf="errors.length > 0">
                         <p class="alert alert-danger" *ngFor="let error of errors">{{error}}</p>
@@ -42,10 +40,17 @@
                     <div *ngIf="username.touched && username.invalid">
                         <p class="alert alert-danger" *ngIf="username.errors.required">Username should not be null</p>
                     </div>
+                    <div class="extra-login"> 
+                        <div class="login-social">
+                            <a class="fb-login" href="#" title=""><i class="fa fa-facebook"></i></a>
+                            <a class="g-login" href="#" title=""><i class="fa fa-google-plus"></i></a>
+                        </div>
+                        <span>Ou</span>
+                    </div>
                 <form #login="ngForm" (ngSubmit)="onLogin(login.value)">
 
                     <div class="cfield">   
-                        <input type="text" placeholder="Username" required="true" [(ngModel)]="user.username" #username="ngModel" name="username"><i class="la la-user"></i>
+                        <input type="text" placeholder="Email or Username" required="true" [(ngModel)]="user.username" #username="ngModel" name="username" username="true"><i class="la la-user"></i>
                     </div>
                     <div class="cfield">
                         <input type="password" placeholder="********" required="true"
@@ -57,13 +62,7 @@
                                 <a href="#" title="">Forgot Password?</a>
                                 <button type="submit" [disabled]="login.invalid">Login</button>
                             </form>
-                            <div class="extra-login">
-                                <span>Or</span>
-                                <div class="login-social">
-                                    <a class="fb-login" href="#" title=""><i class="fa fa-facebook"></i></a>
-                                    <a class="tw-login" href="#" title=""><i class="fa fa-twitter"></i></a>
-                                </div>
-                            </div>
+                         
                         </div>
                     </div>
                 </div>

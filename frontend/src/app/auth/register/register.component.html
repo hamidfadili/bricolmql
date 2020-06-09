@@ -52,6 +52,13 @@
                             <div *ngIf="confirm_password.touched && !isMatch()">
                                 <p class="alert alert-danger">Must match password</p>
                             </div>
+                            <div class="extra-login">
+                                <div class="login-social">
+                                    <a class="fb-login" href="#" title=""><i class="fa fa-facebook"></i></a>
+                                    <a class="g-login" href="#" title=""><i class="fa fa-google-plus"></i></a>
+                                </div>
+                                <span>Ou</span>
+                            </div>
                             <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm.value)">
                                 <div class="cfield">
                                     <input type="text" placeholder="Votre Nom"  required [(ngModel)]="user.firstName"
@@ -85,16 +92,9 @@
                                     <input type="password" name="confirmPassword" placeholder="Confirmer le mot de passe" [(ngModel)]="confirmPassword" #confirm_password="ngModel" required>
                                     <i class="la la-key"></i>
                                 </div>
-                               
                                 <button type="submit">S'inscrire</button>
                             </form>
-                            <div class="extra-login">
-                                <span>Or</span>
-                                <div class="login-social">
-                                    <a class="fb-login" href="#" title=""><i class="fa fa-facebook"></i></a>
-                                    <a class="tw-login" href="#" title=""><i class="fa fa-twitter"></i></a>
-                                </div>
-                            </div>
+                         
                         </div>
                     </div><!-- SIGNUP POPUP -->
                 </div>

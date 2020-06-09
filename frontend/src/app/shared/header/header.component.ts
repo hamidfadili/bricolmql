@@ -1,20 +1,22 @@
+import { SlideInOutAnimation } from './../animations/animations';
 import { UserModule } from 'src/app/models/user/user.module';
 import { UserService } from './../../core/user.service';
 import { Component, OnInit } from '@angular/core';
-
 
 declare var $: any;
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  animations : [SlideInOutAnimation]
 })
 export class HeaderComponent implements OnInit {
 
   user:UserModule;
   isAuth:boolean = false;
   isMenuOpned = false;
+  animationState = "out";
 
   constructor(private userService:UserService) { }
   
@@ -23,8 +25,6 @@ export class HeaderComponent implements OnInit {
     this.userService.currentUser.subscribe(user => this.user = user);
     
     $(".responsivemenu .menu-item-has-children > a").on("click",function(){
-	    $(this).parent().siblings().children("ul").slideUp();
-	    $(this).parent().siblings().removeClass("active");
 	    $(this).parent().children("ul").slideToggle();
 	    $(this).parent().toggleClass("active");
 	    return false;
@@ -36,29 +36,25 @@ export class HeaderComponent implements OnInit {
       if(!$("header").hasClass("gradient")){
         var scroll = $(window).scrollTop();
         if (scroll >= 50) {
-        $(".forsticky").addClass("sticky");
+          $(".forsticky").addClass("sticky");
         }
         else{
-        $(".forsticky").removeClass("sticky");
-        $(".forsticky").addClass("");
+          $(".forsticky").removeClass("sticky");
+          $(".forsticky").addClass("");
         }
       }
     });  
-
   }
-  
+
+  SlideInOut(divName: string){
+    if(divName === 'responsive-opensec'){
+      this.animationState = this.animationState === 'out' ? 'in' : 'out';
+    }
+    this.isMenuOpned = !this.isMenuOpned;
+  }
+
   logout(){
-    this.userService.cleanSession();
-  }
-
-  openMenu(){
-    this.isMenuOpned = true;
-    $('.responsive-opensec').slideDown();
-  }
-
-  closeMenu(){
-    this.isMenuOpned = false;
-    $('.responsive-opensec').slideUp();
+    this.userService.logout();
   }
 
 }
