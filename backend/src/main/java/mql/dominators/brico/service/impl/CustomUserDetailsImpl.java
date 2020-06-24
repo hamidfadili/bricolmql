@@ -1,8 +1,9 @@
-package mql.dominators.brico.service;
+package mql.dominators.brico.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import mql.dominators.brico.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

@@ -1,4 +1,4 @@
-package mql.dominators.brico.entities;
+package mql.dominators.brico.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

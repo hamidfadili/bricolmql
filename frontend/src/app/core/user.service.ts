@@ -36,26 +36,36 @@ export class UserService {
     return this.http.post<ServerResponseUserModule>(this.REGISTER_URL,user)
     .pipe(
       map(userAndToken => {
-        this.updateUser(userAndToken.user);
+        this.updateUserValue(userAndToken.user);
         this.updateToken(userAndToken.token);
         return userAndToken;
       })
-    );
-  }
+      );
+    }
 
-  loginUser(user:ServerUserModule):Observable<ServerResponseUserModule>{
-    return this.http.post<ServerResponseUserModule>(this.LOGIN_URL,user).pipe(
-      map(userAndToken => {
-        this.updateUser(userAndToken.user);
-        this.updateToken(userAndToken.token);
-        return userAndToken;
+    updateUser(user:UserModule):Observable<UserModule>{
+      console.log(user);
+      return this.http.put<UserModule>(this.UPDATE_USER_URL,user).pipe(
+        map( re => {
+          console.log(re)
+          return re;  
+        })
+      )
+    }
+    
+    loginUser(user:ServerUserModule):Observable<ServerResponseUserModule>{
+      return this.http.post<ServerResponseUserModule>(this.LOGIN_URL,user).pipe(
+        map(userAndToken => {
+          this.updateUserValue(userAndToken.user);
+          this.updateToken(userAndToken.token);
+          return userAndToken;
+        }
+        ));
       }
-    ));
-  }
 
-  cleanSession(){
-    this.jwtService.destroyToken();
-    this.currentUserSubject.next(null);
+      cleanSession(){
+        this.jwtService.destroyToken();
+        this.currentUserSubject.next(null);
     this.isAuthenticatedSubject.next(false);
   }
   
@@ -70,17 +80,18 @@ export class UserService {
   initUser(){
     if(this.jwtService.hasToken()){
       this.http.get<UserModule>(this.USER_URL).subscribe(
-        user => this.updateUser(user)
+        user => this.updateUserValue(user)
       );
     }else{
       this.cleanSession();
     }
   }
 
-  private updateUser(user:UserModule):void{
+  private updateUserValue(user:UserModule):void{
     this.currentUserSubject.next(user);
     this.isAuthenticatedSubject.next(true);
   }
+
 
   private updateToken(token:string):void{
     this.jwtService.saveToken(token);

@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { UserService } from './core/user.service';
 import { HeaderComponent } from './shared/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuthModule,
     SharedModule,
     HttpClientModule,
+    FormsModule,
     BrowserAnimationsModule
   ],
   providers: [

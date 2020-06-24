@@ -21,8 +21,9 @@ import { ProfileComponent } from './profile/profile.component';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    FormsModule
-  ],providers: [
+    FormsModule,
+  ]
+  ,providers: [
     UserService,
     NoAuthGuard,
     AuthGuard

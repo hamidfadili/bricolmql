@@ -1,5 +1,7 @@
 package mql.dominators.brico;
 
+import mql.dominators.brico.service.FileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class BricoApplication implements CommandLineRunner {
 
-//	@Autowired
-//	private UserService userService;
+	@Autowired
+	private FileService fileService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BricoApplication.class, args);
@@ -28,7 +30,7 @@ public class BricoApplication implements CommandLineRunner {
 //		accountService.saveRole(new Role(sequenceGenerator.generateSequence(Role.SEQUENCE_NAME), "USER"));
 
 //		accountService.addRoleToUser("youness", "USER");
-
+		fileService.init();
 	}
 
 }
