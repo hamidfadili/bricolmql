@@ -10,24 +10,24 @@ import Swal from 'sweetalert2';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user:UserModule;
+  user: UserModule;
   reader = new FileReader();
   imagsrc = null
-  updatedUser:UserModule;
+  updatedUser: UserModule;
   selectedFile = null;
 
-  constructor(private userService:UserService,
-              private fileService:FileService) {}
+  constructor(private userService: UserService,
+    private fileService: FileService) { }
 
 
   ngOnInit(): void {
-    this.userService.currentUser.subscribe(user =>{ 
+    this.userService.currentUser.subscribe(user => {
       this.user = user;
       this.updatedUser = JSON.parse(JSON.stringify(this.user));
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     Swal.fire({
       title: 'vous étes sûr?',
       text: "Voulez vous vraiment modifié votre profil!",
@@ -54,36 +54,40 @@ export class ProfileComponent implements OnInit {
             )
           }
         )
-        
+
       }
     })
   }
 
-  onFileSelected(event){
+  onFileSelected(event) {
     this.selectedFile = event.target.files[0];
   }
 
-  uploadImage(image){
-    
+  uploadImage(image) {
+
     this.fileService.uploadImage(this.selectedFile).subscribe(
       event => console.log(event)
     )
   }
 
-  imageShow(imageuser){
+  imageShow(imageuser) {
     console.log(imageuser.value)
   }
 
-  public fileChangeEvent(fileInput: any){
+  public fileChangeEvent(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
       var reader = new FileReader();
       let _this = this;
-      reader.onload = function (e : any) {
-        _this.imagsrc =  e.target.result;
+      reader.onload = function (e: any) {
+        _this.imagsrc = e.target.result;
       }
 
       reader.readAsDataURL(fileInput.target.files[0]);
+    }
   }
-}
+
+  public logout(){
+    this.userService.logout();
+  }
 
 }
