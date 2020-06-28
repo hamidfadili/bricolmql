@@ -50,7 +50,7 @@ public class User implements Serializable {
 	private String phone;
 	private String address;
 
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date birthday;
 	private String photo;
 
