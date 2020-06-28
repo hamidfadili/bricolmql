@@ -1,8 +1,9 @@
-package mql.dominators.brico.service;
+package mql.dominators.brico.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 
+import mql.dominators.brico.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,22 @@ public class UserServiceImpl implements UserService {
 	public void delete(long id) {
 		Optional<User> user = findById(id);
 		this.userRepository.delete(user.get());
+	}
+
+	@Override
+	public User updateUser(User user) {
+		return userRepository.save(user);
+	}
+
+	@Override
+	public boolean changePassword(User user) {
+		String password = user.getPassword();
+		if(password != null && password.length() > 6){
+			user.setPassword(bCrypt.encode(password));
+			userRepository.save(user);
+			return true;
+		}
+		return false;
 	}
 
 }

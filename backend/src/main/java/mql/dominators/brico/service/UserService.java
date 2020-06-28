@@ -8,6 +8,10 @@ import mql.dominators.brico.entities.User;
 public interface UserService {
 
 	public User saveUser(User user);
+	
+	public User updateUser(User user);
+
+	public boolean changePassword(User user);
 
 	public List<User> findAllUsers();
 

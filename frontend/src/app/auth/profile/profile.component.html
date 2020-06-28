@@ -1,91 +1,93 @@
 <section>
     <div class="block no-padding">
         <div class="container">
-             <div class="row no-gape">
-                 <aside class="col-lg-3 column border-right">
-                     <div class="widget">
-                         <div class="tree_widget-sec">
-                             <ul>
-                                <li><a href="candidates_change_password.html" title=""><i class="la la-flash"></i>Change Password</a></li>
+            <div class="row no-gape">
+                <aside class="col-lg-3 column border-right">
+                    <div class="widget">
+                        <div class="tree_widget-sec">
+                            <ul>
+                                <li><a href="candidates_change_password.html" title=""><i class="la la-flash"></i>Change
+                                        Password</a></li>
                                 <li><a href="#" title=""><i class="la la-unlink"></i>Logout</a></li>
-                             </ul>
-                         </div>
-                     </div>
-                 </aside>
-                 <div class="col-lg-9 column">
-                     <div class="padding-left">
-                         
-                         <div class="profile-form-edit">
-                             <form>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+                <div class="col-lg-9 column">
+                    <div class="padding-left">
+                        <div class="profile-form-edit">
+                            <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
                                 <div class="profile-title">
                                     <h3>Mon Profile</h3>
                                     <div class="upload-img-bar">
-                                        <span class="round"><img [src]="imagsrc" alt=""><i>x</i></span>
-                                        <div class="upload-info">
-                                            <input type="file"  name="userimage" (change)="fileChangeEvent($event)" #imageuser id="">
-                                            <span>Max file size is 1MB, Minimum dimension: 270x210 And Suitable files are .jpg & .png</span>
+                                                 </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Votre Prénom</span>
+                                        <div class="pf-field">
+                                            <input type="text" name="first-name" placeholder="Votre Prénom"
+                                                [(ngModel)]="updatedUser.firstName">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Votre Nom</span>
+                                        <div class="pf-field">
+                                            <input type="text" name="last-name" placeholder="Votre Nom"
+                                                [(ngModel)]="updatedUser.lastName">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Username</span>
+                                        <div class="pf-field">
+                                            <input type="text"  name="username" placeholder="Username" disabled
+                                                [(ngModel)]="updatedUser.username">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Date de naissance</span>
+                                        <div class="pf-field">
+                                            <input type="date" name="birthday" [ngModel]="updatedUser.birthday | date:'yyyy-MM-dd'" (ngModelChange)="updatedUser.birthday = $event">
+                                        </div>
+                                    </div>
+
+                                    <div class="contact-edit">
+                                        <h3>Contact</h3>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <span class="pf-title">N° de téléphone</span>
+                                                <div class="pf-field">
+                                                    <input type="text" name="phone" placeholder="+2120 000 000 000"
+                                                        [(ngModel)]="updatedUser.phone">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <span class="pf-title">Email</span>
+                                                <div class="pf-field">
+                                                    <input type="email" name="email" placeholder="test@gmail.com"
+                                                        [(ngModel)]="updatedUser.email">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <span class="pf-title">Adresse</span>
+                                                <div class="pf-field">
+                                                    <input type="text" name="adresse" placeholder="Adresse"
+                                                        [(ngModel)]="updatedUser.address">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <button type="submit">Modifier</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                 <div class="row">
-                                     <div class="col-lg-6">
-                                         <span class="pf-title">Votre Prénom</span>
-                                         <div class="pf-field">
-                                             <input type="text" placeholder="Votre Prénom" [value]="user.firstName">
-                                         </div>
-                                     </div>
-                                     <div class="col-lg-6">
-                                         <span class="pf-title">Votre Nom</span>
-                                         <div class="pf-field">
-                                             <input type="text" placeholder="Votre Nom" [value]="user.lastName">
-                                         </div>
-                                     </div>
-                                     <div class="col-lg-6">
-                                         <span class="pf-title">Username</span>
-                                         <div class="pf-field">
-                                             <input type="text" placeholder="Username" [value]="user.username">
-                                         </div>
-                                     </div>
-                                     <div class="col-lg-6">
-                                         <span class="pf-title">Date de naissance</span>
-                                         <div class="pf-field">
-                                             <input type="date" [value]="user.birthday | date: 'yyyy-MM-dd'">
-                                         </div>
-                                     </div>
-                                 
-                                     <div class="contact-edit">
-                                        <h3>Contact</h3>
-                                       
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <span class="pf-title">N° de téléphone</span>
-                                                    <div class="pf-field">
-                                                        <input type="text" placeholder="+2120 000 000 000" [value]="user.phone ? user.phone : ''">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <span class="pf-title">Email</span>
-                                                    <div class="pf-field">
-                                                        <input type="email" placeholder="test@gmail.com" [value]="user.email">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <span class="pf-title">Adresse</span>
-                                                    <div class="pf-field">
-                                                        <input type="text" placeholder="Adresse" [value]="user.address">
-                                                    </div>
-                                                </div>
-                                              <div class="col-lg-12">
-                                                    <button type="submit">Modifier</button>
-                                                </div>
-                                            </div>
-                                    </div>
-                                 </div>
-                             </form>
-                         </div>
-                     </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
 </section>

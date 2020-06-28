@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import mql.dominators.brico.jwt.api.util.JwtUtil;
-import mql.dominators.brico.service.CustomUserDetailsImpl;
+import mql.dominators.brico.service.impl.CustomUserDetailsImpl;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -37,6 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			FilterChain filterChain) throws ServletException, IOException {
 		
 		httpServletResponse.addHeader("Access-Control-Allow-Origin","*");
+		httpServletResponse.addHeader("Access-Control-Allow-Methods","*");
 		httpServletResponse.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With,Content-Type, Access-Control-Request-Method, Access-Control-RequestHeaders,authorization");
 		httpServletResponse.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials, authorization");
 		

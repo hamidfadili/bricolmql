@@ -2,29 +2,24 @@ package mql.dominators.brico.controller;
 
 import java.util.Optional;
 
+import mql.dominators.brico.request.PasswordRequest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import mql.dominators.brico.entities.JwtResponse;
+import mql.dominators.brico.response.JwtResponse;
 import mql.dominators.brico.entities.User;
-import mql.dominators.brico.entities.UserDTO;
+import mql.dominators.brico.shared.UserDTO;
 import mql.dominators.brico.jwt.api.filter.JwtFilter;
 import mql.dominators.brico.jwt.api.util.JwtUtil;
 import mql.dominators.brico.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class UserController {
 
 	@Autowired
@@ -45,7 +40,8 @@ public class UserController {
 
 		User saveUser = userService.saveUser(user);
 
-		UserDTO userDTO = formatToUserDTO(saveUser);
+		UserDTO userDTO = new UserDTO();
+		BeanUtils.copyProperties(saveUser,userDTO);
 
 		JwtResponse jwtResponse = 
 				new JwtResponse(jwtUtil.generateToken(userDTO.getUsername()),userDTO);
@@ -62,11 +58,11 @@ public class UserController {
 			System.out.println("Authentication had succed !");
 			JwtResponse jwtResponse = 
 				new JwtResponse(jwtUtil.generateToken(userDto.getUsername()),formatToUserDTO(this.userService.getUserByUsername(userDto.getUsername())));
-
+			
 			return ResponseEntity.ok(jwtResponse);
 
 		} catch (Exception ex) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username / Password");
+			throw new Exception("Invalid Username / Password");
 		}
 	}
 
@@ -78,11 +74,22 @@ public class UserController {
 		User oldUser = this.userService.getUserByUsername(username);
 
 		if (oldUser != null) {
-			this.userService.saveUser(setUserInfos(oldUser, updatedUser));
-			return ResponseEntity.status(201).build();
+
+			return ResponseEntity.status(201).body(this.userService.updateUser(setUserInfos(oldUser, updatedUser)));
 		}
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED)
 				.body("User can not modified, Please check your own part !");
+	}
+
+	@PutMapping("/user/account/password")
+	public ResponseEntity<?> changePassword(@RequestParam PasswordRequest passwordRequest){
+
+		final String username = UsernameExists();
+		if(passwordRequest.getUsername() != username)
+			throw new RuntimeException("No authorized");
+		User user = this.userService.getUserByUsername(username);
+		userService.changePassword(user);
+		return null;
 	}
 
 	@DeleteMapping(value = "/user/account/delete/{id}")

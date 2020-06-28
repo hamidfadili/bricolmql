@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 import org.springframework.data.annotation.Transient;
 
@@ -24,7 +24,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-//@Document(collection = "users")
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -32,22 +31,29 @@ public class User implements Serializable {
 	@Transient
 	private static final long serialVersionUID = 1L;
 
-//	@Transient
-//	public static final String SEQUENCE_NAME = "users_sequence";
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUser;
 
+	@NotBlank
 	private String firstName;
+
+	@NotBlank
 	private String lastName;
 
-	@NotEmpty
+	@NotBlank
 	@Column(unique = true)
 	private String username;
+
+	@Email
 	private String email;
+
+	@Size(min = 6)
 	private String password;
+
+	@Size(min = 9,max = 13)
 	private String phone;
+
 	private String address;
 
 	@JsonFormat(pattern = "dd-MM-yyyy")

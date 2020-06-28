@@ -1,4 +1,4 @@
-package mql.dominators.brico.entities;
+package mql.dominators.brico.shared;
 
 import java.util.Date;
 
@@ -18,6 +18,7 @@ public class UserDTO {
 	private String email;
 	private String phone;
 	private String password;
+	private String encryptedPassword;
 	private String photo;
 	private String address;
 	private Date birthday;
