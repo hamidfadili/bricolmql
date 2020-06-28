@@ -20,7 +20,16 @@
                                 <div class="profile-title">
                                     <h3>Mon Profile</h3>
                                     <div class="upload-img-bar">
-                                                 </div>
+                                        <span class="round"><img [src]="imagsrc" alt=""></span>
+                                        <div class="upload-info">
+                                            <div>
+                                                <input #image (change)="onFileSelected($event)" type="file" (change)="fileChangeEvent($event)" #imageuser name="photo" accept="image/*">
+                                                <a (click)="uploadImage(image)">Upload</a>
+                                            
+                                            </div>  
+                                            <span>Max file size is 1MB, Minimum dimension: 270x210 And Suitable files
+                                                are .jpg & .png</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
