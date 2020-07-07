@@ -3,6 +3,7 @@ package mql.dominators.brico.controller;
 import java.util.Optional;
 
 import mql.dominators.brico.request.PasswordRequest;
+import mql.dominators.brico.response.MessageResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,12 +38,9 @@ public class UserController {
 	
 	@PostMapping(path = "/register")
 	public ResponseEntity<JwtResponse> save(@RequestBody User user) {
-
 		User saveUser = userService.saveUser(user);
-
 		UserDTO userDTO = new UserDTO();
 		BeanUtils.copyProperties(saveUser,userDTO);
-
 		JwtResponse jwtResponse = 
 				new JwtResponse(jwtUtil.generateToken(userDTO.getUsername()),userDTO);
 
@@ -70,28 +68,28 @@ public class UserController {
 
 	@PutMapping(value = "/user/account/update")
 	public ResponseEntity<?> update(@RequestBody User updatedUser) {
-
+		System.out.println(updatedUser);
 		final String username = jwtFilter.getUsername();
-
 		User oldUser = this.userService.getUserByUsername(username);
-
 		if (oldUser != null) {
 			BeanUtils.copyProperties(updatedUser,oldUser);
 			return ResponseEntity.status(201).body(this.userService.updateUser(oldUser));
 		}
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED)
-				.body("User can not modified, Please check your own part !");
+				.body("User can not modified");
 	}
 
 	@PutMapping("/user/account/password")
 	public ResponseEntity<?> changePassword(@RequestParam PasswordRequest passwordRequest){
-
 		final String username = jwtFilter.getUsername();
 		if(!passwordRequest.getUsername().equals(username))
 			throw new RuntimeException("No authorized");
 		User user = this.userService.getUserByUsername(username);
-		userService.changePassword(user);
-		return null;
+		if(userService.changePassword(user)){
+			return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Password changed successfully"));
+		}else{
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Password have not changed"));
+		}
 	}
 
 	@DeleteMapping(value = "/user/account/delete/{id}")

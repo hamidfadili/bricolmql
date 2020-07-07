@@ -33,7 +33,6 @@ public class FileController {
 
     @PostMapping("/upload/image")
     public ResponseEntity<?> downloadImage(@RequestPart("image") MultipartFile file){
-
     	final String username = jwtFilter.getUsername();
     	User user= this.userService.getUserByUsername(username);
         fileService.saveImage(user, file);
