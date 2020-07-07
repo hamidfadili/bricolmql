@@ -16,6 +16,8 @@ import mql.dominators.brico.jwt.api.filter.JwtFilter;
 import mql.dominators.brico.service.FileService;
 import mql.dominators.brico.service.UserService;
 
+import java.util.UUID;
+
 @RestController
 @CrossOrigin(origins = "*")
 public class FileController {
@@ -29,32 +31,20 @@ public class FileController {
 	@Autowired
 	private JwtFilter jwtFilter;
 
-    @PostMapping("/download/image")
+    @PostMapping("/upload/image")
     public ResponseEntity<?> downloadImage(@RequestPart("image") MultipartFile file){
-    	
-    	final String username = UsernameExists();
+
+    	final String username = jwtFilter.getUsername();
     	User user= this.userService.getUserByUsername(username);
-    	
         fileService.saveImage(user, file);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
     @GetMapping(path = "/load/image", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] loadImage(){
-    	
-    	final String username = UsernameExists();
+    	final String username = jwtFilter.getUsername();
     	User user= this.userService.getUserByUsername(username);
-    	
     	return fileService.loadImage(user.getPhoto());
     }
-    
-    private String UsernameExists() {
-
-		final String username = this.jwtFilter.getUserName();
-		if (username == null)
-			throw new RuntimeException("You must authenticate");
-
-		return username;
-	}
 
 }

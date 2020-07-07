@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class ProfileComponent implements OnInit {
   user: UserModule;
   reader = new FileReader();
-  imagsrc = null
+  imagsrc = 'assets/images/profile-avatar.jpg'
   updatedUser: UserModule;
   selectedFile = null;
 

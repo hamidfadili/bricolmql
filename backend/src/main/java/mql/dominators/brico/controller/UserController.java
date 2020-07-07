@@ -56,12 +56,14 @@ public class UserController {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
 			System.out.println("Authentication had succed !");
-			JwtResponse jwtResponse = 
-				new JwtResponse(jwtUtil.generateToken(userDto.getUsername()),formatToUserDTO(this.userService.getUserByUsername(userDto.getUsername())));
+			UserDTO mUserDTO = new UserDTO();
+			BeanUtils.copyProperties(this.userService.getUserByUsername(userDto.getUsername()),mUserDTO);
+			JwtResponse jwtResponse = new JwtResponse(jwtUtil.generateToken(userDto.getUsername()),mUserDTO);
 			
 			return ResponseEntity.ok(jwtResponse);
 
 		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
 			throw new Exception("Invalid Username / Password");
 		}
 	}
@@ -69,13 +71,13 @@ public class UserController {
 	@PutMapping(value = "/user/account/update")
 	public ResponseEntity<?> update(@RequestBody User updatedUser) {
 
-		final String username = UsernameExists();
+		final String username = jwtFilter.getUsername();
 
 		User oldUser = this.userService.getUserByUsername(username);
 
 		if (oldUser != null) {
-
-			return ResponseEntity.status(201).body(this.userService.updateUser(setUserInfos(oldUser, updatedUser)));
+			BeanUtils.copyProperties(updatedUser,oldUser);
+			return ResponseEntity.status(201).body(this.userService.updateUser(oldUser));
 		}
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED)
 				.body("User can not modified, Please check your own part !");
@@ -84,8 +86,8 @@ public class UserController {
 	@PutMapping("/user/account/password")
 	public ResponseEntity<?> changePassword(@RequestParam PasswordRequest passwordRequest){
 
-		final String username = UsernameExists();
-		if(passwordRequest.getUsername() != username)
+		final String username = jwtFilter.getUsername();
+		if(!passwordRequest.getUsername().equals(username))
 			throw new RuntimeException("No authorized");
 		User user = this.userService.getUserByUsername(username);
 		userService.changePassword(user);
@@ -95,7 +97,7 @@ public class UserController {
 	@DeleteMapping(value = "/user/account/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable(name = "id") long id) {
 
-		final String username = UsernameExists();
+		final String username = jwtFilter.getUsername();
 		User userFounded = this.userService.getUserByUsername(username);
 		if (userFounded.getIdUser() != id)
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("This is not the user that you want");
@@ -110,7 +112,8 @@ public class UserController {
 
 		Optional<User> user = this.userService.findById(id);
 		if (user.isPresent()) {
-			UserDTO userDTO = this.formatToUserDTO(user.get());
+			UserDTO userDTO = new UserDTO();
+			BeanUtils.copyProperties(user.get(),userDTO);
 			return ResponseEntity.status(200).body(userDTO);
 		}
 
@@ -120,50 +123,13 @@ public class UserController {
 	@GetMapping(path = "/user/account")
 	public ResponseEntity<?> findOwnAccount() {
 
-		String username = UsernameExists();
+		String username = jwtFilter.getUsername();
 		if (this.userService.getUserByUsername(username) != null) {
-
-			return ResponseEntity.status(200).body(formatToUserDTO(this.userService.getUserByUsername(username)));
+			UserDTO userDTO = new UserDTO();
+			BeanUtils.copyProperties(this.userService.getUserByUsername(username),userDTO);
+			return ResponseEntity.status(200).body(userDTO);
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-	}
-
-	private UserDTO formatToUserDTO(User saveUser) {
-
-		UserDTO userDTO = new UserDTO();
-		userDTO.setIdUser(saveUser.getIdUser());
-		userDTO.setEmail(saveUser.getEmail());
-		userDTO.setUsername(saveUser.getUsername());
-		userDTO.setFirstName(saveUser.getFirstName());
-		userDTO.setLastName(saveUser.getLastName());
-		userDTO.setPhone(saveUser.getPhone());
-		userDTO.setPhoto(saveUser.getPhoto());
-		userDTO.setAddress(saveUser.getAddress());
-		userDTO.setBirthday(saveUser.getBirthday());
-		
-		return userDTO;
-	}
-
-	private User setUserInfos(User oldUser, User updatedUser) {
-
-		oldUser.setFirstName(updatedUser.getFirstName());
-		oldUser.setLastName(updatedUser.getLastName());
-		oldUser.setEmail(updatedUser.getEmail());
-		oldUser.setAddress(updatedUser.getAddress());
-		oldUser.setPhone(updatedUser.getPhone());
-		oldUser.setPhoto(updatedUser.getPhoto());
-		oldUser.setBirthday(updatedUser.getBirthday());
-
-		return oldUser;
-	}
-
-	private String UsernameExists() {
-
-		final String username = this.jwtFilter.getUserName();
-		if (username == null)
-			throw new RuntimeException("You have authenticate");
-
-		return username;
 	}
 
 }
