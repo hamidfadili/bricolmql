@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import mql.dominators.brico.shared.UserDTO;
+import mql.dominators.brico.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,7 +43,7 @@ public class FileServiceImp implements FileService {
         try {
         	user.setPhoto(user.getIdUser() + EXTENSION);
         	System.out.println(user);
-        	userService.saveUser(user);
+        	userService.saveUser(Utils.copyProperties(user,new UserDTO()));
             Files.copy(file.getInputStream(), this.images.resolve(user.getPhoto()));
         } catch (IOException e) {
             e.printStackTrace();

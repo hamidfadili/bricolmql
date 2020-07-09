@@ -48,8 +48,8 @@ public class User implements Serializable {
 	@Email
 	private String email;
 
-	@Size(min = 6)
-	private String password;
+	@Column(name="password")
+	private String encryptedPassword;
 
 	@Size(min = 9,max = 13)
 	private String phone;
@@ -67,13 +67,13 @@ public class User implements Serializable {
 		super();
 		this.idUser = idUser;
 		this.lastName = lastName;
-		this.password = password;
+		this.encryptedPassword = password;
 	}
 
 	public User(String username, String password) {
 		super();
 		this.username = username;
-		this.password = password;
+		this.encryptedPassword = password;
 	}
 
 }

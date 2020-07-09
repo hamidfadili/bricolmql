@@ -1,6 +1,8 @@
 package mql.dominators.brico.service.impl;
 
 import mql.dominators.brico.service.AccountService;
+import mql.dominators.brico.shared.UserDTO;
+import mql.dominators.brico.utils.Utils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import mql.dominators.brico.entities.Role;
@@ -20,11 +22,9 @@ public class AccountServiceImpl implements AccountService {
 	private mql.dominators.brico.repository.RoleRepository roleRepository;
 
 	@Override
-	public User saveUser(User user) {
-
-		String hashPassword = bCrypt.encode(user.getPassword());
-		user.setPassword(hashPassword);
-		return userRepository.save(user);
+	public User saveUser(UserDTO userDTO) {
+		userDTO.setEncryptedPassword(bCrypt.encode(userDTO.getPassword()));
+		return userRepository.save(Utils.copyProperties(userDTO,new User()));
 	}
 
 	@Override

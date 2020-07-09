@@ -25,10 +25,10 @@ public class CustomUserDetailsImpl implements UserDetailsService {
 		if (user == null)
 			throw new UsernameNotFoundException("Username not found!");
 
-		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
 //		user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
 
-		return new User(user.getUsername(), user.getPassword(), authorities);
+		return new User(user.getUsername(), user.getEncryptedPassword(), authorities);
 	}
 
 }
