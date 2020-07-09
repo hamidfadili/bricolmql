@@ -2,10 +2,11 @@ package mql.dominators.brico.service;
 
 import mql.dominators.brico.entities.Role;
 import mql.dominators.brico.entities.User;
+import mql.dominators.brico.shared.UserDTO;
 
 public interface AccountService {
 
-	public User saveUser(User user);
+	public User saveUser(UserDTO userDTO);
 
 	public Role saveRole(Role role);
 

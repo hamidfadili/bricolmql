@@ -32,10 +32,9 @@ public class FileController {
 	private JwtFilter jwtFilter;
 
     @PostMapping("/upload/image")
-    public ResponseEntity<?> downloadImage(@RequestPart("image") MultipartFile file){
-
+    public ResponseEntity<?> uploadImage(@RequestPart("image") MultipartFile file){
     	final String username = jwtFilter.getUsername();
-    	User user= this.userService.getUserByUsername(username);
+    	User user = this.userService.getUserByUsername(username);
         fileService.saveImage(user, file);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

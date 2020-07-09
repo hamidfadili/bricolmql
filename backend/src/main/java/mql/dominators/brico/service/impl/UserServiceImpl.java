@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import mql.dominators.brico.service.UserService;
+import mql.dominators.brico.shared.UserDTO;
+import mql.dominators.brico.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,11 +28,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public User saveUser(User user) {
+	public User saveUser(UserDTO userDTO) {
 
 //		user.setIdUser(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
-		user.setPassword(bCrypt.encode(user.getPassword()));
-		return userRepository.save(user);
+		userDTO.setEncryptedPassword(bCrypt.encode(userDTO.getPassword()));
+		return userRepository.save(Utils.copyProperties(userDTO,new User()));
 	}
 
 	@Override
@@ -54,29 +56,22 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public User getUserByUsername(String username) {
-		User user = this.userRepository.findByUsername(username);
-
-//		if (user == null)
-//			throw new RuntimeException("User not found !");
-
-		return user;
+		return this.userRepository.findByUsername(username);
 	}
 
 	@Override
 	@Transactional
 	public Optional<User> findById(long id) {
-		Optional<User> optionalUser = this.userRepository.findById(id);
-//		if (!optionalUser.isPresent())
+//			if (!optionalUser.isPresent())
 //			throw new RuntimeException("User that you want, not found !");
 
-		return optionalUser;
+		return this.userRepository.findById(id);
 	}
 
 	@Override
 	@Transactional
 	public void delete(long id) {
-		Optional<User> user = findById(id);
-		this.userRepository.delete(user.get());
+		findById(id).ifPresent(value -> this.userRepository.delete(value));
 	}
 
 	@Override
@@ -85,11 +80,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changePassword(User user) {
-		String password = user.getPassword();
+	public boolean changePassword(UserDTO userDTO) {
+		String password = userDTO.getPassword();
 		if(password != null && password.length() > 6){
-			user.setPassword(bCrypt.encode(password));
-			userRepository.save(user);
+			userDTO.setEncryptedPassword(bCrypt.encode(password));
+			userRepository.save(Utils.copyProperties(userDTO,new User()));
 			return true;
 		}
 		return false;
