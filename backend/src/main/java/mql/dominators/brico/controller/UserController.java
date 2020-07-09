@@ -4,12 +4,13 @@ import java.util.Optional;
 
 import mql.dominators.brico.request.PasswordRequest;
 import mql.dominators.brico.response.MessageResponse;
-import org.springframework.beans.BeanUtils;
+import mql.dominators.brico.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import mql.dominators.brico.response.JwtResponse;
@@ -37,10 +38,8 @@ public class UserController {
 
 	
 	@PostMapping(path = "/register")
-	public ResponseEntity<JwtResponse> save(@RequestBody User user) {
-		User saveUser = userService.saveUser(user);
-		UserDTO userDTO = new UserDTO();
-		BeanUtils.copyProperties(saveUser,userDTO);
+	public ResponseEntity<JwtResponse> save(@RequestBody UserDTO userDTO) {
+		User saveUser = userService.saveUser(userDTO);
 		JwtResponse jwtResponse = 
 				new JwtResponse(jwtUtil.generateToken(userDTO.getUsername()),userDTO);
 
@@ -54,14 +53,14 @@ public class UserController {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
 			System.out.println("Authentication had succed !");
-			UserDTO mUserDTO = new UserDTO();
-			BeanUtils.copyProperties(this.userService.getUserByUsername(userDto.getUsername()),mUserDTO);
-			JwtResponse jwtResponse = new JwtResponse(jwtUtil.generateToken(userDto.getUsername()),mUserDTO);
+			JwtResponse jwtResponse = new JwtResponse(
+					jwtUtil.generateToken(userDto.getUsername()),
+					Utils.copyProperties(this.userService.getUserByUsername(userDto.getUsername()),new UserDTO())
+			);
 			
 			return ResponseEntity.ok(jwtResponse);
 
 		} catch (Exception ex) {
-			System.err.println(ex.getMessage());
 			throw new Exception("Invalid Username / Password");
 		}
 	}
@@ -72,24 +71,26 @@ public class UserController {
 		final String username = jwtFilter.getUsername();
 		User oldUser = this.userService.getUserByUsername(username);
 		if (oldUser != null) {
-			BeanUtils.copyProperties(updatedUser,oldUser);
-			return ResponseEntity.status(201).body(this.userService.updateUser(oldUser));
+			return ResponseEntity.status(201)
+					.body(this.userService.updateUser(Utils.copyProperties(updatedUser,oldUser)));
 		}
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED)
-				.body("User can not modified");
+				.body(new MessageResponse("User can not modified"));
 	}
 
 	@PutMapping("/user/account/password")
 	public ResponseEntity<?> changePassword(@RequestParam PasswordRequest passwordRequest){
 		final String username = jwtFilter.getUsername();
-		if(!passwordRequest.getUsername().equals(username))
-			throw new RuntimeException("No authorized");
 		User user = this.userService.getUserByUsername(username);
-		if(userService.changePassword(user)){
-			return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Password changed successfully"));
-		}else{
+		if(new BCryptPasswordEncoder().matches(passwordRequest.getOldPassword(),user.getEncryptedPassword())){
+			UserDTO userDTO = Utils.copyProperties(user,new UserDTO());
+			userDTO.setPassword(passwordRequest.getNewPassword());
+			if(userService.changePassword(userDTO)){
+				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Password changed successfully"));
+			}
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Password have not changed"));
 		}
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Old password doesn't matches"));
 	}
 
 	@DeleteMapping(value = "/user/account/delete/{id}")
@@ -110,9 +111,7 @@ public class UserController {
 
 		Optional<User> user = this.userService.findById(id);
 		if (user.isPresent()) {
-			UserDTO userDTO = new UserDTO();
-			BeanUtils.copyProperties(user.get(),userDTO);
-			return ResponseEntity.status(200).body(userDTO);
+			return ResponseEntity.status(HttpStatus.OK).body(Utils.copyProperties(user.get(),new UserDTO()));
 		}
 
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User that you want, not found !");
@@ -120,12 +119,10 @@ public class UserController {
 
 	@GetMapping(path = "/user/account")
 	public ResponseEntity<?> findOwnAccount() {
-
 		String username = jwtFilter.getUsername();
 		if (this.userService.getUserByUsername(username) != null) {
-			UserDTO userDTO = new UserDTO();
-			BeanUtils.copyProperties(this.userService.getUserByUsername(username),userDTO);
-			return ResponseEntity.status(200).body(userDTO);
+			return ResponseEntity.status(200)
+					.body(Utils.copyProperties(this.userService.getUserByUsername(username),new UserDTO()));
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}

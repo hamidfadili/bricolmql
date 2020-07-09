@@ -1,10 +1,13 @@
 package mql.dominators.brico.utils;
 
-import mql.dominators.brico.jwt.api.filter.JwtFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeanUtils;
 
 public class Utils {
     private Utils(){}
-    
+
+    public static <T extends Object> T copyProperties(Object source,T destination){
+        BeanUtils.copyProperties(source,destination);
+        return destination;
+    }
 
 }
