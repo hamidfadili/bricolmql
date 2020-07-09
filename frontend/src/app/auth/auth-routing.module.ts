@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './../change-password/change-password.component';
 import { AuthGuard } from './auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { NoAuthGuard } from './no-auth.guard';
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'profile/change-password',
+    component: ChangePasswordComponent,
     canActivate : [AuthGuard]
   }
 ];

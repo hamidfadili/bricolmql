@@ -82,6 +82,8 @@ public class UserController {
 	@PutMapping("/user/account/password")
 	public ResponseEntity<?> changePassword(@RequestParam PasswordRequest passwordRequest){
 		final String username = jwtFilter.getUsername();
+		System.out.println("aaa "+passwordRequest);
+		System.out.println("username "+username);
 		if(!passwordRequest.getUsername().equals(username))
 			throw new RuntimeException("No authorized");
 		User user = this.userService.getUserByUsername(username);
