@@ -51,13 +51,14 @@ public class User implements Serializable {
 	@Column(name="password")
 	private String encryptedPassword;
 
-	@Size(min = 9,max = 13)
+	//@Size(min = 9,max = 13)
 	private String phone;
 
 	private String address;
 
 	@JsonFormat(pattern = "dd-MM-YYYY")
 	private Date birthday;
+
 	private String photo;
 
 //	@DBRef
