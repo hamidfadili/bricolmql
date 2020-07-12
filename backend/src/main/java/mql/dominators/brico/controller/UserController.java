@@ -2,6 +2,7 @@ package mql.dominators.brico.controller;
 
 import java.util.Optional;
 
+import mql.dominators.brico.entities.Experience;
 import mql.dominators.brico.request.PasswordRequest;
 import mql.dominators.brico.response.MessageResponse;
 import mql.dominators.brico.utils.Utils;
@@ -57,9 +58,7 @@ public class UserController {
 					jwtUtil.generateToken(userDto.getUsername()),
 					Utils.copyProperties(this.userService.getUserByUsername(userDto.getUsername()),new UserDTO())
 			);
-			
 			return ResponseEntity.ok(jwtResponse);
-
 		} catch (Exception ex) {
 			throw new Exception("Invalid Username / Password");
 		}
@@ -67,7 +66,6 @@ public class UserController {
 
 	@PutMapping(value = "/user/account/update")
 	public ResponseEntity<?> update(@RequestBody User updatedUser) {
-		System.out.println(updatedUser);
 		final String username = jwtFilter.getUsername();
 		User oldUser = this.userService.getUserByUsername(username);
 		if (oldUser != null) {
@@ -79,7 +77,7 @@ public class UserController {
 	}
 
 	@PutMapping("/user/account/password")
-	public ResponseEntity<?> changePassword(@RequestParam PasswordRequest passwordRequest){
+	public ResponseEntity<?> changePassword(@RequestBody PasswordRequest passwordRequest){
 		final String username = jwtFilter.getUsername();
 		User user = this.userService.getUserByUsername(username);
 		if(new BCryptPasswordEncoder().matches(passwordRequest.getOldPassword(),user.getEncryptedPassword())){
@@ -98,7 +96,7 @@ public class UserController {
 
 		final String username = jwtFilter.getUsername();
 		User userFounded = this.userService.getUserByUsername(username);
-		if (userFounded.getIdUser() != id)
+		if (userFounded.getUserId() != id)
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("This is not the user that you want");
 
 		this.userService.delete(id);
@@ -115,6 +113,18 @@ public class UserController {
 		}
 
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User that you want, not found !");
+	}
+
+	@GetMapping(path = "/user/profile/test")
+	public ResponseEntity<?> test(){
+		User user = userService.getUserByUsername(jwtFilter.getUsername());
+		System.out.println(user);
+		Experience experience = new Experience();
+		experience.setCompany("jiij");
+		experience.setDescription("jghjhbhj");
+		user.getExperiences().add(experience);
+		userService.saveUser(Utils.copyProperties(user,new UserDTO()));
+		return null;
 	}
 
 	@GetMapping(path = "/user/account")

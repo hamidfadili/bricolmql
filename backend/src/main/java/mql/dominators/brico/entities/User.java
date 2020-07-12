@@ -1,14 +1,12 @@
 package mql.dominators.brico.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import org.springframework.data.annotation.Transient;
@@ -33,7 +31,7 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUser;
+	private long userId;
 
 	@NotBlank
 	private String firstName;
@@ -60,12 +58,14 @@ public class User implements Serializable {
 	private Date birthday;
 	private String photo;
 
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	private List<Experience> experiences = new ArrayList<>();
 //	@DBRef
 //	private Collection<Role> roles = new ArrayList<>();
 
-	public User(Long idUser, String lastName, String password) {
+	public User(long userId, String lastName, String password) {
 		super();
-		this.idUser = idUser;
+		this.userId = userId;
 		this.lastName = lastName;
 		this.encryptedPassword = password;
 	}

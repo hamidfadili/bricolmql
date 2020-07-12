@@ -41,7 +41,7 @@ public class FileServiceImp implements FileService {
     @Override
     public void saveImage(User user, MultipartFile file) {
         try {
-        	user.setPhoto(user.getIdUser() + EXTENSION);
+        	user.setPhoto(user.getUserId() + EXTENSION);
         	System.out.println(user);
         	userService.saveUser(Utils.copyProperties(user,new UserDTO()));
             Files.copy(file.getInputStream(), this.images.resolve(user.getPhoto()));

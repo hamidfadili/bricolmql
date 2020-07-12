@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean changePassword(UserDTO userDTO) {
 		String password = userDTO.getPassword();
-		if(password != null && password.length() > 6){
+		if(password != null && password.length() >= 6){
 			userDTO.setEncryptedPassword(bCrypt.encode(password));
 			userRepository.save(Utils.copyProperties(userDTO,new User()));
 			return true;
