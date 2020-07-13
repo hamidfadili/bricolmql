@@ -21,7 +21,6 @@ import mql.dominators.brico.service.UserService;
 public class FileServiceImp implements FileService {
     private final Path root = Paths.get("uploads");
     private final Path images = Paths.get("uploads/images");
-    //private static final String EXTENSION = ".png";
     private static final List<String> contentTypes = Arrays.asList("png", "jpg", "jpeg", "gif");
 
     @Autowired
@@ -46,8 +45,9 @@ public class FileServiceImp implements FileService {
         try {
             boolean isImg = false;
             String filename = file.getOriginalFilename().toLowerCase();
-            for (String ex:contentTypes) {
-                if (filename.contains(ex)){
+            System.out.println(file.getContentType());
+            for (String contentType:contentTypes) {
+                if(filename.contains(contentType)){
                     isImg=true;
                 }
             }
@@ -66,7 +66,6 @@ public class FileServiceImp implements FileService {
 
 	@Override
 	public byte[] loadImage(String photo) {
-		
 		try {
 			return Files.readAllBytes(this.images.resolve(photo));
 		} catch (IOException e) {

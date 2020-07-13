@@ -34,19 +34,22 @@ public class User implements Serializable {
 	private long userId;
 
 	@NotBlank
+	@Column(nullable = true,unique = true)
+	private String username;
+
+	@NotBlank
+	@Column(nullable = true)
 	private String firstName;
 
 	@NotBlank
+	@Column(nullable = true)
 	private String lastName;
 
-	@NotBlank
-	@Column(unique = true)
-	private String username;
-
 	@Email
+	@Column(nullable = true)
 	private String email;
 
-	@Column(name="password")
+	@Column(nullable = false,name="password")
 	private String encryptedPassword;
 
 	//@Size(min = 9,max = 13)
@@ -59,8 +62,13 @@ public class User implements Serializable {
 
 	private String photo;
 
+	private String nationaIdCard;
+
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
 	private List<Experience> experiences = new ArrayList<>();
+
+	@Column(nullable = false)
+	private String type = "client";
 //	@DBRef
 //	private Collection<Role> roles = new ArrayList<>();
 

@@ -66,9 +66,13 @@ public class UserController {
 
 	@PutMapping(value = "/user/account/update")
 	public ResponseEntity<?> update(@RequestBody User updatedUser) {
-		final String username = jwtFilter.getUsername();
-		User oldUser = this.userService.getUserByUsername(username);
+        System.out.println(updatedUser);
+        final String username = jwtFilter.getUsername();
+        User oldUser = this.userService.getUserByUsername(username);
 		if (oldUser != null) {
+            System.out.println(oldUser);
+            System.out.println(updatedUser);
+            System.out.println(Utils.copyProperties(updatedUser,oldUser));
 			return ResponseEntity.status(201)
 					.body(this.userService.updateUser(Utils.copyProperties(updatedUser,oldUser)));
 		}

@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 
 export class UserModule { 
 
-  idUser? : number;
+  userId? : number;
   firstName? : string;
   lastName? : string;
   email? : string;
