@@ -47,9 +47,9 @@ export class HeaderComponent implements OnInit {
   }
 
   SlideInOut(divName: string){
-    if(divName === 'responsive-opensec'){
+    
       this.animationState = this.animationState === 'out' ? 'in' : 'out';
-    }
+  
     this.isMenuOpned = !this.isMenuOpned;
   }
 
