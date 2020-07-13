@@ -1,3 +1,4 @@
+import { ChangePasswordRequest } from './../request/change-password.request';
 import { Router } from '@angular/router';
 import { ServerUserModule, ServerResponseUserModule } from '../models/server-user/server-user.module';
 import { UserModule } from 'src/app/models/user/user.module';
@@ -54,8 +55,8 @@ export class UserService {
     )
   }
 
-  updatePassword(password){
-    return this.http.put(this.UPDATE_PASSWORD_URL, password).pipe(
+  updatePassword(passwordRequest: ChangePasswordRequest){
+    return this.http.put(this.UPDATE_PASSWORD_URL, passwordRequest).pipe(
       map(res => {
         console.log(res);
         return res

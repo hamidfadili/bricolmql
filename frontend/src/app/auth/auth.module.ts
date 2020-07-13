@@ -8,6 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { NoAuthGuard } from './no-auth.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileDashboardComponent } from './profile/profile-dashboard/profile-dashboard.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { DevenirBricoleurComponent } from './profile/devenir-bricoleur/devenir-bricoleur.component';
 
 
 
@@ -16,7 +19,10 @@ import { ProfileComponent } from './profile/profile.component';
   declarations: [
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProfileDashboardComponent,
+    ChangePasswordComponent,
+    DevenirBricoleurComponent
   ],
   imports: [
     CommonModule,

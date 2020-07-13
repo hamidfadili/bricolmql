@@ -46,8 +46,9 @@ public class FileServiceImp implements FileService {
         try {
             boolean isImg = false;
             String filename = file.getOriginalFilename().toLowerCase();
+            System.out.println(file.getContentType());
             for (String ex:contentTypes) {
-                if (filename.contains(ex)){
+                if (filename.endsWith(ex)){
                     isImg=true;
                 }
             }

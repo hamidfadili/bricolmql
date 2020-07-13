@@ -64,8 +64,13 @@ export class ProfileComponent implements OnInit {
   }
 
   uploadImage(image){
-    
     this.fileService.uploadImage(this.selectedFile).subscribe(
+      event => console.log(event)
+    )
+  }
+
+  loadImage(){
+    this.fileService.loadImage().subscribe(
       event => console.log(event)
     )
   }

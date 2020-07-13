@@ -79,7 +79,7 @@ public class UserController {
 	}
 
 	@PutMapping("/user/account/password")
-	public ResponseEntity<?> changePassword(@RequestParam PasswordRequest passwordRequest){
+	public ResponseEntity<?> changePassword(@RequestBody PasswordRequest passwordRequest){
 		final String username = jwtFilter.getUsername();
 		User user = this.userService.getUserByUsername(username);
 		if(new BCryptPasswordEncoder().matches(passwordRequest.getOldPassword(),user.getEncryptedPassword())){
