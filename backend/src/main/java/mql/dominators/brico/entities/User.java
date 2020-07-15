@@ -35,23 +35,23 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUser;
 
-	@NotBlank
+//	@NotBlank
 	private String firstName;
 
-	@NotBlank
+//	@NotBlank
 	private String lastName;
 
-	@NotBlank
+//	@NotBlank
 	@Column(unique = true)
 	private String username;
 
-	@Email
+//	@Email
 	private String email;
 
-	@Size(min = 6)
+//	@Size(min = 6)
 	private String password;
 
-	@Size(min = 9,max = 13)
+//	@Size(min = 9,max = 13)
 	private String phone;
 
 	private String address;

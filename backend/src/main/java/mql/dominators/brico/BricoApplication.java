@@ -26,10 +26,6 @@ public class BricoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		userService.saveUser(new User(sequenceGenerator.generateSequence(User.SEQUENCE_NAME), "said", "said1997"));
-//		accountService.saveRole(new Role(sequenceGenerator.generateSequence(Role.SEQUENCE_NAME), "USER"));
-
-//		accountService.addRoleToUser("youness", "USER");
 		fileService.init();
 	}
 

@@ -42,7 +42,7 @@ public class FileServiceImp implements FileService {
         	user.setPhoto(user.getIdUser() + EXTENSION);
         	System.out.println(user);
         	userService.saveUser(user);
-            Files.copy(file.getInputStream(), this.images.resolve(user.getPhoto()));
+            Files.write(this.images.resolve(user.getPhoto()), file.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
