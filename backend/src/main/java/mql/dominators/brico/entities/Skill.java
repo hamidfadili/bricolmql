@@ -15,8 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,12 +39,7 @@ public class Skill {
 	@NotEmpty
 	private String description;
 
-//    private Date startDate;
-//    private Date endDate;
-//    private String company;
-//    private String description;
-
-	@JsonManagedReference
+//	@JsonManagedReference
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST,
 			CascadeType.MERGE })
 	@JoinTable(name = "skill_user", joinColumns = @JoinColumn(name = "skillId"), inverseJoinColumns = @JoinColumn(name = "userId"))
