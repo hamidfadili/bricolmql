@@ -84,7 +84,6 @@ header {
     position: relative;
 }
 
-
 /* Theme Layout */
 .theme-layout{
     float:left;
@@ -6534,12 +6533,6 @@ aside .widget.border:first-child {
     margin-top: 7px;
 }
 
-
-
-
-
-
-
 .tree_widget-sec > ul > li.inner-child.active > a {
     color: #8b91dd;
 }
@@ -6620,7 +6613,8 @@ aside .widget.border:first-child {
     vertical-align: bottom;
     padding-left: 30px;
 }
-.upload-info > a,.upload-info > input,.upload-info > div {
+
+.upload-info > div{
     float: left;
     font-family: Open Sans;
     font-size: 15px;
@@ -6632,9 +6626,23 @@ aside .widget.border:first-child {
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
     border-radius: 20px;
-
-    padding: 10px 40px;
 }
+
+.upload-info a {
+    font-family: Open Sans;
+    font-size: 15px;
+    color: #8b91dd;
+    display: inline-block;
+    padding: 15px;
+    border-radius: 0 18px 18px 0;
+}
+
+.upload-info input {
+    display: inline-block;
+    padding-left: 15px;
+}
+
+
 .upload-info > span {
     float: left;
     width: 100%;
@@ -6646,6 +6654,7 @@ aside .widget.border:first-child {
 .profile-form-edit {
     float: left;
     width: 100%;
+    margin-bottom: 60px;
 }
 .profile-form-edit > form {
     float: left;
@@ -6742,7 +6751,7 @@ aside .widget.border:first-child {
     color: #8b91dd;
     line-height: 48px;
 }
-.contact-edit > h3 {
+.profile-form-edit > form > div > h3 {
     float: left;
     width: 100%;
     margin-top: 40px;
@@ -6751,7 +6760,7 @@ aside .widget.border:first-child {
     color: #202020;
     font-weight: bold;
     margin: 0;
-        margin-top: 0px;
+    margin-top: 0px;
     margin-top: 0px;
     margin-top: 0px;
     padding-bottom: 20px;
@@ -9027,7 +9036,8 @@ header.gradient{
     height: 333px;
 }
 .upload-img-bar > span.round {
-    
+    width: 150px;
+    height: 150px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
@@ -9038,7 +9048,9 @@ header.gradient{
 .upload-img-bar > span.round img {
     float: left;
     width: 100%;
-    
+    height: 100%;
+    object-fit: cover;    
+
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
@@ -12217,15 +12229,7 @@ select {
 
 
 .dropdown-field {border:none !important;}
-
-
-
 }
-
-
-
-
-
 
 @media (max-width:767px){
 .error-sec > p {
@@ -12859,7 +12863,6 @@ select {
     margin-top: 20px;
 }
 .upload-info > a {
-    float: none;
     display: inline-block;
 }
 .tags > .addedTag {
@@ -12971,9 +12974,6 @@ select {
 .new-slide-3 img{opacity: 0.1;}
 
 
-.job-search-sec {
-    
-}
 .job-search-sec .job-search > h3 {
     line-height: 30px;
 }
@@ -13046,9 +13046,9 @@ select {
     vertical-align: middle;
     font-size: 13px;
     -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     float: left;
     width: 100% !important;
     text-align: left;

@@ -5,6 +5,8 @@ import { RouterModule,Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { DevenirBricoleurComponent } from './profile/devenir-bricoleur/devenir-bricoleur.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,16 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'profile/change-password',
+    component: ChangePasswordComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'profile/devenir-bricoleur',
+    component: DevenirBricoleurComponent,
     canActivate : [AuthGuard]
   }
 ];

@@ -1,18 +1,27 @@
 package mql.dominators.brico.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
@@ -33,47 +42,61 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUser;
+	private long userId;
 
-//	@NotBlank
-	private String firstName;
-
-//	@NotBlank
-	private String lastName;
-
-//	@NotBlank
-	@Column(unique = true)
+	@NotBlank
+	@Column(nullable = true, unique = true)
 	private String username;
 
-//	@Email
+	@NotBlank
+	@Column(nullable = true)
+	private String firstName;
+
+	@NotBlank
+	@Column(nullable = true)
+	private String lastName;
+
+	@Email
+	@Column(nullable = true)
 	private String email;
 
-//	@Size(min = 6)
-	private String password;
+	@Column(nullable = false, name = "password")
+	private String encryptedPassword;
 
-//	@Size(min = 9,max = 13)
+	// @Size(min = 9,max = 13)
 	private String phone;
 
 	private String address;
 
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "dd-MM-YYYY")
 	private Date birthday;
+
 	private String photo;
 
+	private String nationaIdCard;
+
+	@JsonBackReference
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST,
+			CascadeType.MERGE })
+	@JoinTable(name = "skill_user", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "skillId"))
+	private List<Skill> skills = new ArrayList<>();
+
+	@Column(nullable = false)
+	private String type = "client";
 //	@DBRef
 //	private Collection<Role> roles = new ArrayList<>();
 
-	public User(Long idUser, String lastName, String password) {
+	public User(long userId, String lastName, String password) {
 		super();
-		this.idUser = idUser;
+		this.userId = userId;
 		this.lastName = lastName;
-		this.password = password;
+		this.encryptedPassword = password;
 	}
 
 	public User(String username, String password) {
 		super();
 		this.username = username;
-		this.password = password;
+		this.encryptedPassword = password;
 	}
 
 }

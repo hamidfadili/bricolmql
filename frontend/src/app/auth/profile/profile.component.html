@@ -4,33 +4,27 @@
             <div class="row no-gape">
                 <aside class="col-lg-3 column border-right">
                     <div class="widget">
-                        <div class="tree_widget-sec">
-                            <ul>
-                                <li><a href="candidates_change_password.html" title=""><i class="la la-flash"></i>Change
-                                        Password</a></li>
-                                <li><a href="#" title=""><i class="la la-unlink"></i>Logout</a></li>
-                            </ul>
-                        </div>
+                        <profile-dashboard></profile-dashboard>
                     </div>
                 </aside>
                 <div class="col-lg-9 column">
                     <div class="padding-left">
-                        <div class="profile-form-edit">
-                            <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
                                 <div class="profile-title">
-                                    <h3>Mon Profile</h3>
+                                    <h3 (click)="loadImage()">Mon Profile</h3>
                                     <div class="upload-img-bar">
-                                        <span class="round"><img [src]="updatedUser.photo != null ? updatedUser.photo : 'assets/images/profile-avatar.jpg'" alt=""></span>
+                                        <span class="round"><img [src]="updatedUser.photo ? 'http://localhost:8080/load/image' : imagsrc"></span>
                                         <div class="upload-info">
                                             <div>
-                                                <input #image (change)="onFileSelected($event)" type="file" name="photo" accept="image/*">
-                                                <a (click)="uploadImage(image)">Upload</a>
+                                                <input #image (change)="onFileSelected($event)" type="file" (change)="fileChangeEvent($event)" #imageuser name="photo" accept="image/*">
+                                                <a class="upload-button" (click)="uploadImage(image)">Upload</a>
                                             </div>  
                                             <span>Max file size is 1MB, Minimum dimension: 270x210 And Suitable files
                                                 are .jpg & .png</span>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="profile-form-edit">
+                                    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <span class="pf-title">Votre Prénom</span>
@@ -59,43 +53,37 @@
                                             <input type="date" name="birthday" [ngModel]="updatedUser.birthday | date:'yyyy-MM-dd'" (ngModelChange)="updatedUser.birthday = $event">
                                         </div>
                                     </div>
-
-                                    <div class="contact-edit">
-                                        <h3>Contact</h3>
-
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <span class="pf-title">N° de téléphone</span>
-                                                <div class="pf-field">
-                                                    <input type="text" name="phone" placeholder="+2120 000 000 000"
-                                                        [(ngModel)]="updatedUser.phone">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <span class="pf-title">Email</span>
-                                                <div class="pf-field">
-                                                    <input type="email" name="email" placeholder="test@gmail.com"
-                                                        [(ngModel)]="updatedUser.email">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <span class="pf-title">Adresse</span>
-                                                <div class="pf-field">
-                                                    <input type="text" name="adresse" placeholder="Adresse"
-                                                        [(ngModel)]="updatedUser.address">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <button type="submit">Modifier</button>
-                                            </div>
+                                    <h3>Contact</h3>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">N° de téléphone</span>
+                                        <div class="pf-field">
+                                            <input type="text" name="phone" placeholder="+2120 000 000 000"
+                                                [(ngModel)]="updatedUser.phone">
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Email</span>
+                                        <div class="pf-field">
+                                            <input type="email" name="email" placeholder="test@gmail.com"
+                                                [(ngModel)]="updatedUser.email">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <span class="pf-title">Adresse</span>
+                                        <div class="pf-field">
+                                            <input type="text" name="adresse" placeholder="Adresse"
+                                                [(ngModel)]="updatedUser.address">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="submit">Modifier</button>
+                                    </div>                            
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 </section>
