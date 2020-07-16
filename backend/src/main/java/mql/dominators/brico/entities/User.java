@@ -15,14 +15,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.Transient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -75,16 +76,19 @@ public class User implements Serializable {
 
 	private String nationaIdCard;
 
-	@JsonBackReference
+	@Column(nullable = false)
+	private String type = "client";
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.REFRESH,
+			CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Experience> experiences = new ArrayList<>();
+
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST,
 			CascadeType.MERGE })
 	@JoinTable(name = "skill_user", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "skillId"))
 	private List<Skill> skills = new ArrayList<>();
-
-	@Column(nullable = false)
-	private String type = "client";
-//	@DBRef
-//	private Collection<Role> roles = new ArrayList<>();
 
 	public User(long userId, String lastName, String password) {
 		super();

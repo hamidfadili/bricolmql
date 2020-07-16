@@ -24,14 +24,15 @@ public class SkillServiceImpl implements SkillService {
 	private UserRepository userRepository;
 
 	@Override
-	public Skill saveSkill(Skill Skill, String username) {
+	public Skill saveSkill(Skill skill, String username) {
+		if (skill == null)
+			throw new RuntimeException("La compétence ne peut pas etre nulle");
 		User user = userRepository.findByUsername(username);
-		Skill.add(user);
-		return skillRepository.save(Skill);
+		skill.add(user);
+		return skillRepository.save(skill);
 	}
 
 	@Override
-	@Transactional
 	public Skill updateSkill(Long id, Skill skill) {
 		Optional<Skill> exp = skillRepository.findById(id);
 

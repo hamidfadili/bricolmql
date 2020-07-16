@@ -31,13 +31,6 @@ public class SkillController {
 
 	@GetMapping
 	public List<Skill> getAllSkills() {
-//		List<Skill> allSkills = this.skillService.getAllSkills();
-
-//		List<SkillDTO> list = allSkills.stream().map(skill -> {
-//			SkillDTO skillDTO = new SkillDTO(skill.getSkillId(), skill.getTitle(), skill.getDescription());
-//			return skillDTO;
-//		}).collect(Collectors.toList());
-//		allSkills.forEach(l -> System.out.println(l.getUser()));
 		return this.skillService.getAllSkills();
 	}
 
@@ -45,7 +38,6 @@ public class SkillController {
 	public ResponseEntity<Skill> getSkill(@PathVariable(name = "id") Long id) {
 		Skill skill = this.skillService.getSkill(id);
 		if (skill != null) {
-//			SkillDTO skillDTO = new SkillDTO(skill.getSkillId(), skill.getTitle(), skill.getDescription());
 			return ResponseEntity.status(200).body(skill);
 		}
 		return ResponseEntity.noContent().build();
@@ -61,7 +53,6 @@ public class SkillController {
 	public ResponseEntity<Skill> save(@PathVariable(name = "id") Long id, @RequestBody Skill skill) {
 		System.out.println(skill.getTitle());
 		Skill updateSkill = skillService.updateSkill(id, skill);
-//		SkillDTO dto = new SkillDTO(updateSkill.getSkillId(), updateSkill.getTitle(), updateSkill.getDescription());
 		return ResponseEntity.ok(updateSkill);
 	}
 
