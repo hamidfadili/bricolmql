@@ -2,9 +2,11 @@ package mql.dominators.brico.controller;
 
 import java.util.Optional;
 
-import mql.dominators.brico.entities.Experience;
+import mql.dominators.brico.request.AuthRequest;
 import mql.dominators.brico.request.PasswordRequest;
 import mql.dominators.brico.response.MessageResponse;
+import mql.dominators.brico.request.UserRequest;
+import mql.dominators.brico.response.UserResponse;
 import mql.dominators.brico.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,24 +41,25 @@ public class UserController {
 
 	
 	@PostMapping(path = "/register")
-	public ResponseEntity<JwtResponse> save(@RequestBody UserDTO userDTO) {
-		User saveUser = userService.saveUser(userDTO);
-		JwtResponse jwtResponse = 
-				new JwtResponse(jwtUtil.generateToken(userDTO.getUsername()),userDTO);
-
+	public ResponseEntity<JwtResponse> save(@RequestBody UserRequest userRequest) {
+		User saveUser = userService.saveUser(Utils.copyProperties(userRequest,new UserDTO()));
+		JwtResponse jwtResponse = new JwtResponse(
+										jwtUtil.generateToken(userRequest.getUsername()),
+										Utils.copyProperties(saveUser,new UserResponse())
+									);
 		return ResponseEntity.status(HttpStatus.CREATED).body(jwtResponse);
 	}
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<?> generateToken(@RequestBody UserDTO userDto) throws Exception {
+	public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
 
 		try {
 			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
+					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 			System.out.println("Authentication had succed !");
 			JwtResponse jwtResponse = new JwtResponse(
-					jwtUtil.generateToken(userDto.getUsername()),
-					Utils.copyProperties(this.userService.getUserByUsername(userDto.getUsername()),new UserDTO())
+					jwtUtil.generateToken(authRequest.getUsername()),
+					Utils.copyProperties(this.userService.getUserByUsername(authRequest.getUsername()),new UserResponse())
 			);
 			return ResponseEntity.ok(jwtResponse);
 		} catch (Exception ex) {
@@ -65,16 +68,13 @@ public class UserController {
 	}
 
 	@PutMapping(value = "/user/account/update")
-	public ResponseEntity<?> update(@RequestBody User updatedUser) {
-        System.out.println(updatedUser);
+	public ResponseEntity<?> update(@RequestBody UserRequest userRequest) {
         final String username = jwtFilter.getUsername();
         User oldUser = this.userService.getUserByUsername(username);
 		if (oldUser != null) {
-            System.out.println(oldUser);
-            System.out.println(updatedUser);
-            System.out.println(Utils.copyProperties(updatedUser,oldUser));
+			User updatesUser = this.userService.updateUser(Utils.copyProperties(userRequest, oldUser));
 			return ResponseEntity.status(201)
-					.body(this.userService.updateUser(Utils.copyProperties(updatedUser,oldUser)));
+					.body(Utils.copyProperties(updatesUser,new UserResponse()));
 		}
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED)
 				.body(new MessageResponse("User can not modified"));
@@ -119,17 +119,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User that you want, not found !");
 	}
 
-	@GetMapping(path = "/user/profile/test")
-	public ResponseEntity<?> test(){
-		User user = userService.getUserByUsername(jwtFilter.getUsername());
-		System.out.println(user);
-		Experience experience = new Experience();
-		experience.setCompany("jiij");
-		experience.setDescription("jghjhbhj");
-		user.getExperiences().add(experience);
-		userService.saveUser(Utils.copyProperties(user,new UserDTO()));
-		return null;
-	}
+
 
 	@GetMapping(path = "/user/account")
 	public ResponseEntity<?> findOwnAccount() {

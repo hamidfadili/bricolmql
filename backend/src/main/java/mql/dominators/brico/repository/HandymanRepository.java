@@ -6,13 +6,16 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import mql.dominators.brico.entities.User;
+import javax.transaction.Transactional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface HandymanRepository extends JpaRepository<Handyman, Long> {
 
-	User findByUsername(String username);
 
-	User findByEmail(String email);
+    @Transactional
+    @Modifying
+    @Query(value="update users set dtype='Handyman' where user_id = ? ",nativeQuery =true)
+    void changeToHandyman(long id);
 
+    Handyman findByUsername(String username);
 }

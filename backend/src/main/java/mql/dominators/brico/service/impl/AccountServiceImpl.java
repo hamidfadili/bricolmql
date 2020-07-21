@@ -44,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public User findUserByUsername(String username) {
-		return userRepository.findByLastName(username);
+		return userRepository.findByUsername(username);
 	}
 
 }

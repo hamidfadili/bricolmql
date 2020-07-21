@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class FileService {
 
   private readonly IMAGE_LOAD_URL = environment.API_URL+"load/image";
-  private readonly IMAGE_UPLOAD_URL = environment.API_URL+"upload/image";
+  private readonly IMAGE_UPLOAD_URL = environment.API_URL+"upload/profile";
 
   constructor(private http:HttpClient) { }
 

@@ -3,6 +3,7 @@ package mql.dominators.brico.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -11,6 +12,8 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+
 @Entity
 @Table(name="experiences")
 public class Experience {
@@ -23,5 +26,5 @@ public class Experience {
     String description;
     @ManyToOne
     @JoinColumn(name="user_id")
-    User user;
+    Handyman handyman;
 }

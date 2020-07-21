@@ -22,7 +22,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "users")
 public class User implements Serializable {
 
@@ -37,11 +39,9 @@ public class User implements Serializable {
 	@Column(nullable = true,unique = true)
 	private String username;
 
-	@NotBlank
 	@Column(nullable = true)
 	private String firstName;
 
-	@NotBlank
 	@Column(nullable = true)
 	private String lastName;
 
@@ -61,16 +61,6 @@ public class User implements Serializable {
 	private Date birthday;
 
 	private String photo;
-
-	private String nationaIdCard;
-
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-	private List<Experience> experiences = new ArrayList<>();
-
-	@Column(nullable = false)
-	private String type = "client";
-//	@DBRef
-//	private Collection<Role> roles = new ArrayList<>();
 
 	public User(long userId, String lastName, String password) {
 		super();

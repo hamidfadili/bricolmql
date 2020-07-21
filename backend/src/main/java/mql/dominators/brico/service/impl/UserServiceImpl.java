@@ -23,22 +23,14 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-//	@Autowired
-//	private SequenceGenerator sequenceGenerator;
-
 	@Override
 	@Transactional
 	public User saveUser(UserDTO userDTO) {
-
-//		user.setIdUser(sequenceGenerator.generateSequence(User.SEQUENCE_NAME));
-		userDTO.setEncryptedPassword(bCrypt.encode(userDTO.getPassword()));
+		if(userDTO.getPassword() != null && userDTO.getPassword().length() >= 6){
+			userDTO.setEncryptedPassword(bCrypt.encode(userDTO.getPassword()));
+		}
+		System.out.println(userDTO);
 		return userRepository.save(Utils.copyProperties(userDTO,new User()));
-	}
-
-	@Override
-	@Transactional
-	public User getUserByLastName(String lastname) {
-		return userRepository.findByLastName(lastname);
 	}
 
 	@Override
@@ -62,9 +54,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public Optional<User> findById(long id) {
-//			if (!optionalUser.isPresent())
-//			throw new RuntimeException("User that you want, not found !");
-
 		return this.userRepository.findById(id);
 	}
 
