@@ -14,14 +14,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import mql.dominators.brico.response.JwtResponse;
 import mql.dominators.brico.entities.User;
-import mql.dominators.brico.shared.UserDTO;
 import mql.dominators.brico.jwt.api.filter.JwtFilter;
 import mql.dominators.brico.jwt.api.util.JwtUtil;
+import mql.dominators.brico.request.PasswordRequest;
+import mql.dominators.brico.response.JwtResponse;
+import mql.dominators.brico.response.MessageResponse;
 import mql.dominators.brico.service.UserService;
+import mql.dominators.brico.shared.UserDTO;
+import mql.dominators.brico.utils.Utils;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -39,7 +49,6 @@ public class UserController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	
 	@PostMapping(path = "/register")
 	public ResponseEntity<JwtResponse> save(@RequestBody UserRequest userRequest) {
 		User saveUser = userService.saveUser(Utils.copyProperties(userRequest,new UserDTO()));
@@ -76,18 +85,17 @@ public class UserController {
 			return ResponseEntity.status(201)
 					.body(Utils.copyProperties(updatesUser,new UserResponse()));
 		}
-		return ResponseEntity.status(HttpStatus.NOT_MODIFIED)
-				.body(new MessageResponse("User can not modified"));
+		return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(new MessageResponse("User can not modified"));
 	}
 
 	@PutMapping("/user/account/password")
-	public ResponseEntity<?> changePassword(@RequestBody PasswordRequest passwordRequest){
+	public ResponseEntity<?> changePassword(@RequestBody PasswordRequest passwordRequest) {
 		final String username = jwtFilter.getUsername();
 		User user = this.userService.getUserByUsername(username);
-		if(new BCryptPasswordEncoder().matches(passwordRequest.getOldPassword(),user.getEncryptedPassword())){
-			UserDTO userDTO = Utils.copyProperties(user,new UserDTO());
+		if (new BCryptPasswordEncoder().matches(passwordRequest.getOldPassword(), user.getEncryptedPassword())) {
+			UserDTO userDTO = Utils.copyProperties(user, new UserDTO());
 			userDTO.setPassword(passwordRequest.getNewPassword());
-			if(userService.changePassword(userDTO)){
+			if (userService.changePassword(userDTO)) {
 				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Password changed successfully"));
 			}
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Password have not changed"));
@@ -113,12 +121,11 @@ public class UserController {
 
 		Optional<User> user = this.userService.findById(id);
 		if (user.isPresent()) {
-			return ResponseEntity.status(HttpStatus.OK).body(Utils.copyProperties(user.get(),new UserDTO()));
+			return ResponseEntity.status(HttpStatus.OK).body(Utils.copyProperties(user.get(), new UserDTO()));
 		}
 
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User that you want, not found !");
 	}
-
 
 
 	@GetMapping(path = "/user/account")
@@ -126,7 +133,7 @@ public class UserController {
 		String username = jwtFilter.getUsername();
 		if (this.userService.getUserByUsername(username) != null) {
 			return ResponseEntity.status(200)
-					.body(Utils.copyProperties(this.userService.getUserByUsername(username),new UserDTO()));
+					.body(Utils.copyProperties(this.userService.getUserByUsername(username), new UserDTO()));
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}

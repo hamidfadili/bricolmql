@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import mql.dominators.brico.entities.User;
 import mql.dominators.brico.service.FileService;
 import mql.dominators.brico.service.UserService;
+import mql.dominators.brico.shared.UserDTO;
+import mql.dominators.brico.utils.Utils;
 
 @Service
 public class FileServiceImp implements FileService {
