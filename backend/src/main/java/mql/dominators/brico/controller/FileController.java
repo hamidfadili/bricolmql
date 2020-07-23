@@ -1,5 +1,7 @@
 package mql.dominators.brico.controller;
 
+import mql.dominators.brico.entities.Handyman;
+import mql.dominators.brico.service.HandymanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,19 +25,30 @@ public class FileController {
     
     @Autowired
 	private UserService userService;
-    
-	@Autowired
+
+    @Autowired
+    private HandymanService handymanService;
+
+
+    @Autowired
 	private JwtFilter jwtFilter;
 
-    @PostMapping("/upload/image")
-    public ResponseEntity<?> uploadImage(@RequestPart(name = "image") MultipartFile file){
+    @PostMapping("/upload/profile")
+    public ResponseEntity<?> uploadProfileImage(@RequestPart(name = "image") MultipartFile file){
         final String username = jwtFilter.getUsername();
-        System.out.println("File : " + file.getOriginalFilename());
     	User user = this.userService.getUserByUsername(username);
-        fileService.saveImage(user, file);
+        fileService.saveProfileImage(user, file);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    
+
+    @PostMapping("/upload/idCard")
+    public ResponseEntity<?> uploadIdCard(@RequestPart(name = "image") MultipartFile file){
+        final String username = jwtFilter.getUsername();
+        Handyman handyman = this.handymanService.getByUsername(username);
+        fileService.saveIdCardImage(handyman, file);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     @GetMapping(path = "/load/image", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] loadImage(){
     	final String username = jwtFilter.getUsername();

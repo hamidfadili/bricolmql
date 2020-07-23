@@ -5,18 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -34,7 +23,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "users")
 public class User implements Serializable {
 
@@ -49,11 +40,9 @@ public class User implements Serializable {
 	@Column(nullable = true, unique = true)
 	private String username;
 
-	@NotBlank
 	@Column(nullable = true)
 	private String firstName;
 
-	@NotBlank
 	@Column(nullable = true)
 	private String lastName;
 
@@ -73,11 +62,6 @@ public class User implements Serializable {
 	private Date birthday;
 
 	private String photo;
-
-	private String nationaIdCard;
-
-	@Column(nullable = false)
-	private String type = "client";
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.REFRESH,

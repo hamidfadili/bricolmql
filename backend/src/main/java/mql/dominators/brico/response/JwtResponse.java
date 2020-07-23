@@ -3,7 +3,7 @@ package mql.dominators.brico.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
-import mql.dominators.brico.shared.UserDTO;
+import mql.dominators.brico.request.UserRequest;
 
 @Data
 @AllArgsConstructor
@@ -11,6 +11,6 @@ import mql.dominators.brico.shared.UserDTO;
 public class JwtResponse {
 
 	private String token;
-	private UserDTO user;
+	private UserResponse user;
 
 }
