@@ -9,19 +9,9 @@
                 </aside>
                 <div class="col-lg-9 column">
                     <div class="padding-left">
+                        <devenir-bricoleur></devenir-bricoleur>
                                 <div class="profile-title">
-                                    <h3 (click)="loadImage()">Mon Profile</h3>
-                                    <div class="upload-img-bar">
-                                        <span class="round"><img [src]="profileImage"></span>
-                                        <div class="upload-info">
-                                            <div>
-                                                <input #image (change)="onFileSelected($event)" type="file" (change)="fileChangeEvent($event)" #imageuser name="photo" accept="image/*">
-                                                <a class="upload-button" >Upload</a>
-                                            </div>  
-                                            <span>Max file size is 1MB, Minimum dimension: 270x210 And Suitable files
-                                                are .jpg & .png</span>
-                                        </div>
-                                    </div>
+                                    <h3>Mon Profile</h3>
                                 </div>
                                 <div class="profile-form-edit">
                                     <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
@@ -54,20 +44,30 @@
                                         </div>
                                     </div>
                                     <h3>Contact</h3>
+                                  
                                     <div class="col-lg-6">
                                         <span class="pf-title">N° de téléphone</span>
                                         <div class="pf-field">
-                                            <input type="text" name="phone" placeholder="+2120 000 000 000"
-                                                [(ngModel)]="updatedUser.phone">
+                                            <input type="text" name="phone" placeholder="+2120 000 000 000" [(ngModel)]="updatedUser.phone" required
+                                            #phone="ngModel">
                                         </div>
                                     </div>
+                                 
                                     <div class="col-lg-6">
                                         <span class="pf-title">Email</span>
                                         <div class="pf-field">
-                                            <input type="email" name="email" placeholder="test@gmail.com"
-                                                [(ngModel)]="updatedUser.email">
+                                            <input type="email" name="email" placeholder="test@gmail.com" [(ngModel)]="updatedUser.email" required #email="ngModel">
                                         </div>
                                     </div>
+                                  
+                                    <div class="col-lg-6 offset-md-0" *ngIf="phone.touched && phone.invalid">
+                                        <span class="alert alert-danger" *ngIf="phone.errors.required">phone of user should not be null</span>
+                                    </div>
+                                    <div class="col-lg-6 offset-md-6" *ngIf="email.touched && email.invalid">
+                                        <span class="alert alert-danger" *ngIf="email.errors.required">email of user should not be null</span>
+                                    </div>
+                              
+
                                     <div class="col-lg-12">
                                         <span class="pf-title">Adresse</span>
                                         <div class="pf-field">
@@ -75,8 +75,9 @@
                                                 [(ngModel)]="updatedUser.address">
                                         </div>
                                     </div>
+
                                     <div class="col-lg-12">
-                                        <button type="submit" [registerForm]="!ngForm.valid">Modifier</button>
+                                        <button type="submit">Suivant</button>
                                     </div>                            
                         </div>
                     </form>

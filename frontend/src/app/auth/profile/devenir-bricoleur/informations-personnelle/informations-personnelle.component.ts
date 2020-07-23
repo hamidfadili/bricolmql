@@ -1,16 +1,17 @@
-import { FileService } from '../../core/file.service';
+
 import { UserModule } from 'src/app/models/user/user.module';
-import { UserService } from './../../core/user.service';
+
 import { Component, OnInit, Output } from '@angular/core';
 import Swal from 'sweetalert2';
-
+import { UserService } from 'src/app/core/user.service';
+import { FileService } from 'src/app/core/file.service';
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-informations-personnelle',
+  templateUrl: './informations-personnelle.component.html',
+  styleUrls: ['./informations-personnelle.component.scss']
 })
-export class ProfileComponent implements OnInit {
-  
+export class InformationsPersonnelleComponent implements OnInit {
+
   user:UserModule;
   reader = new FileReader();
   updatedUser:UserModule;
@@ -33,42 +34,13 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(){
-    Swal.fire({
-      title: 'vous étes sûr?',
-      text: "Voulez vous vraiment modifié votre profil!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, modifier-le!'
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire({
-          timerProgressBar: true,
-          onBeforeOpen: () => {
-            Swal.showLoading()
-          }
-        })
-        this.userService.updateUser(this.updatedUser).subscribe(
-          res => {
-            this.updatedUser = res;
-            Swal.fire(
-              'Profil mis à jour!',
-              '',
-              'success'
-            )
-          }
-        )
-        
-      }
-    })
   }
 
   onFileSelected(event){
     this.selectedFile = event.target.files[0];
   }
 
-  uploadImage(){
+  uploadImage(image){
     Swal.fire({
       title: 'vous étes sûr?',
       text: "Voulez vous vraiment modifié votre photo de profil!",
@@ -86,7 +58,7 @@ export class ProfileComponent implements OnInit {
           }
         })
         this.fileService.uploadImage(this.selectedFile).subscribe(
-         () => {
+          res => {
             Swal.fire(
               'Votre photo est modifié',
               'aaaaaa aaa',
@@ -124,5 +96,6 @@ export class ProfileComponent implements OnInit {
       reader.readAsDataURL(fileInput.target.files[0]);
   }
 }
+
 
 }
