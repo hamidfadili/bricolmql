@@ -1,7 +1,6 @@
-
 import { UserModule } from 'src/app/models/user/user.module';
 
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/core/user.service';
 import { FileService } from 'src/app/core/file.service';
@@ -12,6 +11,7 @@ import { FileService } from 'src/app/core/file.service';
 })
 export class InformationsPersonnelleComponent implements OnInit {
 
+  status = 'infoperso';
   user:UserModule;
   reader = new FileReader();
   updatedUser:UserModule;
@@ -97,5 +97,9 @@ export class InformationsPersonnelleComponent implements OnInit {
   }
 }
 
+infobrico(){
+  this.status = 'infobrico';
+  
+}
 
 }

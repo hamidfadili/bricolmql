@@ -40,7 +40,7 @@ public class HandymanServiceImpl implements HandymanService {
     }
 
     private boolean isValidHandyman(HandymanDTO handyman) {
-        return handyman.getJobTitle()!=null &&
+        return 	handyman.getJobTitle()!=null &&
                 handyman.getPhone() != null &&
                 handyman.getAddress() != null;
     }
