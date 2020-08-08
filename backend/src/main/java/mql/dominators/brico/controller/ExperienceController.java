@@ -32,7 +32,7 @@ public class ExperienceController {
 		return this.experienceService.getAllExperiences();
 	}
 
-	@GetMapping(path = "/user") // localhost:8080/exeprience/user?username=said
+	@GetMapping(path="/user") // localhost:8080/exeprience/user?username=said
 	public List<Experience> experiencePerUser(@RequestParam(name = "username") String username) {
 		return this.experienceService.getAllExperiencesPerUser(username);
 	}
