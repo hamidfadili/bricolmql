@@ -33,6 +33,9 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.updatedUser.address  == ""){
+      this.updatedUser.address = null  
+    }
     Swal.fire({
       title: 'vous étes sûr?',
       text: "Voulez vous vraiment modifié votre profil!",
@@ -63,6 +66,7 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
+  
 
   onFileSelected(event){
     this.selectedFile = event.target.files[0];

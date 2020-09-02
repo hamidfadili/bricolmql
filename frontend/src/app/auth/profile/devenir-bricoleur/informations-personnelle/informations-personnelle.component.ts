@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserModule } from 'src/app/models/user/user.module';
 
 import { Component, OnInit, Input } from '@angular/core';
@@ -11,14 +12,15 @@ import { FileService } from 'src/app/core/file.service';
 })
 export class InformationsPersonnelleComponent implements OnInit {
 
-  status = 'infoperso';
+  status;
   user:UserModule;
   reader = new FileReader();
   updatedUser:UserModule;
   selectedFile = null;
   profileImage = null;
   constructor(private userService:UserService,
-              private fileService:FileService) {}
+              private fileService:FileService,
+              private route: Router) {}
 
   ngOnInit(): void {
     this.userService.currentUser.subscribe(user =>{ 
@@ -98,8 +100,8 @@ export class InformationsPersonnelleComponent implements OnInit {
 }
 
 infobrico(){
-  this.status = 'infobrico';
-  
+  this.status = 2;
+  this.route.navigate(['profile/devenir-bricoleur/informations-bricoleur'])
 }
 
 }

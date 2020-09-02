@@ -16,7 +16,7 @@
                                         <div class="upload-info">
                                             <div>
                                                 <input #image (change)="onFileSelected($event)" type="file" (change)="fileChangeEvent($event)" #imageuser name="photo" accept="image/*">
-                                                <a class="upload-button" >Upload</a>
+                                                <a class="upload-button" (click)="uploadImage()">Upload</a>
                                             </div>  
                                             <span>Max file size is 1MB, Minimum dimension: 270x210 And Suitable files
                                                 are .jpg & .png</span>

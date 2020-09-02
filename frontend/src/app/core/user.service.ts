@@ -1,3 +1,4 @@
+import { HandyManRequest } from './../request/handyman.request';
 import { ChangePasswordRequest } from './../request/change-password.request';
 import { Router } from '@angular/router';
 import { ServerUserModule, ServerResponseUserModule } from '../models/server-user/server-user.module';
@@ -19,6 +20,7 @@ export class UserService {
   private readonly USER_URL = environment.API_URL + "user/account";
   private readonly UPDATE_USER_URL = environment.API_URL + "user/account/update";
   private readonly UPDATE_PASSWORD_URL = environment.API_URL + "user/account/password";
+  private readonly BECOME_HANDYMAN_URL = environment.API_URL + "handyman/become_handyman";
   
 
 
@@ -86,6 +88,15 @@ export class UserService {
       this.currentUserSubject.next(null);
     }
     return this.currentUserSubject.value;
+  }
+
+  becomHandyMan(handyman: HandyManRequest){
+    return this.http.post<HandyManRequest>(this.BECOME_HANDYMAN_URL, handyman).pipe(
+      map(res => {
+        // this.currentUserSubject.next(res);
+        console.log(res);
+      })
+    )
   }
 
   initUser() {

@@ -1,15 +1,15 @@
 <div class="profile-title">
     <h3>Devenir un bricoleur</h3>
     <div class="steps-sec">
-        <div [class.active]="status == 'infoperso'" class="step">
+        <div class="active step">
             <p><i class="la la-info"></i></p>
             <span>Informations personnelle</span>
         </div>
-        <div [class.active]="status == 'infobrico'" class="step">
+        <div [class.active]="status >= 2" class="step">
             <p><i class="la la-cc-mastercard"></i></p>
             <span>Devenir bricoleur</span>
         </div>
-        <div [class.active]="status == 'fin'" class="step">
+        <div [class.active]="status >= 3" class="step">
             <p><i class="la  la-check-circle"></i></p>
             <span>Fin</span>
         </div>

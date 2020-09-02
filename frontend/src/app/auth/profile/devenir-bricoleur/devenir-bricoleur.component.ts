@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./devenir-bricoleur.component.scss']
 })
 export class DevenirBricoleurComponent implements OnInit {
-  @Input() status : string;
+  @Input() status;
   constructor() { }
 
   ngOnInit(): void {
