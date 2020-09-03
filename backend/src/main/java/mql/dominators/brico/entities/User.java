@@ -74,16 +74,6 @@ public class User implements Serializable {
 
 	private String photo;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.REFRESH,
-			CascadeType.PERSIST, CascadeType.MERGE })
-	private List<Experience> experiences = new ArrayList<>();
-
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST,
-			CascadeType.MERGE })
-	@JoinTable(name = "skill_user", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "skillId"))
-	private List<Skill> skills = new ArrayList<>();
 
 	public User(long userId, String lastName, String password) {
 		super();

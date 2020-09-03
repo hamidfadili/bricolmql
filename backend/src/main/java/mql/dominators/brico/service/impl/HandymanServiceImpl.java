@@ -63,20 +63,4 @@ public class HandymanServiceImpl implements HandymanService {
 		return handyman.getJobTitle() != null && handyman.getPhone() != null && handyman.getAddress() != null;
 	}
 
-	private Handyman convertUserToHandyman(HandymanDTO handymanDTO) {
-
-		Handyman handyman = new Handyman(handymanDTO.getNationalIdCard(), handymanDTO.getJobTitle(),
-				handymanDTO.getDescription());
-
-//		handyman.setFirstName(user.getFirstName());
-//		handyman.setLastName(user.getLastName());
-//		handyman.setEmail(user.getEmail());
-//		handyman.setPhone(user.getPhone());
-//		handyman.setPhoto(user.getPhoto());
-//		handyman.setAddress(user.getAddress());
-//		handyman.setUsername(user.getUsername());
-//		handyman.setBirthday(user.getBirthday());
-
-		return handyman;
-	}
 }

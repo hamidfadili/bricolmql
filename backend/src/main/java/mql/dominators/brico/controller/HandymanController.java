@@ -1,13 +1,12 @@
 package mql.dominators.brico.controller;
 
+import mql.dominators.brico.entities.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import mql.dominators.brico.jwt.api.filter.JwtFilter;
 import mql.dominators.brico.request.BecomeHandymanRequest;
@@ -17,6 +16,10 @@ import mql.dominators.brico.service.HandymanService;
 import mql.dominators.brico.service.UserService;
 import mql.dominators.brico.shared.HandymanDTO;
 import mql.dominators.brico.utils.Utils;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")

@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
 		if(userDTO.getPassword() != null && userDTO.getPassword().length() >= 6){
 			userDTO.setEncryptedPassword(bCrypt.encode(userDTO.getPassword()));
 		}
-		System.out.println(userDTO);
 		return userRepository.save(Utils.copyProperties(userDTO,new User()));
 	}
 

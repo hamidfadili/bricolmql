@@ -12,7 +12,7 @@
                                 <div class="profile-title">
                                     <h3 (click)="loadImage()">Mon Profile</h3>
                                     <div class="upload-img-bar">
-                                        <span class="round"><img [src]="updatedUser.photo ? 'http://localhost:8080/load/image' : imagsrc"></span>
+                                        <span class="round"><img [src]="updatedUser.photo ? 'http://localhost:8080/load/image/'+updatedUser.photo : imagsrc"></span>
                                         <div class="upload-info">
                                             <div>
                                                 <input #image (change)="onFileSelected($event)" type="file" (change)="fileChangeEvent($event)" #imageuser name="photo" accept="image/*">
