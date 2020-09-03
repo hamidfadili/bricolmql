@@ -16,7 +16,7 @@ export class FileService {
 
   uploadImage(file){
     const fd = new FormData();
-    fd.append("image",file,file.name);
+    fd.append("image",file);
     return this.http.post(this.IMAGE_UPLOAD_URL,fd,{reportProgress:true,observe:"events"});
   }
 

@@ -1,3 +1,4 @@
+import { InformationsPersonnelleComponent } from './profile/devenir-bricoleur/informations-personnelle/informations-personnelle.component';
 import { AuthGuard } from './auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { NoAuthGuard } from './no-auth.guard';
@@ -7,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { DevenirBricoleurComponent } from './profile/devenir-bricoleur/devenir-bricoleur.component';
+import { InformationsBricoleurComponent } from './profile/devenir-bricoleur/informations-bricoleur/informations-bricoleur.component';
 
 const routes: Routes = [
   {
@@ -30,8 +32,13 @@ const routes: Routes = [
     canActivate : [AuthGuard]
   },
   {
-    path: 'profile/devenir-bricoleur',
-    component: DevenirBricoleurComponent,
+    path: 'profile/devenir-bricoleur/informations-personnelle',
+    component: InformationsPersonnelleComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'profile/devenir-bricoleur/informations-bricoleur',
+    component: InformationsBricoleurComponent,
     canActivate : [AuthGuard]
   }
 ];
