@@ -39,13 +39,11 @@ public class Skill {
 	@NotEmpty
 	private String description;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST,
-			CascadeType.MERGE })
-	@JoinTable(name = "skill_user", joinColumns = @JoinColumn(name = "skillId"), inverseJoinColumns = @JoinColumn(name = "userId"))
-	private List<User> users = new ArrayList<>();
+	@ManyToMany(mappedBy = "skills")
+	private List<Handyman> handymen = new ArrayList<>();
 
-	public void add(User user) {
-		users.add(user);
+	public void add(Handyman handyman) {
+		handymen.add(handyman);
 	}
 
 }

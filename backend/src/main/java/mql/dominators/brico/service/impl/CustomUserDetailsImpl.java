@@ -3,10 +3,11 @@ package mql.dominators.brico.service.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import mql.dominators.brico.entities.User;
+import mql.dominators.brico.security.CustomUserDetails;
 import mql.dominators.brico.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,16 +20,14 @@ public class CustomUserDetailsImpl implements UserDetailsService {
 	private UserService userService;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		mql.dominators.brico.entities.User user = userService.getUserByUsername(username);
-		System.out.println(user.getUsername());
-		if (user == null)
-			throw new UsernameNotFoundException("Username not found!");
+	public UserDetails loadUserByUsername(String username) {
+		User user = userService.getUserByUsername(username);
+		if (user != null) {
+			return new CustomUserDetails(user);
 
-		Collection<GrantedAuthority> authorities = new ArrayList<>();
-//		user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
-
-		return new User(user.getUsername(), user.getEncryptedPassword(), authorities);
+		} else {
+			throw new UsernameNotFoundException("User not authorized.");
+		}
 	}
 
 }

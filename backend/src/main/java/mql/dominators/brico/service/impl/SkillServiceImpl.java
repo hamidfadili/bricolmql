@@ -3,6 +3,7 @@ package mql.dominators.brico.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import mql.dominators.brico.entities.Handyman;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public class SkillServiceImpl implements SkillService {
 		if (skill == null)
 			throw new RuntimeException("La compétence ne peut pas etre nulle");
 		User user = userRepository.findByUsername(username);
-		skill.add(user);
+		skill.add((Handyman) user);
 		return skillRepository.save(skill);
 	}
 
@@ -74,9 +75,9 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 	@Override
-	public List<User> getUsersPerSkill(String titleSkill) {
+	public List<Handyman> getHandymenPerSkill(String titleSkill) {
 		Skill skill = findByTitle(titleSkill);
-		return skill.getUsers();
+		return skill.getHandymen();
 	}
 
 }
