@@ -12,7 +12,7 @@ public interface UserService {
 	
 	public User updateUser(User user);
 
-	public boolean changePassword(UserDTO userDTO);
+	public boolean changePassword(User user);
 
 	public List<User> findAllUsers();
 

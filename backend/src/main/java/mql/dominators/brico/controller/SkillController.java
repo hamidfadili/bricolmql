@@ -2,6 +2,7 @@ package mql.dominators.brico.controller;
 
 import java.util.List;
 
+import mql.dominators.brico.entities.Handyman;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,8 +70,8 @@ public class SkillController {
 	}
 
 	@GetMapping(value = "/user/{title}")
-	public List<User> getUsersBySkill(@PathVariable(name = "title") String title) {
-		return this.skillService.getUsersPerSkill(title);
+	public List<Handyman> getUsersBySkill(@PathVariable(name = "title") String title) {
+		return this.skillService.getHandymenPerSkill(title);
 	}
 
 }

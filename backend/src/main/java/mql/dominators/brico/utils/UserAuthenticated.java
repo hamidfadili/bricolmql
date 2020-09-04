@@ -18,8 +18,7 @@ public class UserAuthenticated {
 
 	public User getAuthUser() {
 		final String username = jwtFilter.getUsername();
-		User user = this.userService.getUserByUsername(username);
-		return user;
+		return this.userService.getUserByUsername(username);
 	}
 	
 }

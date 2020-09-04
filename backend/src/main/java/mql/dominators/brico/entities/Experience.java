@@ -44,7 +44,7 @@ public class Experience {
 	private Date end;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 }

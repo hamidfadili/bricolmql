@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
     if(!this.updatedUser.photo){
       this.profileImage = "../assets/images/profile-avatar.jpg" 
     }else{
-      this.profileImage = "http://localhost:8080/load/image";
+      this.profileImage = "http://localhost:8080/load/image/"+this.updatedUser.photo;
     }
   }
 

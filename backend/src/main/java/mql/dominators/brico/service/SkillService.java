@@ -2,6 +2,7 @@ package mql.dominators.brico.service;
 
 import java.util.List;
 
+import mql.dominators.brico.entities.Handyman;
 import mql.dominators.brico.entities.Skill;
 import mql.dominators.brico.entities.User;
 
@@ -19,6 +20,6 @@ public interface SkillService {
 
 	public Skill findByTitle(String title);
 
-	public List<User> getUsersPerSkill(String titleSkill);
+	public List<Handyman> getHandymenPerSkill(String titleSkill);
 
 }

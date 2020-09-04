@@ -3,10 +3,12 @@ package mql.dominators.brico.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import mql.dominators.brico.security.CustomUserDetails;
 import mql.dominators.brico.service.UserService;
 import mql.dominators.brico.shared.UserDTO;
 import mql.dominators.brico.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +31,6 @@ public class UserServiceImpl implements UserService {
 		if(userDTO.getPassword() != null && userDTO.getPassword().length() >= 6){
 			userDTO.setEncryptedPassword(bCrypt.encode(userDTO.getPassword()));
 		}
-		System.out.println(userDTO);
 		return userRepository.save(Utils.copyProperties(userDTO,new User()));
 	}
 
@@ -69,11 +70,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean changePassword(UserDTO userDTO) {
-		String password = userDTO.getPassword();
+	public boolean changePassword(User user) {
+		String password = user.getEncryptedPassword();
 		if(password != null && password.length() >= 6){
-			userDTO.setEncryptedPassword(bCrypt.encode(password));
-			userRepository.save(Utils.copyProperties(userDTO,new User()));
+			user.setEncryptedPassword(bCrypt.encode(password));
+			userRepository.save(user);
 			return true;
 		}
 		return false;

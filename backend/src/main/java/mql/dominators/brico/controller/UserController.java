@@ -7,12 +7,14 @@ import mql.dominators.brico.request.PasswordRequest;
 import mql.dominators.brico.response.MessageResponse;
 import mql.dominators.brico.request.UserRequest;
 import mql.dominators.brico.response.UserResponse;
+import mql.dominators.brico.security.CustomUserDetails;
 import mql.dominators.brico.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,12 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
 import mql.dominators.brico.entities.User;
 import mql.dominators.brico.jwt.api.filter.JwtFilter;
 import mql.dominators.brico.jwt.api.util.JwtUtil;
-import mql.dominators.brico.request.PasswordRequest;
 import mql.dominators.brico.response.JwtResponse;
-import mql.dominators.brico.response.MessageResponse;
 import mql.dominators.brico.service.UserService;
 import mql.dominators.brico.shared.UserDTO;
-import mql.dominators.brico.utils.Utils;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -61,8 +60,8 @@ public class UserController {
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
-
 		try {
+			System.out.println(authRequest);
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 			System.out.println("Authentication had succed !");
@@ -72,30 +71,28 @@ public class UserController {
 			);
 			return ResponseEntity.ok(jwtResponse);
 		} catch (Exception ex) {
-			throw new Exception("Invalid Username / Password");
+			ex.printStackTrace();
+			return null;
 		}
 	}
 
 	@PutMapping(value = "/user/account/update")
-	public ResponseEntity<?> update(@RequestBody UserRequest userRequest) {
-        final String username = jwtFilter.getUsername();
-        User oldUser = this.userService.getUserByUsername(username);
+	public ResponseEntity<?> update(@RequestBody UserRequest userRequest, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        User oldUser = userDetails.getUser();
 		if (oldUser != null) {
 			User updatesUser = this.userService.updateUser(Utils.copyProperties(userRequest, oldUser));
-			return ResponseEntity.status(201)
+			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(Utils.copyProperties(updatesUser,new UserResponse()));
 		}
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(new MessageResponse("User can not modified"));
 	}
 
 	@PutMapping("/user/account/password")
-	public ResponseEntity<?> changePassword(@RequestBody PasswordRequest passwordRequest) {
-		final String username = jwtFilter.getUsername();
-		User user = this.userService.getUserByUsername(username);
+	public ResponseEntity<?> changePassword(@RequestBody PasswordRequest passwordRequest, @AuthenticationPrincipal CustomUserDetails userDetails) {
+		User user = userDetails.getUser();
 		if (new BCryptPasswordEncoder().matches(passwordRequest.getOldPassword(), user.getEncryptedPassword())) {
-			UserDTO userDTO = Utils.copyProperties(user, new UserDTO());
-			userDTO.setPassword(passwordRequest.getNewPassword());
-			if (userService.changePassword(userDTO)) {
+			user.setEncryptedPassword(passwordRequest.getNewPassword());
+			if (userService.changePassword(user)) {
 				return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Password changed successfully"));
 			}
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Password have not changed"));
@@ -104,10 +101,8 @@ public class UserController {
 	}
 
 	@DeleteMapping(value = "/user/account/delete/{id}")
-	public ResponseEntity<?> delete(@PathVariable(name = "id") long id) {
-
-		final String username = jwtFilter.getUsername();
-		User userFounded = this.userService.getUserByUsername(username);
+	public ResponseEntity<?> delete(@PathVariable(name = "id") long id, @AuthenticationPrincipal CustomUserDetails userDetails) {
+		User userFounded = userDetails.getUser();
 		if (userFounded.getUserId() != id)
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("This is not the user that you want");
 
@@ -129,11 +124,10 @@ public class UserController {
 
 
 	@GetMapping(path = "/user/account")
-	public ResponseEntity<?> findOwnAccount() {
-		String username = jwtFilter.getUsername();
-		if (this.userService.getUserByUsername(username) != null) {
+	public ResponseEntity<?> findOwnAccount(@AuthenticationPrincipal CustomUserDetails userDetails) {
+		if (userDetails.getUser() != null) {
 			return ResponseEntity.status(200)
-					.body(Utils.copyProperties(this.userService.getUserByUsername(username), new UserDTO()));
+					.body(Utils.copyProperties(userDetails.getUser(), new UserDTO()));
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}

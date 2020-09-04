@@ -4,11 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import mql.dominators.brico.entities.Handyman;
@@ -50,11 +46,10 @@ public class FileController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@GetMapping(path = "/load/image", produces = MediaType.IMAGE_PNG_VALUE)
-	public byte[] loadImage() {
-		final String username = jwtFilter.getUsername();
-		User user = this.userService.getUserByUsername(username);
-		return fileService.loadImage(user.getPhoto());
+	@GetMapping(path = "/load/image/{fileName}", produces = {MediaType.IMAGE_PNG_VALUE,MediaType.IMAGE_JPEG_VALUE})
+	public byte[] loadImage(@PathVariable String fileName) {
+		System.out.println(fileName);
+		return fileService.loadImage(fileName);
 	}
 
 }
