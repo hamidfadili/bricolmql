@@ -53,8 +53,49 @@
     </div>
 </div>
 
-<header class="stick-top forsticky gradient">
+<header *ngIf="!isHome"  class="stick-top forsticky gradient">
     <div class="menu-sec">
+        <div class="container">
+            <div class="logo">
+                <a [routerLink]="['/']">
+                    <img class="hidesticky" src="assets/images/logo.png" alt="">
+                    <img class="showsticky" src="assets/images/logo-bleu.png" alt=""></a>
+            </div>
+            <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
+                <span><img [src]="user.photo ? 'http://localhost:8080/load/image' : '../assets/images/profile-avatar.jpg'" alt="">{{user.username}}<i (click)="logout()" class="la la-sign-out-alt"></i></span>
+            </div>
+            <div class="btn-extars">    
+                <a title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
+                <ul *ngIf="!isAuth" class="account-btns">
+                    <li class="signup-popup"><a [routerLink]="['/register']"><i class="la la-key"></i> Sign Up</a></li>
+                    <li class="signin-popup"><a [routerLink]="['/login']"><i class="la la-external-link-square"></i> Login</a></li>
+                </ul>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a [routerLink]="['/']">Home</a>
+                    </li>
+                    <li class="menu-item-has-children">
+                        <a>SubMenu <i style="size: 10px;" class="la la-angle-down"></i></a>
+                        <ul>
+                            <li><a>Simple item</a></li>
+                            <li class="menu-item-has-children">
+                                <a>SubMenu</a>
+                                <ul>
+                                    <li><a>SimpleItem</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<header *ngIf="isHome" class="stick-top forsticky">
+     <div class="menu-sec">
         <div class="container">
             <div class="logo">
                 <a [routerLink]="['/']">

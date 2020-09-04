@@ -1,8 +1,9 @@
+import { Router } from '@angular/router';
 import { SlideInOutAnimation } from './../animations/animations';
 import { UserModule } from 'src/app/models/user/user.module';
 import { UserService } from './../../core/user.service';
 import { Component, OnInit } from '@angular/core';
-
+import {Location} from '@angular/common';
 declare var $: any;
 
 @Component({
@@ -17,10 +18,19 @@ export class HeaderComponent implements OnInit {
   isAuth:boolean = false;
   isMenuOpned = false;
   animationState = "out";
-
-  constructor(private userService:UserService) { }
+  isHome = false;
+  route: string;
+  
+  constructor(private userService:UserService, private location: Location,private  router:Router) {
+ 
+  }
   
   ngOnInit(): void {   
+    
+    this.router.events.subscribe(val => {
+      this.isHome = this.location.path() === '';
+    });
+    console.log("salam",this.isHome)
     this.userService.isAuthenticated.subscribe( isAuth => this.isAuth = isAuth );
     this.userService.currentUser.subscribe(user => this.user = user);
     
@@ -45,13 +55,14 @@ export class HeaderComponent implements OnInit {
       }
     });  
   }
-
   SlideInOut(divName: string){
     
       this.animationState = this.animationState === 'out' ? 'in' : 'out';
   
     this.isMenuOpned = !this.isMenuOpned;
   }
+
+
 
   logout(){
     this.userService.logout();

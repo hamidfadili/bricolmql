@@ -13,6 +13,7 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
 import { DevenirBricoleurComponent } from './profile/devenir-bricoleur/devenir-bricoleur.component';
 import { InformationsBricoleurComponent } from './profile/devenir-bricoleur/informations-bricoleur/informations-bricoleur.component';
 import { InformationsPersonnelleComponent } from './profile/devenir-bricoleur/informations-personnelle/informations-personnelle.component';
+import { HandymanDoneComponent } from './profile/devenir-bricoleur/handyman-done/handyman-done.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { InformationsPersonnelleComponent } from './profile/devenir-bricoleur/in
     ChangePasswordComponent,
     DevenirBricoleurComponent,
     InformationsBricoleurComponent,
-    InformationsPersonnelleComponent
+    InformationsPersonnelleComponent,
+    HandymanDoneComponent
   ],
   imports: [
     CommonModule,

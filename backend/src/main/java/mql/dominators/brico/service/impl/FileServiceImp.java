@@ -57,7 +57,7 @@ public class FileServiceImp implements FileService {
                     "."+file.getContentType().split("/")[1]
                     );
             Files.write(this.images.resolve(user.getPhoto()), file.getBytes());
-            userService.saveUser(Utils.copyProperties(user,new UserDTO()));
+            userService.updateUser(user);
         } catch (IOException e) {
             e.printStackTrace();
         }

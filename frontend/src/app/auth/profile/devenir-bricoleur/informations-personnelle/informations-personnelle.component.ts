@@ -100,6 +100,11 @@ export class InformationsPersonnelleComponent implements OnInit {
 }
 
 infobrico(){
+  this.userService.updateUser(this.updatedUser).subscribe(
+    res => {
+      this.updatedUser = res;
+    }
+  )
   this.status = 2;
   this.route.navigate(['profile/devenir-bricoleur/informations-bricoleur'])
 }

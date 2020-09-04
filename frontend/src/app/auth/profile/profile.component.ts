@@ -83,19 +83,10 @@ export class ProfileComponent implements OnInit {
       confirmButtonText: 'Oui, modifier-le!'
     }).then((result) => {
       if (result.value) {
-        Swal.fire({
-          timerProgressBar: true,
-          onBeforeOpen: () => {
-            Swal.showLoading()
-          }
-        })
+       
         this.fileService.uploadImage(this.selectedFile).subscribe(
          () => {
-            Swal.fire(
-              'Votre photo est modifié',
-              'aaaaaa aaa',
-              'success'
-            )
+           
           }
         )
         
