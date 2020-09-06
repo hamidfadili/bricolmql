@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'bricomql';
+  title = 'AideBrico';
 
   constructor(private userService:UserService){}
 
