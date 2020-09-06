@@ -1,0 +1,33 @@
+<section id="scroll-here">
+    <div class="block">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="heading">
+                        <h2>Popular Categories</h2>
+                        <span>{{categories?.length}} Catégories - 0 added today.</span>
+                    </div><!-- Heading -->
+                    <div class="cat-sec">
+                        <div class="row no-gape">
+                            <div *ngFor="let category of categories" class="col-lg-3 col-md-3 col-sm-6">
+                                <div class="p-category">
+                                    <a href="#" title="">
+                                        <i class="{{category.icon}}"></i>
+                                        <span>{{category.title}}</span>
+                                        <p>({{category.servicesCount}} service{{category.servicesCount > 1 ? 's' : ''}})</p>
+                                    </a>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="browse-all-cat">
+                        <a href="#" title="">Browse All Categories</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

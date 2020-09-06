@@ -16,6 +16,8 @@ public class Category {
 
     private String title;
 
+    private String icon;
+
     @OneToMany(mappedBy = "category")
     private List<Service> services;
 

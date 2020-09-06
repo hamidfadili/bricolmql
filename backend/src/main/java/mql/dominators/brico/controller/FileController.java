@@ -48,7 +48,6 @@ public class FileController {
 
 	@GetMapping(path = "/load/image/{fileName}", produces = {MediaType.IMAGE_PNG_VALUE,MediaType.IMAGE_JPEG_VALUE})
 	public byte[] loadImage(@PathVariable String fileName) {
-		System.out.println(fileName);
 		return fileService.loadImage(fileName);
 	}
 

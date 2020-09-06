@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit {
     this.router.events.subscribe(val => {
       this.isHome = this.location.path() === '';
     });
-    console.log("salam",this.isHome)
     this.userService.isAuthenticated.subscribe( isAuth => this.isAuth = isAuth );
     this.userService.currentUser.subscribe(user => this.user = user);
 
