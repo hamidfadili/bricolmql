@@ -61,18 +61,15 @@ public class UserController {
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
 		try {
-			System.out.println(authRequest);
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-			System.out.println("Authentication had succed !");
 			JwtResponse jwtResponse = new JwtResponse(
 					jwtUtil.generateToken(authRequest.getUsername()),
 					Utils.copyProperties(this.userService.getUserByUsername(authRequest.getUsername()),new UserResponse())
 			);
 			return ResponseEntity.ok(jwtResponse);
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
+			throw new Exception("Invalid Username / Password");
 		}
 	}
 
