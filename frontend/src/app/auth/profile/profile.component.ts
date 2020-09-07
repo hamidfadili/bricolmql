@@ -3,6 +3,7 @@ import { UserModule } from 'src/app/models/user/user.module';
 import { UserService } from './../../core/user.service';
 import { Component, OnInit, Output } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Address } from 'src/app/models/server-user/server-user.module';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,8 @@ export class ProfileComponent implements OnInit {
     this.userService.currentUser.subscribe(user =>{ 
       this.user = user;
       this.updatedUser = JSON.parse(JSON.stringify(this.user));
+      console.log(this.updatedUser);
+      if(!this.updatedUser.address) this.updatedUser.address = new Address();
     });
 
     if(!this.updatedUser.photo){
@@ -33,9 +36,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.updatedUser.address  == ""){
-      this.updatedUser.address = null  
-    }
+    console.log('salam',this.updatedUser)
     Swal.fire({
       title: 'vous étes sûr?',
       text: "Voulez vous vraiment modifié votre profil!",

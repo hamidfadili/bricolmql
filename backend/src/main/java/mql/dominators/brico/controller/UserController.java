@@ -43,9 +43,6 @@ public class UserController {
 	private JwtUtil jwtUtil;
 
 	@Autowired
-	private JwtFilter jwtFilter;
-
-	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping(path = "/register")
@@ -76,6 +73,7 @@ public class UserController {
 	@PutMapping(value = "/user/account/update")
 	public ResponseEntity<?> update(@RequestBody UserRequest userRequest, @AuthenticationPrincipal CustomUserDetails userDetails) {
         User oldUser = userDetails.getUser();
+		System.out.println(userRequest);
 		if (oldUser != null) {
 			User updatesUser = this.userService.updateUser(Utils.copyProperties(userRequest, oldUser));
 			return ResponseEntity.status(HttpStatus.CREATED)

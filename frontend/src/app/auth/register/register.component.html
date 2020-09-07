@@ -73,6 +73,14 @@
                                 </div>
 
                                 <div class="cfield">
+                                    <select [(ngModel)]="user.gender" name="user.gender">
+                                        <option value="1">Homme</option>
+                                        <option value="0">Femme</option>
+                                    </select>
+                                    <i class="la la-user"></i>
+                                </div>
+
+                                <div class="cfield">
                                     <input type="email" name="email" placeholder="Email" required
                                     [(ngModel)]="user.email" #email="ngModel" email="true" (blur)="generateUsername(user.email)" >
                                     <i class="la la-envelope-o"></i>

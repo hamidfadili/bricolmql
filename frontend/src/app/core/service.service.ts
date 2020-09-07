@@ -13,10 +13,10 @@ export class ServiceService {
   constructor(private http:HttpClient) { }
 
   services(){
-    return this.http.get(this.LOAD_SERVICES_URL);
+    return this.http.get<any>(this.LOAD_SERVICES_URL);
   }
 
   servicesInCategorie(link){
-    return this.http.get(link);
+    return this.http.get<any>(link);
   }
 }
