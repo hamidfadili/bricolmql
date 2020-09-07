@@ -21,3 +21,8 @@ export class ServerResponseUserModule {
   token:string;
   user:UserModule;
 }
+
+export class Address {
+  address:String;
+  city:String;
+}
