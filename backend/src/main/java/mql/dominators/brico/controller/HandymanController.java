@@ -1,6 +1,8 @@
 package mql.dominators.brico.controller;
 
+import mql.dominators.brico.entities.Handyman;
 import mql.dominators.brico.entities.Skill;
+import mql.dominators.brico.request.FilterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
@@ -50,6 +52,11 @@ public class HandymanController {
 		else
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new MessageResponse("contact data and job title are obligatory"));
+	}
+
+	@GetMapping("/filter")
+	public ResponseEntity<List<Handyman>> getHandymenByFilter(@RequestBody FilterRequest filterRequest){
+		return ResponseEntity.status(HttpStatus.OK).body(handymanService.getAllByFilter(filterRequest));
 	}
 
 }

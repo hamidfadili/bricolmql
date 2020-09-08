@@ -2,7 +2,10 @@ package mql.dominators.brico.service.impl;
 
 import javax.transaction.Transactional;
 
+import mql.dominators.brico.request.FilterRequest;
+import mql.dominators.brico.specifications.HandymanSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import mql.dominators.brico.entities.Handyman;
@@ -13,6 +16,9 @@ import mql.dominators.brico.repository.UserRepository;
 import mql.dominators.brico.service.HandymanService;
 import mql.dominators.brico.service.UserService;
 import mql.dominators.brico.shared.HandymanDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class HandymanServiceImpl implements HandymanService {
@@ -57,6 +63,41 @@ public class HandymanServiceImpl implements HandymanService {
 	@Override
 	public Handyman save(Handyman handyman) {
 		return handymanRepository.save(handyman);
+	}
+
+	@Override
+	public List<Handyman> getAllByFilter(FilterRequest filterRequest) {
+		Specification specs = null;
+
+		if(filterRequest.getCity()!=null){
+			specs = Specification.where(HandymanSpecifications.city(filterRequest.getCity()));
+		}
+
+		if(filterRequest.getGender()!=null){
+			if(specs == null){
+				specs = Specification.where(HandymanSpecifications.gender(filterRequest.getGender()));
+			}else{
+				specs = specs.and(HandymanSpecifications.gender(filterRequest.getGender()));
+			}
+		}
+
+		if(filterRequest.getService()!=null){
+			if(specs == null){
+				specs = Specification.where(HandymanSpecifications.service(filterRequest.getService()));
+			}else{
+				specs = specs.and(HandymanSpecifications.service(filterRequest.getService()));
+			}
+		}
+
+		if(filterRequest.getCategory()!=null){
+			if(specs == null){
+				specs = Specification.where(HandymanSpecifications.category(filterRequest.getCategory()));
+			}else{
+				specs = specs.and(HandymanSpecifications.category(filterRequest.getCategory()));
+			}
+		}
+
+		return handymanRepository.findAll(specs);
 	}
 
 	private boolean isValidHandyman(HandymanDTO handyman) {
