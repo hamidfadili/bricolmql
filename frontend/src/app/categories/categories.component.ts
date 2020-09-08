@@ -12,7 +12,6 @@ export class CategoriesComponent implements OnInit {
   constructor(private categoryService:CategoryService,private serviceService:ServiceService) { }
 
   categories;
-  categoryServiceMap;
 
   ngOnInit(): void {
     this.loadCategories();
@@ -35,8 +34,6 @@ export class CategoriesComponent implements OnInit {
         }
       )
     }
-
-    console.log(this.categories);
   }
 
 }

@@ -1,0 +1,197 @@
+<section class="overlape">
+    <div class="block no-padding">
+        <div data-velocity="-.1" style="background: url(images/resource/mslider1.jpg) repeat scroll 50% 422.28px transparent;" class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->
+        <div class="container fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-header">
+                        <h3>Welcome Tera Planer</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="block remove-bottom">
+        <div class="container">
+                <div class="row no-gape">
+                <aside class="col-lg-3 column">
+                    <div class="widget">
+                        <div class="search_widget_job">
+                            <div class="field_w_search">
+                                <input type="text" placeholder="Search Keywords">
+                                <i class="la la-search"></i>
+                            </div><!-- Search Widget -->
+                            <div class="field_w_search">
+                                <select (change)="onCitySelected($event.target.value)">
+                                    <option>Tous les villes</option>
+                                    <option>Cat 1</option>
+                                    <option>Cat 2</option>
+                                    <option>Cat 3</option>
+                                </select>
+                                <i class="la la-map-marker"></i>
+                            </div>
+                            <div class="field_w_search">
+                                <select name="categories" (change)="onCategorySelected($event.target.value)">
+                                    <option>Tous les catégories</option>
+                                    <option [ngValue]="cat" *ngFor="let cat of categories">{{cat.title}}</option>
+                                </select>
+                                <i class="la la-folder"></i>
+                            </div>
+                            <div class="field_w_search">
+                                <select name="services" (change)="onServiceSelected($event.target.value)">
+                                    <option>Tous les services</option>
+                                    <option [ngValue]="service" *ngFor="let service of currentServices">{{service.title}}</option>
+                                </select>
+                                <i class="la la-toolbox"></i>
+                            </div>
+                            <div class="field_w_search">
+                                <select name="gender" (change)="onGenderSelected($event.target.value)">
+                                    <option>Tous les sexes</option>
+                                    <option value="Female">Femme</option>
+                                    <option value="Male">Homme</option>
+                                </select>
+                                <i class="la la-transgender"></i>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <div class="col-lg-9 column">
+                    <div class="emply-resume-sec">
+                        <div class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img src="images\resource\err1.jpg" alt="">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#" title="">Ali TUFAN</a></h3>
+                                <span><i>UX / UI Designer</i> at Atract Solutions</span>
+                                <p><i class="la la-map-marker"></i>Istanbul / Turkey</p>
+                            </div>
+                            <div class="shortlists">
+                                <a href="#" title="">Shortlist <i class="la la-plus"></i></a>
+                            </div>
+                        </div><!-- Emply List -->
+                        <div class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img src="images\resource\err2.jpg" alt="">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#" title="">Ali TUFAN</a></h3>
+                                <span><i>UX / UI Designer</i> at Atract Solutions</span>
+                                <p><i class="la la-map-marker"></i>Istanbul / Turkey</p>
+                            </div>
+                            <div class="shortlists">
+                                <a href="#" title="">Shortlist <i class="la la-plus"></i></a>
+                            </div>
+                        </div><!-- Emply List -->
+                        <div class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img src="images\resource\err3.jpg" alt="">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#" title="">Ali TUFAN</a></h3>
+                                <span><i>UX / UI Designer</i> at Atract Solutions</span>
+                                <p><i class="la la-map-marker"></i>Istanbul / Turkey</p>
+                            </div>
+                            <div class="shortlists">
+                                <a href="#" title="">Shortlist <i class="la la-plus"></i></a>
+                            </div>
+                        </div><!-- Emply List -->
+                        <div class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img src="images\resource\err4.jpg" alt="">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#" title="">Ali TUFAN</a></h3>
+                                <span><i>UX / UI Designer</i> at Atract Solutions</span>
+                                <p><i class="la la-map-marker"></i>Istanbul / Turkey</p>
+                            </div>
+                            <div class="shortlists">
+                                <a href="#" title="">Shortlist <i class="la la-plus"></i></a>
+                            </div>
+                        </div><!-- Emply List -->
+                        <div class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img src="images\resource\err5.jpg" alt="">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#" title="">Ali TUFAN</a></h3>
+                                <span><i>UX / UI Designer</i> at Atract Solutions</span>
+                                <p><i class="la la-map-marker"></i>Istanbul / Turkey</p>
+                            </div>
+                            <div class="shortlists">
+                                <a href="#" title="">Shortlist <i class="la la-plus"></i></a>
+                            </div>
+                        </div><!-- Emply List -->
+                        <div class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img src="images\resource\err6.jpg" alt="">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#" title="">Ali TUFAN</a></h3>
+                                <span><i>UX / UI Designer</i> at Atract Solutions</span>
+                                <p><i class="la la-map-marker"></i>Istanbul / Turkey</p>
+                            </div>
+                            <div class="shortlists">
+                                <a href="#" title="">Shortlist <i class="la la-plus"></i></a>
+                            </div>
+                        </div><!-- Emply List -->
+                        <div class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img src="images\resource\err7.jpg" alt="">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#" title="">Ali TUFAN</a></h3>
+                                <span><i>UX / UI Designer</i> at Atract Solutions</span>
+                                <p><i class="la la-map-marker"></i>Istanbul / Turkey</p>
+                            </div>
+                            <div class="shortlists">
+                                <a href="#" title="">Shortlist <i class="la la-plus"></i></a>
+                            </div>
+                        </div><!-- Emply List -->
+                        <div class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img src="images\resource\err8.jpg" alt="">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#" title="">Ali TUFAN</a></h3>
+                                <span><i>UX / UI Designer</i> at Atract Solutions</span>
+                                <p><i class="la la-map-marker"></i>Istanbul / Turkey</p>
+                            </div>
+                            <div class="shortlists">
+                                <a href="#" title="">Shortlist <i class="la la-plus"></i></a>
+                            </div>
+                        </div><!-- Emply List -->
+                        <div class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img src="images\resource\err9.jpg" alt="">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#" title="">Ali TUFAN</a></h3>
+                                <span><i>UX / UI Designer</i> at Atract Solutions</span>
+                                <p><i class="la la-map-marker"></i>Istanbul / Turkey</p>
+                            </div>
+                            <div class="shortlists">
+                                <a href="#" title="">Shortlist <i class="la la-plus"></i></a>
+                            </div>
+                        </div><!-- Emply List -->
+
+                        <div class="pagination">
+                            <ul>
+                                <li class="prev"><a href=""><i class="la la-long-arrow-left"></i> Prev</a></li>
+                                <li><a href="">1</a></li>
+                                <li class="active"><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><span class="delimeter">...</span></li>
+                                <li><a href="">14</a></li>
+                                <li class="next"><a href="">Next <i class="la la-long-arrow-right"></i></a></li>
+                            </ul>
+                        </div><!-- Pagination -->
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+</section>

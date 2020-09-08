@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { HandymenListComponent } from './handymen-list/handymen-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CategoriesComponent } from './categories/categories.component';
     HeaderComponent,
     HomeComponent,
     CategoriesComponent,
+    HandymenListComponent,
   ],
   imports: [
     BrowserModule,

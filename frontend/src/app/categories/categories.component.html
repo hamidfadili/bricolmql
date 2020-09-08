@@ -11,7 +11,7 @@
                         <div class="row no-gape">
                             <div *ngFor="let category of categories" class="col-lg-3 col-md-3 col-sm-6">
                                 <div class="p-category">
-                                    <a href="#" title="">
+                                    <a [routerLink]="['/handymen']" [queryParams]="{ cat: category.title }">
                                         <i class="{{category.icon}}"></i>
                                         <span>{{category.title}}</span>
                                         <p>({{category.servicesCount}} service{{category.servicesCount > 1 ? 's' : ''}})</p>

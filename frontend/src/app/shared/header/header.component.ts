@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   isAuth:boolean = false;
   isMenuOpned = false;
   animationState = "out";
-  isHome = false;
+  isTransparent = false;
   route: string;
   
   constructor(private userService:UserService, private location: Location,private  router:Router) {
@@ -28,7 +28,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {   
     
     this.router.events.subscribe(val => {
-      this.isHome = this.location.path() === '';
+      this.isTransparent = this.location.path() === '' 
+                          || this.location.path().startsWith('/handymen');
     });
     this.userService.isAuthenticated.subscribe( isAuth => this.isAuth = isAuth );
     this.userService.currentUser.subscribe(user => this.user = user);

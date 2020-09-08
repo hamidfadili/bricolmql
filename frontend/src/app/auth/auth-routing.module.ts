@@ -1,3 +1,4 @@
+import { HandymenListComponent } from './../handymen-list/handymen-list.component';
 import { NotfoundComponent } from './../shared/notfound/notfound.component';
 import { HomeComponent } from './../home/home.component';
 import { HandymanDoneComponent } from './profile/devenir-bricoleur/handyman-done/handyman-done.component';
@@ -55,6 +56,11 @@ const routes: Routes = [
   {
     path: 'profile/devenir-bricoleur/HandymanDoneComponent',
     component: HandymanDoneComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'handymen',
+    component: HandymenListComponent,
     canActivate : [AuthGuard]
   },
   {path: '404', component: NotfoundComponent},

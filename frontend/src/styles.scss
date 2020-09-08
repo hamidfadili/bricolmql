@@ -4527,7 +4527,8 @@ section.overlape {
 
     margin-bottom: 20px;
 }
-.field_w_search input {
+
+.field_w_search input,.field_w_search select {
     float: left;
     width: 100%;
     background: none;
@@ -4535,6 +4536,16 @@ section.overlape {
     font-size: 13px;
     margin: 0;
 }
+
+.field_w_search select {
+    border: 0;
+    &::-ms-expand {
+        display: none; /* Hide dropdown in IE 10 & 11 */
+    }
+    -moz-appearance: none; /* Hide dropdown in Firefox */
+    -webkit-appearance: none; /* Hide dropdown in Chrome */
+}
+
 .field_w_search i {
     position: absolute;
     right: 15px;
@@ -8631,6 +8642,8 @@ header.gradient{
 .my-profiles-sec {
     float: right;
 }
+
+
 .my-profiles-sec > span {
     float: left;
     font-size: 13px;
@@ -8639,6 +8652,8 @@ header.gradient{
     line-height: 50px;
     cursor: pointer;
 }
+
+
 .my-profiles-sec > span > img {
     float: left;
     
@@ -13618,5 +13633,7 @@ Border Color
 }
 
 
-
+.forsticky.sticky .my-profiles-sec > span {
+    color: #000 !important;
+}
 
