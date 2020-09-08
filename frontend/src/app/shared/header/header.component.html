@@ -1,136 +1,184 @@
 <div class="responsive-header" [class.active]="isMenuOpned">
-    <div class="responsive-menubar">
-        <div class="res-logo">
-            <a [routerLink]="['/']">
-                <img src="assets/images/logo.png" alt="">
-            </a>
-        </div>
-        <div class="menu-resaction">
-            <div class="res-openmenu" [class.active]="isMenuOpned" (click)="SlideInOut('responsive-opensec')">
-                <img src="assets/images/menu-icon.png"
-                alt=""> Menu
-            </div>
-            <div class="res-closemenu" [class.active]="!isMenuOpned" (click)="SlideInOut('responsive-opensec')">
-                <img src="assets/images/x-icon.png"
-                alt=""> Fermer
-            </div>
-        </div>
+  <div class="responsive-menubar">
+    <div class="res-logo">
+      <a [routerLink]="['/']">
+        <img src="assets/images/logo.png" alt="logo">
+      </a>
     </div>
-    <div [@slideInOut]="animationState" class="responsive-opensec">
-        <div class="btn-extars">
-            <a class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
-            <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
-                <span (click)="SlideInOut('responsive-opensec')"><img [src]="user.photo ? 'http://localhost:8080/load/image/'+user.photo : 'assets/images/profile-avatar.jpg'" alt="">{{user.username}}<i (click)="logout()" class="la la-sign-out-alt"></i></span>
-            </div>
-            <ul *ngIf="!isAuth" class="account-btns">
-                <li class="signup-popup"><a [routerLink]="['/register']" (click)="SlideInOut('responsive-opensec')"><i class="la la-key"></i> Sign Up</a></li>
-                <li class="signin-popup"><a [routerLink]="['/login']" (click)="SlideInOut('responsive-opensec')"><i class="la la-external-link-square"></i> Login</a></li>
-            </ul>
-        </div>
-        <form class="res-search">
-            <input type="text" placeholder="Job title, keywords or company name">
-            <button type="submit"><i class="la la-search"></i></button>
-        </form>
-        <div class="responsivemenu">
-            <ul>
-                <li>
-                    <a [routerLink]="['/']" (click)="SlideInOut('responsive-opensec')">Home</a>
-                </li>
-                <li class="menu-item-has-children">
-                    <a>SubMenu</a>
-                    <ul>
-                        <li><a title="">Simple item</a></li>>
-                        <li class="menu-item-has-children">
-                            <a>SubMenu</a>
-                            <ul>
-                                <li><a>SimpleItem</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+    <div class="menu-resaction">
+      <div class="res-openmenu" [class.active]="isMenuOpned" (click)="SlideInOut('responsive-opensec')">
+        <img src="assets/images/menu-icon.png"
+             alt=""> Menu
+      </div>
+      <div class="res-closemenu" [class.active]="!isMenuOpned" (click)="SlideInOut('responsive-opensec')">
+        <img src="assets/images/x-icon.png"
+             alt=""> Fermer
+      </div>
     </div>
+  </div>
+  <div [@slideInOut]="animationState" class="responsive-opensec">
+    <div class="btn-extars">
+      <a class="post-job-btn"><i class="la la-plus"></i>Poster un Job</a>
+      <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
+        <span (click)="SlideInOut('responsive-opensec')">
+          <img [src]="user.photo ? 'http://localhost:8080/load/image/'+user.photo : 'assets/images/profile-avatar.jpg'"
+               alt=""/>
+          {{user.username}}
+          <i (click)="logout()" class="la la-sign-out-alt"></i></span>
+      </div>
+      <ul *ngIf="!isAuth" class="account-btns">
+        <li class="signup-popup">
+          <a [routerLink]="['/register']" (click)="SlideInOut('responsive-opensec')">
+            <i class="la la-key"></i>
+            S'inscrire
+          </a>
+        </li>
+        <li class="signin-popup">
+          <a [routerLink]="['/login']" (click)="SlideInOut('responsive-opensec')">
+            <i class="la la-external-link-square"></i>
+            Se connecter
+          </a>
+        </li>
+      </ul>
+    </div>
+    <form class="res-search">
+      <input type="text" placeholder="Job title, keywords or company name">
+      <button type="submit">
+        <i class="la la-search"></i>
+      </button>
+    </form>
+    <div class="responsivemenu">
+      <ul>
+        <li>
+          <a [routerLink]="['/']" (click)="SlideInOut('responsive-opensec')">Accueil</a>
+        </li>
+        <li>
+          <a [routerLink]="['about-us']" (click)="SlideInOut('responsive-opensec')">A propos</a>
+        </li>
+        <!-- <li class="menu-item-has-children">
+           <a>SubMenu</a>
+           <ul>
+             <li><a title="">Simple item</a></li>
+             <li class="menu-item-has-children">
+               <a>SubMenu</a>
+               <ul>
+                 <li><a>SimpleItem</a></li>
+               </ul>
+             </li>
+           </ul>
+         </li>-->
+      </ul>
+    </div>
+  </div>
 </div>
 
-<header *ngIf="!isHome"  class="stick-top forsticky gradient">
-    <div class="menu-sec">
-        <div class="container">
-            <div class="logo">
-                <a [routerLink]="['/']">
-                    <img class="hidesticky" src="assets/images/logo.png" alt="">
-                    <img class="showsticky" src="assets/images/logo-bleu.png" alt=""></a>
-            </div>
-            <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
-                <span><img [src]="user.photo ? 'http://localhost:8080/load/image/'+user.photo : 'assets/images/profile-avatar.jpg'" alt="">{{user.username}}<i (click)="logout()" class="la la-sign-out-alt"></i></span>
-            </div>
-            <div class="btn-extars">
-                <a title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
-                <ul *ngIf="!isAuth" class="account-btns">
-                    <li class="signup-popup"><a [routerLink]="['/register']"><i class="la la-key"></i> Sign Up</a></li>
-                    <li class="signin-popup"><a [routerLink]="['/login']"><i class="la la-external-link-square"></i> Login</a></li>
-                </ul>
-            </div>
-            <nav>
+<header *ngIf="!isHome" class="stick-top forsticky gradient">
+  <div class="menu-sec">
+    <div class="container">
+      <div class="logo">
+        <a [routerLink]="['/']">
+          <img class="hidesticky" src="assets/images/logo.png" alt="logo">
+          <img class="showsticky" src="assets/images/logo-bleu.png" alt="logo"></a>
+      </div>
+      <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
+        <span>
+          <img [src]="user.photo ? 'http://localhost:8080/load/image/'+user.photo : 'assets/images/profile-avatar.jpg'"
+               alt="">
+          {{user.username}}
+          <i (click)="logout()" class="la la-sign-out-alt"></i>
+        </span>
+      </div>
+      <div class="btn-extars">
+        <a title="" class="post-job-btn"><i class="la la-plus"></i>Poster un Job</a>
+        <ul *ngIf="!isAuth" class="account-btns">
+          <li class="signup-popup"><a [routerLink]="['/register']"><i class="la la-key"></i> S'inscrire</a></li>
+          <li class="signin-popup"><a [routerLink]="['/login']"><i class="la la-external-link-square"></i> Se connecter</a>
+          </li>
+        </ul>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a [routerLink]="['/']">Accueil</a>
+          </li>
+          <li>
+            <a [routerLink]="['about-us']">A propos </a>
+          </li>
+          <!--    <li class="menu-item-has-children">
+                <a>SubMenu <i style="size: 10px;" class="la la-angle-down"></i></a>
                 <ul>
-                    <li>
-                        <a [routerLink]="['/']">Home</a>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a>SubMenu <i style="size: 10px;" class="la la-angle-down"></i></a>
-                        <ul>
-                            <li><a>Simple item</a></li>
-                            <li class="menu-item-has-children">
-                                <a>SubMenu</a>
-                                <ul>
-                                    <li><a>SimpleItem</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                  <li><a>Simple item</a></li>
+                  <li class="menu-item-has-children">
+                    <a>SubMenu</a>
+                    <ul>
+                      <li><a>SimpleItem</a></li>
+                    </ul>
+                  </li>
                 </ul>
-            </nav>
-        </div>
+              </li>-->
+        </ul>
+      </nav>
     </div>
+  </div>
 </header>
 
 <header *ngIf="isHome" class="stick-top forsticky">
-     <div class="menu-sec">
-        <div class="container">
-            <div class="logo">
-                <a [routerLink]="['/']">
-                    <img class="hidesticky" src="assets/images/logo.png" alt="">
-                    <img class="showsticky" src="assets/images/logo-bleu.png" alt=""></a>
-            </div>
-            <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
-                <span><img [src]="user.photo ? 'http://localhost:8080/load/image' : '../assets/images/profile-avatar.jpg'" alt="">{{user.username}}<i (click)="logout()" class="la la-sign-out-alt"></i></span>
-            </div>
-            <div class="btn-extars">
-                <a title="" class="post-job-btn"><i class="la la-plus"></i>Post Jobs</a>
-                <ul *ngIf="!isAuth" class="account-btns">
-                    <li class="signup-popup"><a [routerLink]="['/register']"><i class="la la-key"></i> Sign Up</a></li>
-                    <li class="signin-popup"><a [routerLink]="['/login']"><i class="la la-external-link-square"></i> Login</a></li>
-                </ul>
-            </div>
-            <nav>
+  <div class="menu-sec">
+    <div class="container">
+      <div class="logo">
+        <a [routerLink]="['/']">
+          <img class="hidesticky" src="assets/images/logo.png" alt="logo">
+          <img class="showsticky" src="assets/images/logo-bleu.png" alt="logo"></a>
+      </div>
+      <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
+        <span>
+          <img [src]="user.photo ? 'http://localhost:8080/load/image' : '../assets/images/profile-avatar.jpg'" alt="">
+          {{user.username}}
+          <i (click)="logout()" class="la la-sign-out-alt"></i>
+        </span>
+      </div>
+      <div class="btn-extars">
+        <a title="" class="post-job-btn">
+          <i class="la la-plus"></i>
+          Poster un Job
+        </a>
+        <ul *ngIf="!isAuth" class="account-btns">
+          <li class="signup-popup">
+            <a [routerLink]="['/register']">
+              <i class="la la-key"></i>
+              S'inscrire
+            </a>
+          </li>
+          <li class="signin-popup">
+            <a [routerLink]="['/login']">
+              <i class="la la-external-link-square"></i>
+              Se connecter
+            </a>
+          </li>
+        </ul>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a [routerLink]="['/']">Accueil</a>
+          </li>
+          <li>
+            <a [routerLink]="['about-us']">A propos</a>
+          </li>
+         <!-- <li class="menu-item-has-children">
+            <a>SubMenu <i style="size: 10px;" class="la la-angle-down"></i></a>
+            <ul>
+              <li><a>Simple item</a></li>
+              <li class="menu-item-has-children">
+                <a>SubMenu</a>
                 <ul>
-                    <li>
-                        <a [routerLink]="['/']">Home</a>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a>SubMenu <i style="size: 10px;" class="la la-angle-down"></i></a>
-                        <ul>
-                            <li><a>Simple item</a></li>
-                            <li class="menu-item-has-children">
-                                <a>SubMenu</a>
-                                <ul>
-                                    <li><a>SimpleItem</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                  <li><a>SimpleItem</a></li>
                 </ul>
-            </nav>
-        </div>
+              </li>
+            </ul>
+          </li>-->
+        </ul>
+      </nav>
     </div>
+  </div>
 </header>

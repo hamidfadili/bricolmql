@@ -10,8 +10,8 @@
             </div>
             <div class="page-breacrumbs">
               <ul class="breadcrumbs">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">A propos </a></li>
+                <li><a [routerLink]="['/']">Accueil</a></li>
+                <li><a>A propos </a></li>
               </ul>
             </div>
           </div>
@@ -49,8 +49,16 @@
             </div>
             <div class="tags-share">
               <div class="share-bar">
-                <a href="#" title="" class="share-fb"><i class="fa fa-facebook"></i></a><a href="#" title="" class="share-twitter"><i
-                class="fa fa-twitter"></i></a><a href="#" title="" class="share-google"><i class="la la-google"></i></a><span>Share</span>
+                <a href="#" title="" class="share-fb">
+                  <i class="fa fa-facebook"></i>
+                </a>
+                <a href="#" title="" class="share-twitter">
+                  <i class="fa fa-twitter"></i>
+                </a>
+                <a href="#" title="" class="share-google">
+                  <i class="la la-google"></i>
+                </a>
+                <span>Partager !</span>
               </div>
             </div>
           </div>
@@ -67,12 +75,18 @@
         <div class="col-lg-12">
           <div class="our-services">
             <div class="row">
-              <div class="col-lg-12"><h2>Our Service</h2></div>
+              <div class="col-lg-12">
+                <h2>Nos Services</h2>
+              </div>
               <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="service">
                   <i class="la la-clock-o"></i>
-                  <div class="service-info"><h3>Advertise A Job</h3>
-                    <p>Duis a tristique lacus. Donec vehicula ante id lorem venenatis posuere. Morbi in lectus.</p>
+                  <div class="service-info">
+                    <h3>Publier un Job</h3>
+                    <p>Trouver un emploi par le partage de votre expérience
+                      Text Text Text Text Text Text Text Text Text Text Text
+                      Text Text Text Text Text Text Text Text Text Text Text .
+                    </p>
                   </div>
                 </div>
               </div>
@@ -170,7 +184,7 @@
         <div class="col-lg-12">
           <div class="our-services">
             <div class="row">
-              <div class="col-lg-12"><h2>Our Team</h2></div>
+              <div class="col-lg-12"><h2>L'équipe de travail</h2></div>
               <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="service">
                   <img src="assets/images/profile-avatar.jpg" alt="admin" class="comment-avatar">
