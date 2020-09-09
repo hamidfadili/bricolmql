@@ -1,3 +1,4 @@
+import { HandymanService } from './../core/handyman.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServiceService } from './../core/service.service';
 import { CategoryService } from './../core/category.service';
@@ -12,10 +13,17 @@ export class HandymenListComponent implements OnInit {
 
   public categories;
   public mapCategories = {};
+  public currentCat = "Tous les catégories";
+  public currentService = "Tous les services";
+  public currentCity = "Tous les villes";
+  public currentGender = "Tous les sexes";
+  public currentKeyword = "";
   public currentServices = [];
+  public currentHandymen;
 
   constructor(private categoryService:CategoryService,
               private serviceService:ServiceService,
+              private handymanService:HandymanService,
               private router:Router,
               private activatedRoute : ActivatedRoute) { }
 
@@ -26,11 +34,30 @@ export class HandymenListComponent implements OnInit {
         this.onCatsLoads();
       }
     )
-    this.activatedRoute.queryParams.subscribe(values => {
-      if(values && values.cat && this.mapCategories[values.cat]){
-        this.currentServices = this.mapCategories[values.cat].services;
+
+   
+  }
+
+  onReciveLink(values){
+    if(values){
+      if(values.category && this.mapCategories[values.category]){
+        this.currentServices = this.mapCategories[values.category].services;
+        this.currentCat = values.category;
       }
-    });
+      if(values.category || values.service || values.city || values.gender || values.keyword){
+        if(values.service) this.currentService = values.service;
+        if(values.city) this.currentCity = values.city;
+        if(values.gender) this.currentGender = values.gender;
+        if(values.keyword) this.currentKeyword = values.keyword;
+        this.handymanService.loadHandymenByFilter(values).subscribe(
+          res => this.currentHandymen = res
+        )
+      }else{
+        this.handymanService.loadHandymen().subscribe(
+          res => this.currentHandymen = res._embedded.handymen
+        )
+      }
+    }
   }
 
   onCatsLoads(){
@@ -39,16 +66,31 @@ export class HandymenListComponent implements OnInit {
         res =>{
           cat.services = res._embedded.services
           this.mapCategories[cat.title] = cat;
+          this.activatedRoute.queryParams.subscribe(values => {
+            this.onReciveLink(values);
+          });
         }
       )
     }
+    
   }
 
   onCategorySelected(category){
     let params = this.generateParams();
-    params['cat'] = category;
+    params['category'] = category;
     if(params.service) delete params.service;
-    if(category == 'Tous les catégories') delete params.cat;
+    if(category == 'Tous les catégories'){
+      delete params.category;
+      this.currentServices = [];
+    } 
+    this.router.navigate(['/handymen'],{queryParams:params});
+  }
+
+   onKeywordChanged(keyword){
+    console.log(keyword)
+    let params = this.generateParams();
+    params['keyword'] = keyword;
+    if(params.keyword == "") delete params.keyword;
     this.router.navigate(['/handymen'],{queryParams:params});
   }
 

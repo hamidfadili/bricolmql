@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   errors = [];
   user : UserModule = new UserModule();
-  
+
   constructor(
     private userService:UserService,
     private router: Router
@@ -25,13 +25,11 @@ export class LoginComponent implements OnInit {
     var userModule = new ServerUserModule();
 
     if(userFrom.username.indexOf("@") > 0){
-      userModule.email = userFrom.username; 
+      userModule.email = userFrom.username;
     }else{
       userModule.username = userFrom.username;
     }
     userModule.password = userFrom.password;
-    
-    this.errors = [];
     this.userService.loginUser(userModule).subscribe(
       res => {
         this.router.navigateByUrl('/')
@@ -39,9 +37,11 @@ export class LoginComponent implements OnInit {
       err => {
         this.errors.push(err.error.message);
         console.log(err);
+        this.errors = [];
+        this.errors = err ;
       }
     )
-    
+
   }
 
 }

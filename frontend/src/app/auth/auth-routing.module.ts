@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { InformationsBricoleurComponent } from './profile/devenir-bricoleur/informations-bricoleur/informations-bricoleur.component';
+import {AboutUsComponent} from "../shared/about-us/about-us.component";
 
 const routes: Routes = [
   {
@@ -21,7 +22,11 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomeComponent, 
+    component: HomeComponent,
+  },
+  {
+    path : 'about-us',
+    component: AboutUsComponent
   },
   {
     path: 'login',

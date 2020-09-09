@@ -1,6 +1,9 @@
 package mql.dominators.brico.repository;
 
-public interface RoleRepository {
+import mql.dominators.brico.entities.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoleRepository extends JpaRepository<Role, Long> {
 //	extends MongoRepository<Role, Long> {
 //}
 //
