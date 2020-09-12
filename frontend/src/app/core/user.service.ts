@@ -1,5 +1,5 @@
-import { HandyManRequest } from './../request/handyman.request';
-import { ChangePasswordRequest } from './../request/change-password.request';
+import { HandyManRequest } from '../request/handyman.request';
+import { ChangePasswordRequest } from '../request/change-password.request';
 import { Router } from '@angular/router';
 import { ServerUserModule, ServerResponseUserModule } from '../models/server-user/server-user.module';
 import { UserModule } from 'src/app/models/user/user.module';
@@ -21,7 +21,7 @@ export class UserService {
   private readonly UPDATE_USER_URL = environment.API_URL + "user/account/update";
   private readonly UPDATE_PASSWORD_URL = environment.API_URL + "user/account/password";
   private readonly BECOME_HANDYMAN_URL = environment.API_URL + "handyman/become_handyman";
-  
+
 
 
 
@@ -98,7 +98,6 @@ export class UserService {
       })
     )
   }
-
   initUser() {
     if (this.jwtService.hasToken()) {
       this.http.get<UserModule>(this.USER_URL).subscribe(

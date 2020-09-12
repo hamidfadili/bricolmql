@@ -1,3 +1,4 @@
+import { HandymenListComponent } from './../handymen-list/handymen-list.component';
 import { NotfoundComponent } from './../shared/notfound/notfound.component';
 import { HomeComponent } from './../home/home.component';
 import { HandymanDoneComponent } from './profile/devenir-bricoleur/handyman-done/handyman-done.component';
@@ -11,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { InformationsBricoleurComponent } from './profile/devenir-bricoleur/informations-bricoleur/informations-bricoleur.component';
+import {AboutUsComponent} from "../shared/about-us/about-us.component";
 
 const routes: Routes = [
   {
@@ -20,7 +22,11 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomeComponent, 
+    component: HomeComponent,
+  },
+  {
+    path : 'about-us',
+    component: AboutUsComponent
   },
   {
     path: 'login',
@@ -56,6 +62,11 @@ const routes: Routes = [
   {
     path: 'profile/devenir-bricoleur/HandymanDoneComponent',
     component: HandymanDoneComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'handymen',
+    component: HandymenListComponent,
     canActivate : [AuthGuard]
   },
   {path: '404', component: NotfoundComponent},

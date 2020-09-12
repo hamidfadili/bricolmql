@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import mql.dominators.brico.enumeration.Gender;
 import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -46,6 +47,8 @@ public class User implements Serializable {
 //	@Column(nullable = true)
 	private String lastName;
 
+	private Gender gender;
+
 	@Email
 //	@Column(nullable = true)
 	private String email;
@@ -56,7 +59,8 @@ public class User implements Serializable {
 	// @Size(min = 9,max = 13)
 	private String phone;
 
-	private String address;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address address;
 
 	@JsonFormat(pattern = "dd-MM-YYYY")
 	private Date birthday;

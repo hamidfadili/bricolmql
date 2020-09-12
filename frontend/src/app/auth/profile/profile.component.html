@@ -41,6 +41,15 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
+                                        <span class="pf-title">Votre sexe</span>
+                                        <div class="pf-field">
+                                            <select name="gender" [(ngModel)]="updatedUser.gender">
+                                                <option [ngValue]="'Male'">Homme</option>
+                                                <option [ngValue]="'Female'">Femme</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
                                         <span class="pf-title">Username</span>
                                         <div class="pf-field">
                                             <input type="text"  name="username" placeholder="Username" disabled
@@ -68,11 +77,18 @@
                                                 [(ngModel)]="updatedUser.email">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-8">
                                         <span class="pf-title">Adresse</span>
                                         <div class="pf-field">
                                             <input type="text" name="adresse" placeholder="Adresse"
-                                                [(ngModel)]="updatedUser.address">
+                                                [(ngModel)]="updatedUser.address.address">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <span class="pf-title">Ville</span>
+                                        <div class="pf-field">
+                                            <input type="text" name="Ville" placeholder="Ville"
+                                                [(ngModel)]="updatedUser.address.city">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">

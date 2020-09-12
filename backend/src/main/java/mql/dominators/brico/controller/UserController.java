@@ -43,9 +43,6 @@ public class UserController {
 	private JwtUtil jwtUtil;
 
 	@Autowired
-	private JwtFilter jwtFilter;
-
-	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping(path = "/register")
@@ -61,23 +58,22 @@ public class UserController {
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
 		try {
-			System.out.println(authRequest);
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-			System.out.println("Authentication had succed !");
 			JwtResponse jwtResponse = new JwtResponse(
 					jwtUtil.generateToken(authRequest.getUsername()),
 					Utils.copyProperties(this.userService.getUserByUsername(authRequest.getUsername()),new UserResponse())
 			);
 			return ResponseEntity.ok(jwtResponse);
 		} catch (Exception ex) {
-			throw new Exception("Invalid username / password");
+			throw new Exception("Invalid Username / Password");
 		}
 	}
 
 	@PutMapping(value = "/user/account/update")
 	public ResponseEntity<?> update(@RequestBody UserRequest userRequest, @AuthenticationPrincipal CustomUserDetails userDetails) {
         User oldUser = userDetails.getUser();
+		System.out.println(userRequest);
 		if (oldUser != null) {
 			User updatesUser = this.userService.updateUser(Utils.copyProperties(userRequest, oldUser));
 			return ResponseEntity.status(HttpStatus.CREATED)

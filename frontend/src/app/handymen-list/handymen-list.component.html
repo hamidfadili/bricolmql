@@ -1,0 +1,89 @@
+<section class="overlape">
+    <div class="block no-padding">
+        <div data-velocity="-.1" style="background: url(assets/images/mslider1.jpg) repeat scroll 50% 422.28px transparent;" class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->
+        <div class="container fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-header">
+                        <h3>Choisissez les meilleur bricoleur</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="block remove-bottom">
+        <div class="container">
+                <div class="row no-gape">
+                <aside class="col-lg-3 column">
+                    <div class="widget">
+                        <div class="search_widget_job">
+                            <div class="field_w_search">
+                                <input name="keyword" [(ngModel)]="currentKeyword" (input)='onKeywordChanged($event.target.value)' type="text" placeholder="Search Keywords">
+                                <i class="la la-search"></i>
+                            </div><!-- Search Widget -->
+                            <div class="field_w_search">
+                                <select name="city" [(ngModel)]="currentCity" (change)="onCitySelected($event.target.value)">
+                                    <option>Tous les villes</option>
+                                    <option>Fes</option>
+                                </select>
+                                <i class="la la-map-marker"></i>
+                            </div>
+                            <div class="field_w_search">
+                                <select name="categories" [(ngModel)]="currentCat" (change)="onCategorySelected($event.target.value)">
+                                    <option>Tous les catégories</option>
+                                    <option [ngValue]="cat.title" *ngFor="let cat of categories">{{cat.title}}</option>
+                                </select>
+                                <i class="la la-folder"></i>
+                            </div>
+                            <div class="field_w_search">
+                                <select name="services" [(ngModel)]="currentService" (change)="onServiceSelected($event.target.value)">
+                                    <option>Tous les services</option>
+                                    <option [ngValue]="service.title" *ngFor="let service of currentServices">{{service.title}}</option>
+                                </select>
+                                <i class="la la-toolbox"></i>
+                            </div>
+                            <div class="field_w_search">
+                                <select name="gender" [(ngModel)]="currentGender" (change)="onGenderSelected($event.target.value)">
+                                    <option>Tous les sexes</option>
+                                    <option value="Female">Femme</option>
+                                    <option value="Male">Homme</option>
+                                </select>
+                                <i class="la la-transgender"></i>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <div class="col-lg-9 column">
+                    <div class="emply-resume-sec">
+                        <div *ngFor="let handyman of currentHandymen" class="emply-resume-list square">
+                            <div class="emply-resume-thumb">
+                                <img [src]="handyman.photo ? 'http://localhost:8080/load/image/'+handyman.photo : '../assets/images/profile-avatar.jpg'">
+                            </div>
+                            <div class="emply-resume-info">
+                                <h3><a href="#">{{handyman.firstName}} {{handyman.lastName}}</a></h3>
+                                <span>{{handyman.jobTitle}}</span>
+                                <p><i class="la la-map-marker"></i>{{handyman.address.city}}</p>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="pagination">
+                            <ul>
+                                <li class="prev"><a href=""><i class="la la-long-arrow-left"></i> Prev</a></li>
+                                <li><a href="">1</a></li>
+                                <li class="active"><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><span class="delimeter">...</span></li>
+                                <li><a href="">14</a></li>
+                                <li class="next"><a href="">Next <i class="la la-long-arrow-right"></i></a></li>
+                            </ul>
+                        </div>
+                        -->
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+</section>

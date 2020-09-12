@@ -12,12 +12,16 @@ import { HeaderComponent } from './shared/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { HandymenListComponent } from './handymen-list/handymen-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
+    CategoriesComponent,
+    HandymenListComponent,
   ],
   imports: [
     BrowserModule,
