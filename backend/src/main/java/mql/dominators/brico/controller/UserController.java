@@ -71,8 +71,7 @@ public class UserController {
 			);
 			return ResponseEntity.ok(jwtResponse);
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
+			throw new Exception("Invalid username / password");
 		}
 	}
 

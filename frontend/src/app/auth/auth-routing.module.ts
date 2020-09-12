@@ -32,6 +32,7 @@ const routes: Routes = [
     component: RegisterComponent,
     canActivate : [NoAuthGuard]
   },
+  
   {
     path: 'profile',
     component: ProfileComponent,
