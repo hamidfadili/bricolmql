@@ -31,6 +31,10 @@ public class Experience {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long experienceId;
 
+
+	@NotEmpty
+	private String title;
+
 	@NotEmpty
 	private String description;
 
@@ -43,7 +47,7 @@ public class Experience {
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date end;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 

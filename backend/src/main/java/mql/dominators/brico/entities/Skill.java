@@ -33,7 +33,7 @@ public class Skill {
 	private Long skillId;
 
 	@NotEmpty
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String title;
 
 	@NotEmpty

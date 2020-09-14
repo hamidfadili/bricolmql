@@ -42,6 +42,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 	public void delete(Long id) {
 		Experience experience = this.getExperience(id);
 		this.experienceRepository.delete(experience);
+		//System.out.println(experience);
 	}
 
 	@Override

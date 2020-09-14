@@ -11,4 +11,5 @@ export class UserModule {
   address? : Address;
   birthday? : Date;
   photo? : string;
+  handyman? : boolean;
 }

@@ -1,3 +1,4 @@
+import { ExperienceRequest } from './../request/experience.request';
 import { HandyManRequest } from '../request/handyman.request';
 import { ChangePasswordRequest } from '../request/change-password.request';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class UserService {
   private readonly UPDATE_USER_URL = environment.API_URL + "user/account/update";
   private readonly UPDATE_PASSWORD_URL = environment.API_URL + "user/account/password";
   private readonly BECOME_HANDYMAN_URL = environment.API_URL + "handyman/become_handyman";
+  private readonly EXPERIENCE_HANDYMAN_URL = environment.API_URL + "experience";
 
 
 
@@ -51,7 +53,7 @@ export class UserService {
   updateUser(user: UserModule): Observable<UserModule> {
     return this.http.put<UserModule>(this.UPDATE_USER_URL, user).pipe(
       map(res => {
-        // this.currentUserSubject.next(res);
+        this.currentUserSubject.next(res);
         return res;
       })
     )
@@ -64,6 +66,22 @@ export class UserService {
         return res
       })
     )
+  }
+
+  getExperiences(){
+    return this.http.get<any>(this.EXPERIENCE_HANDYMAN_URL);
+  }
+
+  addExperience(experience: ExperienceRequest){
+    return this.http.post<any>(this.EXPERIENCE_HANDYMAN_URL,experience);
+  }
+
+  deleteExperience(id){
+    return this.http.delete<any>(this.EXPERIENCE_HANDYMAN_URL+'/'+id);
+  }
+
+  updateExperience(experience:ExperienceRequest){
+    return this.http.put<any>(this.EXPERIENCE_HANDYMAN_URL+'/'+experience.experienceId,experience);
   }
 
   loginUser(user: ServerUserModule): Observable<ServerResponseUserModule> {

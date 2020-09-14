@@ -35,12 +35,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-<<<<<<< HEAD
-              "node_modules/jquery/dist/select-chosen.js"
-=======
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/slick-carousel/slick/slick.min.js"
->>>>>>> eb8787354e9bf4e03df79c59fde30bf88524a385
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {

@@ -1,3 +1,4 @@
+import { ExperiencesComponent } from './profile/experiences/experiences.component';
 import { HandymenListComponent } from './../handymen-list/handymen-list.component';
 import { NotfoundComponent } from './../shared/notfound/notfound.component';
 import { HomeComponent } from './../home/home.component';
@@ -57,6 +58,11 @@ const routes: Routes = [
   {
     path: 'profile/devenir-bricoleur/informations-bricoleur',
     component: InformationsBricoleurComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'profile/experiences',
+    component: ExperiencesComponent,
     canActivate : [AuthGuard]
   },
   {

@@ -23,7 +23,7 @@ import mql.dominators.brico.utils.UserAuthenticated;
 @RestController
 @RequestMapping(path = "/skill")
 public class SkillController {
-
+	
 	@Autowired
 	private SkillService skillService;
 

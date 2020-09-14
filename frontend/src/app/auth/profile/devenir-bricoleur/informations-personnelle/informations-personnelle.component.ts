@@ -5,6 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/core/user.service';
 import { FileService } from 'src/app/core/file.service';
+import { Address } from 'src/app/models/server-user/server-user.module';
 @Component({
   selector: 'app-informations-personnelle',
   templateUrl: './informations-personnelle.component.html',
@@ -23,9 +24,11 @@ export class InformationsPersonnelleComponent implements OnInit {
               private route: Router) {}
 
   ngOnInit(): void {
+    console.log(this.userService.getUser());
     this.userService.currentUser.subscribe(user =>{ 
       this.user = user;
       this.updatedUser = JSON.parse(JSON.stringify(this.user));
+      if(!this.updatedUser.address) this.updatedUser.address = new Address();
     });
 
     if(!this.updatedUser.photo){

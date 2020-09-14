@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mql.dominators.brico.entities.Experience;
+import mql.dominators.brico.entities.Handyman;
+import mql.dominators.brico.security.CustomUserDetails;
 import mql.dominators.brico.service.ExperienceService;
 
 @RestController
@@ -49,9 +52,10 @@ public class ExperienceController {
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Experience> save(@RequestBody Experience experience) {
-		System.out.println(experience);
+	public ResponseEntity<Experience> save(@RequestBody Experience experience,@AuthenticationPrincipal CustomUserDetails userDetails ) {
 		Experience exp = this.experienceService.add(experience);
+		if(userDetails.getUser() instanceof Handyman)
+			((Handyman) userDetails.getUser()).getExperiences().add(exp);
 		return ResponseEntity.status(200).body(exp);
 	}
 

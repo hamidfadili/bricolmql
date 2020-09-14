@@ -67,6 +67,7 @@ public class User implements Serializable {
 
 	private String photo;
 
+	private boolean isHandyman;
 
 	public User(long userId, String lastName, String password) {
 		super();

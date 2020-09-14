@@ -14,6 +14,7 @@ import { DevenirBricoleurComponent } from './profile/devenir-bricoleur/devenir-b
 import { InformationsBricoleurComponent } from './profile/devenir-bricoleur/informations-bricoleur/informations-bricoleur.component';
 import { InformationsPersonnelleComponent } from './profile/devenir-bricoleur/informations-personnelle/informations-personnelle.component';
 import { HandymanDoneComponent } from './profile/devenir-bricoleur/handyman-done/handyman-done.component';
+import { ExperiencesComponent } from './profile/experiences/experiences.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HandymanDoneComponent } from './profile/devenir-bricoleur/handyman-done
     DevenirBricoleurComponent,
     InformationsBricoleurComponent,
     InformationsPersonnelleComponent,
-    HandymanDoneComponent
+    HandymanDoneComponent,
+    ExperiencesComponent
   ],
   imports: [
     CommonModule,

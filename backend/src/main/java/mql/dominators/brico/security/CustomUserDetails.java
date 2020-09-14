@@ -1,5 +1,6 @@
 package mql.dominators.brico.security;
 
+import mql.dominators.brico.entities.Handyman;
 import mql.dominators.brico.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ public class CustomUserDetails implements UserDetails {
 
     public CustomUserDetails(User user) {
         this.user = user;
+        this.user.setHandyman(user instanceof Handyman);
     }
 
     @Override

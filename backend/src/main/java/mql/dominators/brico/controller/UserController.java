@@ -49,8 +49,7 @@ public class UserController {
 	public ResponseEntity<JwtResponse> save(@RequestBody UserRequest userRequest) {
 		User saveUser = userService.saveUser(Utils.copyProperties(userRequest,new UserDTO()));
 		JwtResponse jwtResponse = new JwtResponse(
-										jwtUtil.generateToken(userRequest.getUsername()),
-										Utils.copyProperties(saveUser,new UserResponse())
+										jwtUtil.generateToken(userRequest.getUsername()),saveUser
 									);
 		return ResponseEntity.status(HttpStatus.CREATED).body(jwtResponse);
 	}
@@ -62,7 +61,7 @@ public class UserController {
 					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 			JwtResponse jwtResponse = new JwtResponse(
 					jwtUtil.generateToken(authRequest.getUsername()),
-					Utils.copyProperties(this.userService.getUserByUsername(authRequest.getUsername()),new UserResponse())
+					this.userService.getUserByUsername(authRequest.getUsername())
 			);
 			return ResponseEntity.ok(jwtResponse);
 		} catch (Exception ex) {
@@ -121,8 +120,9 @@ public class UserController {
 	@GetMapping(path = "/user/account")
 	public ResponseEntity<?> findOwnAccount(@AuthenticationPrincipal CustomUserDetails userDetails) {
 		if (userDetails.getUser() != null) {
+			
 			return ResponseEntity.status(200)
-					.body(Utils.copyProperties(userDetails.getUser(), new UserDTO()));
+					.body(userDetails.getUser());
 		}
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}

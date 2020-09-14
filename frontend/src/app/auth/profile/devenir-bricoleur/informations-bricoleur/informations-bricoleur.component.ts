@@ -16,6 +16,7 @@ export class InformationsBricoleurComponent implements OnInit {
 
   ngOnInit(): void {
     this.handyman = new HandyManRequest();
+      
   }
 
   becomhandyman(){
