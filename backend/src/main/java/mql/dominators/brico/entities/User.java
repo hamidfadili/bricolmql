@@ -62,8 +62,7 @@ public class User implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 
-	@JsonFormat(pattern = "dd-MM-YYYY")
-	private Date birthday;
+	private String birthday;
 
 	private String photo;
 

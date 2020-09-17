@@ -26,6 +26,5 @@ public class UserRequest {
 	private String photo;
 	private Address address;
 
-	@JsonFormat(pattern = "dd-MM-YYYY")
-	private Date birthday;
+	private String birthday;
 }

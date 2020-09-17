@@ -22,5 +22,5 @@ public class UserResponse {
     private String phone;
     private String photo;
     private Address address;
-    private Date birthday;
+    private String birthday;
 }
