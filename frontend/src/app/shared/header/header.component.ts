@@ -4,6 +4,7 @@ import { UserModule } from 'src/app/models/user/user.module';
 import { UserService } from '../../core/user.service';
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
+import { environment } from 'src/environments/environment';
 declare var $: any;
 
 @Component({
@@ -14,6 +15,7 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
 
+  photoRout = environment.API_URL+"load/image/";
   user:UserModule;
   isAuth:boolean = false;
   isMenuOpned = false;
@@ -28,8 +30,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
 
     this.router.events.subscribe(val => {
-      this.isTransparent = this.location.path() === '' 
-                          || this.location.path().startsWith('/handymen');
+      this.isTransparent =   this.location.path() === '' 
+                          || this.location.path().startsWith('/handymen')
+                          || this.location.path().startsWith('/list-profile')
+                          || this.location.path().startsWith('/404');
     });
     this.userService.isAuthenticated.subscribe( isAuth => this.isAuth = isAuth );
     this.userService.currentUser.subscribe(user => this.user = user);

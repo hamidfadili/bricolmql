@@ -1,0 +1,81 @@
+<section class="">
+    <div class="block no-padding">
+        <div class="container">
+            <div class="row no-gape">
+                <aside class="col-lg-3 column border-right">
+                    <div class="widget">
+                        <profile-dashboard></profile-dashboard>
+                    </div>
+                </aside>
+                <div class="col-lg-9 column">
+                    <div class="padding-left">
+                        <div class="manage-jobs-sec">
+                        <div class="border-title">
+                            <h3>Compétences</h3><a style="color: #fb236a;" (click)="statusAddForm = !statusAddForm">
+                                <i class="la" [class.la-plus]="!statusAddForm" [class.la-minus]="statusAddForm"></i>
+                                Ajouter une compétence</a>
+                                <div class="profile-form-edit" *ngIf="statusAddForm">
+                                    <form (ngSubmit)="onSubmit()">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <span class="pf-title">Titre</span>
+                                                <div class="pf-field">
+                                                    <input type="text" name="title" placeholder="Titre" [(ngModel)]="skill.title" #title="ngModel"  required> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <span class="pf-title">Description</span>
+                                                <div class="pf-field">
+                                                    <textarea name="description" rows="4" [(ngModel)]="skill.description" #description="ngModel"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                           <button type="submit">Ajouter</button>
+                                       </div> 
+                                    </form>
+                                </div>
+
+                                <div class="profile-form-edit" *ngIf="editSkill">
+                                    <form (ngSubmit)="updateSkill()">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <span class="pf-title">Titre</span>
+                                                <div class="pf-field">
+                                                    <input type="text" name="title" placeholder="Titre" [(ngModel)]="editSkill.title" #title="ngModel"  required> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <span class="pf-title">Description</span>
+                                                <div class="pf-field">
+                                                    <textarea name="description" rows="4" [(ngModel)]="editSkill.description" #description="ngModel"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                           <button type="submit">Modifier</button>
+                                       </div> 
+                                    </form>
+                                </div>
+                        </div>
+                                                        <div class="edu-history-sec">
+                                                           <div class="edu-history style2" *ngFor="let skill of skills">
+                                                                <i></i>
+                                                                <div class="edu-hisinfo">
+                                                                    <h3>{{skill.title}} <span>{{skill.title}}</span></h3>
+                                                                    <p>{{skill.description}}</p>
+                                                                </div>
+                                                                <ul class="action_job">
+                                                                    <li><span>Edit</span><a (click)=editstatus(skill)><i class="la la-pencil"></i></a></li>
+                                                                    <li><span>Delete</span><a (click)="deleteSkill(skill,skill.id)" title=""><i class="la la-trash-o"></i></a></li>
+                                                                </ul>
+
+                                                               </div> 
+                                                           </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </section>

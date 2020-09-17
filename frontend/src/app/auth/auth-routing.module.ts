@@ -1,3 +1,5 @@
+import { SkillsComponent } from './profile/skills/skills.component';
+import { ListProfileComponent } from './profile/list-profile/list-profile.component';
 import { ExperiencesComponent } from './profile/experiences/experiences.component';
 import { HandymenListComponent } from './../handymen-list/handymen-list.component';
 import { NotfoundComponent } from './../shared/notfound/notfound.component';
@@ -64,6 +66,15 @@ const routes: Routes = [
     path: 'profile/experiences',
     component: ExperiencesComponent,
     canActivate : [AuthGuard]
+  },
+  {
+    path: 'profile/skills',
+    component: SkillsComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'list-profile/:username',
+    component: ListProfileComponent,
   },
   {
     path: 'profile/devenir-bricoleur/HandymanDoneComponent',

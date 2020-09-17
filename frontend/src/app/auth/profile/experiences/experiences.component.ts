@@ -1,6 +1,8 @@
+import { UserModule } from './../../../models/user/user.module';
 import { ExperienceRequest } from './../../../request/experience.request';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/user.service';
+import { HandyManRequest } from 'src/app/request/handyman.request';
 
 @Component({
   selector: 'app-experiences',
@@ -14,9 +16,9 @@ export class ExperiencesComponent implements OnInit {
   statusAddForm: boolean = false;
   statusEditForm: boolean = false;
   constructor(private userService:UserService) {}
-
+  
   ngOnInit(): void {
-    this.userService.getExperiences().subscribe(
+    this.userService.getExperiences(this.userService.getUser().username).subscribe(
       experiences=>{
         this.experiences = experiences.reverse();
       }
@@ -26,7 +28,7 @@ export class ExperiencesComponent implements OnInit {
   onSubmit(){
     this.userService.addExperience(this.experience).subscribe(
       res=>{
-        this.experiences.unshift(this.experience);
+        this.experiences.unshift(res);
         this.experience = {}
         this.statusAddForm = false;
       }
