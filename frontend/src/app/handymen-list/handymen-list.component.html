@@ -12,7 +12,6 @@
         </div>
     </div>
 </section>
-
 <section>
     <div class="block">
         <div class="container">
@@ -248,7 +247,7 @@
                             <div class="field_w_search">
                                 <select name="categories" [(ngModel)]="currentCat" (change)="onCategorySelected($event.target.value)">
                                     <option>Tous les catégories</option>
-                                    <option [ngValue]="cat.title" *ngFor="let cat of categories">{{cat.title}}</option>
+                                    <option  *ngFor="let cat of categories">{{cat.title}}</option>
                                 </select>
                                 <i class="la la-folder"></i>
                             </div>
@@ -270,7 +269,8 @@
                         </div>
                     </div>
                 </aside>
-                <div class="col-lg-9 column">
+                <div class="col-lg-9 column" style="position: relative;">
+                    <img style="position: absolute;left: 0;right: 0;margin: auto;z-index: 999999;" [ngClass]="{hide : !load}" src="assets/images/load.gif">
                     <div class="emply-resume-sec">
                         <div *ngFor="let handyman of currentHandymen" class="emply-resume-list square">
                             <div class="emply-resume-thumb">

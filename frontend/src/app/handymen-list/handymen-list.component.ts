@@ -12,6 +12,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HandymenListComponent implements OnInit {
 
+  load = true;
+
   public photoRout = environment.API_URL+"load/image/";
   public categories;
   public mapCategories = {};
@@ -53,12 +55,20 @@ export class HandymenListComponent implements OnInit {
         if(values.city) this.currentCity = values.city;
         if(values.gender) this.currentGender = values.gender;
         if(values.keyword) this.currentKeyword = values.keyword;
+        this.load = true;
         this.handymanService.loadHandymenByFilter(values).subscribe(
-          res => this.currentHandymen = res
+          res => {
+            this.currentHandymen = res
+            this.load = false;
+          }
         )
       }else{
+        this.load = true;
         this.handymanService.loadHandymen().subscribe(
-          res => this.currentHandymen = res._embedded.handymen
+          res => {
+            this.currentHandymen = res._embedded.handymen
+            this.load = false;
+          }
         )
       }
     }

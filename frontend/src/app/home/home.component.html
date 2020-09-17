@@ -15,13 +15,13 @@
                                     <div class="row">
                                         <div class="col-lg-7 col-md-5 col-sm-12 col-xs-12">
                                             <div class="job-field">
-                                                <input type="text" placeholder="Job title, keywords or company name">
+                                                <input [(ngModel)]="searshParams.keyword" name="keyword" type="text" placeholder="Job title, keywords or company name">
                                                 <i class="la la-keyboard-o"></i>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
                                             <div class="field_w_search" style="background-color: #ffffff;">
-                                                <select data-placeholder="City, province or region" class="chosen-city">
+                                                <select [(ngModel)]="searshParams.city" name="city" data-placeholder="City, province or region" class="chosen-city">
                                                     <option>Tous les villes</option>
                                                     <option>Fes</option>
                                                     <option>Aoufous</option>
@@ -243,7 +243,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
-                                            <button type="submit"><i class="la la-search"></i></button>
+                                            <button (click)="onClick()"><i class="la la-search"></i></button>
                                         </div>
                                     </div>
                                 </form>
