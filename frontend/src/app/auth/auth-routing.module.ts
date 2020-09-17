@@ -1,3 +1,5 @@
+import { HowitworksComponent } from './../howitworks/howitworks.component';
+import { ContactComponent } from './../contact/contact.component';
 import { SkillsComponent } from './profile/skills/skills.component';
 import { ListProfileComponent } from './profile/list-profile/list-profile.component';
 import { ExperiencesComponent } from './profile/experiences/experiences.component';
@@ -30,6 +32,14 @@ const routes: Routes = [
   {
     path : 'about-us',
     component: AboutUsComponent
+  },
+  {
+    path : 'contact',
+    component: ContactComponent
+  },
+  {
+    path : 'commentçamarche',
+    component: HowitworksComponent
   },
   {
     path: 'login',

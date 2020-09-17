@@ -88,7 +88,11 @@ export class ProfileComponent implements OnInit {
        
         this.fileService.uploadImage(this.selectedFile).subscribe(
          () => {
-           
+            Swal.fire(
+              'Photo mis à jour!',
+              '',
+              'success'
+            )
           }
         )
         
