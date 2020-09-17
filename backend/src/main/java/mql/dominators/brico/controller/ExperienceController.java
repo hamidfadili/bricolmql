@@ -35,8 +35,8 @@ public class ExperienceController {
 		return this.experienceService.getAllExperiences();
 	}
 
-	@GetMapping(path="/user") // localhost:8080/exeprience/user?username=said
-	public List<Experience> experiencePerUser(@RequestParam(name = "username") String username) {
+	@GetMapping(path="/handyman/{username}") 
+	public List<Experience> experiencePerUser(@PathVariable String username) {
 		return this.experienceService.getAllExperiencesPerUser(username);
 	}
 
@@ -51,13 +51,14 @@ public class ExperienceController {
 		return this.experienceService.findByStart(date);
 	}
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path="/handyman")
 	public ResponseEntity<Experience> save(@RequestBody Experience experience,@AuthenticationPrincipal CustomUserDetails userDetails ) {
 		Experience exp = this.experienceService.add(experience);
 		if(userDetails.getUser() instanceof Handyman)
 			((Handyman) userDetails.getUser()).getExperiences().add(exp);
 		return ResponseEntity.status(200).body(exp);
 	}
+	
 
 	@PutMapping(path = "/{id}")
 	public ResponseEntity<Experience> update(@PathVariable(name = "id") Long id, @RequestBody Experience experience) {

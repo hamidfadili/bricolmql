@@ -6,13 +6,15 @@ import Swal from 'sweetalert2';
 import { UserService } from 'src/app/core/user.service';
 import { FileService } from 'src/app/core/file.service';
 import { Address } from 'src/app/models/server-user/server-user.module';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-informations-personnelle',
   templateUrl: './informations-personnelle.component.html',
   styleUrls: ['./informations-personnelle.component.scss']
 })
 export class InformationsPersonnelleComponent implements OnInit {
-
+  
+  photoRout = environment.API_URL+"load/image/";
   status;
   user:UserModule;
   reader = new FileReader();
@@ -34,7 +36,7 @@ export class InformationsPersonnelleComponent implements OnInit {
     if(!this.updatedUser.photo){
       this.profileImage = "../assets/images/profile-avatar.jpg" 
     }else{
-      this.profileImage = "http://localhost:8080/load/image";
+      this.profileImage = this.photoRout+this.updatedUser.photo;;
     }
   }
 

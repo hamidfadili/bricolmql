@@ -24,6 +24,19 @@
                                          </div>
                                      </div>
                                      <div class="col-lg-12">
+                                        <span class="pf-title">Les services</span>
+                                        <div class="field_w_search">
+                                            
+                                            <select name="services" [(ngModel)]="currentService">
+                                                <option disabled>Tous les services</option>
+                                                <option [ngValue]="service" *ngFor="let service of services">
+                                                    {{service.title}}
+                                                </option>
+                                            </select>
+                                            <i class="la la-toolbox"></i>
+                                        </div>
+                                    </div>
+                                     <div class="col-lg-12">
                                          <span class="pf-title">Description</span>
                                          <div class="pf-field">
                                              <textarea name="description" [(ngModel)]="handyman.description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit, aspernatur! Commodi magnam adipisci deserunt quidem unde iure praesentium quas totam.</textarea>

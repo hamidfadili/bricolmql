@@ -127,4 +127,10 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 	}
 	
+	@GetMapping(path = "/profile/username/{username}")
+	public ResponseEntity<User> findByUsername(@PathVariable String username) {
+		return ResponseEntity.status(200)
+					.body(userService.getUserByUsername(username));
+	}
+	
 }

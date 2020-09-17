@@ -16,10 +16,9 @@
   </div>
   <div [@slideInOut]="animationState" class="responsive-opensec">
     <div class="btn-extars">
-      <a class="post-job-btn"><i class="la la-plus"></i>Poster un Job</a>
       <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
         <span (click)="SlideInOut('responsive-opensec')">
-          <img [src]="user.photo ? 'http://localhost:8080/load/image/'+user.photo : 'assets/images/profile-avatar.jpg'"
+          <img [src]="user.photo ? photoRout+user.photo : 'assets/images/profile-avatar.jpg'"
             alt="" />
           {{user.username}}
           <i (click)="logout()" class="la la-sign-out-alt"></i></span>
@@ -69,13 +68,12 @@
       </div>
       <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
         <span>
-          <img [src]="user.photo ? 'http://localhost:8080/load/image/'+user.photo : 'assets/images/profile-avatar.jpg'">
+          <img [src]="user.photo ? photoRout+user.photo : 'assets/images/profile-avatar.jpg'">
           {{user.username}}
           <i (click)="logout()" class="la la-sign-out-alt"></i>
         </span>
       </div>
       <div class="btn-extars">
-        <a title="" class="post-job-btn"><i class="la la-plus"></i>Poster un Job</a>
         <ul *ngIf="!isAuth" class="account-btns">
           <li class="signup-popup"><a [routerLink]="['/register']"><i class="la la-key"></i> S'inscrire</a></li>
           <li class="signin-popup"><a [routerLink]="['/login']"><i class="la la-external-link-square"></i> Se
@@ -106,7 +104,7 @@
       </div>
       <div *ngIf="isAuth" class="my-profiles-sec" [routerLink]="['/profile']">
         <span>
-          <img [src]="user.photo ? 'http://localhost:8080/load/image/'+user.photo : '../assets/images/profile-avatar.jpg'" alt="">
+          <img [src]="user.photo ? photoRout+user.photo : '../assets/images/profile-avatar.jpg'" alt="">
           {{user.username}}
           <i (click)="logout()" class="la la-sign-out-alt"></i>
         </span>

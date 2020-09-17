@@ -19,7 +19,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService:UserService,
     private router: Router
-  ) { }
+  ) { 
+    this.user.gender = 0;
+  }
 
   ngOnInit() {
   }

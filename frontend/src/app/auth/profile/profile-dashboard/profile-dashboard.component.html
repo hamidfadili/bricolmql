@@ -1,10 +1,11 @@
 <div class="tree_widget-sec">
     <ul>
-        <li><a [routerLink]="['/profile/change-password']" title=""><i class="la la-flash"></i>Change
-                Password</a></li>
-        <li *ngIf='!user.handyman'><a [routerLink]="['/profile/devenir-bricoleur/informations-personnelle']" title=""><i class="la la-user"></i>Devenir Bricoleur</a></li>
+        <li><a [routerLink]="['/profile']" title=""><i class="la la-user"></i>Profile</a></li>
+        <li *ngIf='!user.handyman'><a [routerLink]="['/profile/devenir-bricoleur/informations-personnelle']" title=""><i class="la la-user-shield"></i>Devenir Bricoleur</a></li>
         <li *ngIf='user.handyman'><a [routerLink]="['/profile/experiences']" title=""><i class="la la-briefcase"></i>Experiences</a></li>
-        <li *ngIf='user.handyman'><a [routerLink]="['/profile/']" title=""><i class="las la-school"></i>Compétences</a></li>
+        <li *ngIf='user.handyman'><a [routerLink]="['/profile/skills']" title=""><i class="las la-school"></i>Compétences</a></li>
+        <li><a [routerLink]="['/profile/change-password']" title=""><i class="la la-flash"></i>Change
+            Password</a></li>
         <li><a (click)="logout()"><i class="la la-unlink"></i>Logout</a></li>
     </ul>
 </div>

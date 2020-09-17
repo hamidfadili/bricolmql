@@ -6,10 +6,11 @@ import { ServerUserModule, ServerResponseUserModule } from '../models/server-use
 import { UserModule } from 'src/app/models/user/user.module';
 import { JwtService } from './jwt.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map, distinctUntilChanged } from 'rxjs/operators';
+import { SkillRequest } from '../request/skill.request';
 
 
 @Injectable({
@@ -22,10 +23,15 @@ export class UserService {
   private readonly UPDATE_USER_URL = environment.API_URL + "user/account/update";
   private readonly UPDATE_PASSWORD_URL = environment.API_URL + "user/account/password";
   private readonly BECOME_HANDYMAN_URL = environment.API_URL + "handyman/become_handyman";
-  private readonly EXPERIENCE_HANDYMAN_URL = environment.API_URL + "experience";
-
-
-
+  private readonly EXPERIENCE_HANDYMAN_URL = environment.API_URL + "experience/handyman";
+  private readonly PROFILE_BY_USERNAME_URL = environment.API_URL + "profile/username/";
+  private readonly UPDATE_EXPERIENCE_URL = environment.API_URL + "experience";
+  private readonly DELETE_EXPERIENCE_URL = environment.API_URL + "experience";
+  private readonly BIND_SERVICE_TO_HANDYMAN_URL = environment.API_URL + "handyman/bindService/";
+  private readonly SKILL_HANDYMAN_URL = environment.API_URL + "skill";
+  private readonly SKILL_HANDYMAN_GET_URL = environment.API_URL + "skill/handyman";
+  private readonly DELETE_SKILL_URL = environment.API_URL + "skill";
+  private readonly UPDATE_SKILL_URL = environment.API_URL + "skill";
 
   private currentUserSubject = new BehaviorSubject<UserModule>(null);
   currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
@@ -68,8 +74,8 @@ export class UserService {
     )
   }
 
-  getExperiences(){
-    return this.http.get<any>(this.EXPERIENCE_HANDYMAN_URL);
+  getExperiences(username){
+    return this.http.get<any>(this.EXPERIENCE_HANDYMAN_URL+'/'+username);
   }
 
   addExperience(experience: ExperienceRequest){
@@ -77,11 +83,31 @@ export class UserService {
   }
 
   deleteExperience(id){
-    return this.http.delete<any>(this.EXPERIENCE_HANDYMAN_URL+'/'+id);
+    return this.http.delete<any>(this.DELETE_EXPERIENCE_URL+'/'+id);
   }
 
   updateExperience(experience:ExperienceRequest){
-    return this.http.put<any>(this.EXPERIENCE_HANDYMAN_URL+'/'+experience.experienceId,experience);
+    return this.http.put<any>(this.UPDATE_EXPERIENCE_URL+'/'+experience.experienceId,experience);
+  }
+
+  getSkills(username){
+    return this.http.get<any>(this.SKILL_HANDYMAN_GET_URL+'/'+username);
+  }
+
+  addSkill(skill: SkillRequest){
+    return this.http.post<any>(this.SKILL_HANDYMAN_URL,skill);
+  }
+
+  deleteSkill(id){
+    return this.http.delete<any>(this.DELETE_SKILL_URL+'/'+id);
+  }
+
+  updateSkill(skill: SkillRequest){
+    return this.http.put<any>(this.UPDATE_SKILL_URL+'/'+skill.id,skill);
+  }
+
+  getUserProfile(username){
+    return this.http.get<any>(this.PROFILE_BY_USERNAME_URL+username);
   }
 
   loginUser(user: ServerUserModule): Observable<ServerResponseUserModule> {
@@ -116,6 +142,15 @@ export class UserService {
       })
     )
   }
+
+  bindServiceToHandyman(id){
+    return this.http.post<any>(this.BIND_SERVICE_TO_HANDYMAN_URL + id,'').pipe(
+      map(res => {
+        console.log(res);
+      })
+    )
+  }
+  
   initUser() {
     if (this.jwtService.hasToken()) {
       this.http.get<UserModule>(this.USER_URL).subscribe(

@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { HandymanService } from './../core/handyman.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServiceService } from './../core/service.service';
@@ -11,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HandymenListComponent implements OnInit {
 
+  public photoRout = environment.API_URL+"load/image/";
   public categories;
   public mapCategories = {};
   public currentCat = "Tous les catégories";
@@ -40,8 +42,10 @@ export class HandymenListComponent implements OnInit {
 
   onReciveLink(values){
     if(values){
+      
       if(values.category && this.mapCategories[values.category]){
         this.currentServices = this.mapCategories[values.category].services;
+        console.log("salam",this.currentServices);
         this.currentCat = values.category;
       }
       if(values.category || values.service || values.city || values.gender || values.keyword){

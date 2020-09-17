@@ -25,11 +25,10 @@ public class SkillServiceImpl implements SkillService {
 	private UserRepository userRepository;
 
 	@Override
-	public Skill saveSkill(Skill skill, String username) {
+	public Skill saveSkill(Skill skill, Handyman handyman) {
 		if (skill == null)
 			throw new RuntimeException("La compétence ne peut pas etre nulle");
-		User user = userRepository.findByUsername(username);
-		skill.add((Handyman) user);
+		skill.setUser(handyman);
 		return skillRepository.save(skill);
 	}
 
@@ -42,7 +41,7 @@ public class SkillServiceImpl implements SkillService {
 			return null;
 		}
 
-		skill.setSkillId(id);
+		skill.setId(id);
 		return skillRepository.save(skill);
 	}
 
@@ -63,9 +62,11 @@ public class SkillServiceImpl implements SkillService {
 
 	@Override
 	public void deleteSkill(Long id) {
-		Skill Skill = getSkill(id);
-		if (Skill != null) {
-			skillRepository.delete(Skill);
+		Skill skill = getSkill(id);
+		
+		if (skill != null) {
+			System.out.println(skill);
+			skillRepository.delete(skill);
 		}
 	}
 
@@ -75,9 +76,10 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 	@Override
-	public List<Handyman> getHandymenPerSkill(String titleSkill) {
-		Skill skill = findByTitle(titleSkill);
-		return skill.getHandymen();
+	public List<Skill> getSkillsByUsername(String username) {
+		return skillRepository.findByUserUsername(username);
 	}
+
+
 
 }

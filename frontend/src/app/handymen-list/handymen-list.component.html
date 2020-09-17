@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="inner-header">
-                        <h3>Choisissez les meilleur bricoleur</h3>
+                        <h3>Choisissez les meilleurs bricoleurs</h3>
                     </div>
                 </div>
             </div>
@@ -274,10 +274,10 @@
                     <div class="emply-resume-sec">
                         <div *ngFor="let handyman of currentHandymen" class="emply-resume-list square">
                             <div class="emply-resume-thumb">
-                                <img [src]="handyman.photo ? 'http://localhost:8080/load/image/'+handyman.photo : '../assets/images/profile-avatar.jpg'">
+                                <img [src]="handyman.photo ? photoRout+handyman.photo : '../assets/images/profile-avatar.jpg'">
                             </div>
                             <div class="emply-resume-info">
-                                <h3><a href="#">{{handyman.firstName}} {{handyman.lastName}}</a></h3>
+                                <h3><a [routerLink]="['/list-profile',handyman.username]">{{handyman.firstName}} {{handyman.lastName}}</a></h3>
                                 <span>{{handyman.jobTitle}}</span>
                                 <p><i class="la la-map-marker"></i>{{handyman.address.city}}</p>
                             </div>

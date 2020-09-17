@@ -14,7 +14,6 @@ export class ProfileDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.userService.currentUser.subscribe(user =>{ 
       this.user = user;
-      console.log(this.user);
     });
   }
 

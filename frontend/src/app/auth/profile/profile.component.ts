@@ -4,6 +4,7 @@ import { UserService } from './../../core/user.service';
 import { Component, OnInit, Output } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Address } from 'src/app/models/server-user/server-user.module';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,7 @@ import { Address } from 'src/app/models/server-user/server-user.module';
 })
 export class ProfileComponent implements OnInit {
   
+  photoRout = environment.API_URL+"load/image/";
   user:UserModule;
   reader = new FileReader();
   updatedUser:UserModule;
@@ -24,14 +26,13 @@ export class ProfileComponent implements OnInit {
     this.userService.currentUser.subscribe(user =>{ 
       this.user = user;
       this.updatedUser = JSON.parse(JSON.stringify(this.user));
-      console.log(this.updatedUser);
       if(!this.updatedUser.address) this.updatedUser.address = new Address();
     });
 
     if(!this.updatedUser.photo){
       this.profileImage = "../assets/images/profile-avatar.jpg" 
     }else{
-      this.profileImage = "http://localhost:8080/load/image/"+this.updatedUser.photo;
+      this.profileImage = this.photoRout+this.updatedUser.photo;
     }
   }
 
