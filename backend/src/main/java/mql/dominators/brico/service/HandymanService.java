@@ -11,5 +11,6 @@ public interface HandymanService {
     Handyman getByUsername(String username);
     Handyman save(Handyman handyman);
     List<Handyman> getAllByFilter(FilterRequest filterRequest);
+    void bindService(Handyman handyman,String serviceTitle);
 
 }

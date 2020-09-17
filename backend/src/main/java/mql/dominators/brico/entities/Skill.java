@@ -1,36 +1,39 @@
 package mql.dominators.brico.entities;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
+
+
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@Getter
+@Setter
 @Entity
 @Table(name = "skills")
 public class Skill {
 
 	@Id
 	@GeneratedValue
-	private Long skillId;
+	private Long id;
 
 	@NotEmpty
 	@Column(nullable = false)
@@ -39,11 +42,9 @@ public class Skill {
 	@NotEmpty
 	private String description;
 
-	@ManyToMany(mappedBy = "skills")
-	private List<Handyman> handymen = new ArrayList<>();
+	@JsonIgnore
+	@ManyToOne
+	private User user;
 
-	public void add(Handyman handyman) {
-		handymen.add(handyman);
-	}
 
 }

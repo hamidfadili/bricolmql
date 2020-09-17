@@ -2,10 +2,12 @@ package mql.dominators.brico.controller;
 
 import java.util.List;
 
+import mql.dominators.brico.entities.Experience;
 import mql.dominators.brico.entities.Handyman;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mql.dominators.brico.entities.Skill;
 import mql.dominators.brico.entities.User;
+import mql.dominators.brico.security.CustomUserDetails;
 import mql.dominators.brico.service.SkillService;
 import mql.dominators.brico.utils.UserAuthenticated;
 
@@ -45,9 +48,8 @@ public class SkillController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Skill> save(@RequestBody Skill skill) {
-		skillService.saveSkill(skill, userAuth.getAuthUser().getUsername());
-		return ResponseEntity.status(200).build();
+	public ResponseEntity<Skill> save(@RequestBody Skill skill,@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+		return ResponseEntity.status(200).body(skillService.saveSkill(skill,(Handyman)customUserDetails.getUser()));
 	}
 
 	@PutMapping(value = "/{id}")
@@ -65,13 +67,12 @@ public class SkillController {
 
 	@GetMapping(value = "/title/{title}")
 	public Skill getSkillByTitle(@PathVariable(name = "title") String title) {
-		System.out.println(title);
 		return this.skillService.findByTitle(title);
 	}
 
-	@GetMapping(value = "/user/{title}")
-	public List<Handyman> getUsersBySkill(@PathVariable(name = "title") String title) {
-		return this.skillService.getHandymenPerSkill(title);
+	@GetMapping(path="/handyman/{username}") 
+	public List<Skill> skillsPerUser(@PathVariable String username) {
+		return this.skillService.getSkillsByUsername(username);
 	}
 
 }

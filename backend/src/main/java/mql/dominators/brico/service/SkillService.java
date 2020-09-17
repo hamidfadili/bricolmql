@@ -8,7 +8,7 @@ import mql.dominators.brico.entities.User;
 
 public interface SkillService {
 
-	public Skill saveSkill(Skill Skill, String username);
+	public Skill saveSkill(Skill Skill, Handyman handyman);
 
 	public Skill updateSkill(Long id, Skill Skill);
 
@@ -20,6 +20,6 @@ public interface SkillService {
 
 	public Skill findByTitle(String title);
 
-	public List<Handyman> getHandymenPerSkill(String titleSkill);
-
+	public List<Skill> getSkillsByUsername(String username);
+	
 }

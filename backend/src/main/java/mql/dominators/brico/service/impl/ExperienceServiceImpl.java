@@ -57,7 +57,6 @@ public class ExperienceServiceImpl implements ExperienceService {
 
 	@Override
 	public List<Experience> getAllExperiencesPerUser(String username) {
-
 		List<Experience> list = this.experienceRepository.findByUserUsername(username);
 		return list;
 	}

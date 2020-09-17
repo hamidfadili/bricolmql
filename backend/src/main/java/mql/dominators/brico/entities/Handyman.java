@@ -6,17 +6,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 public class Handyman extends User {
 
@@ -25,23 +29,20 @@ public class Handyman extends User {
 	private String jobTitle;
 
 	private String description;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
+	private Set<Experience> experiences = new HashSet<>();
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "user")
-	private List<Experience> experiences = new ArrayList<>();
+	private Set<Skill> skills = new HashSet<>();
 
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "skill_handyman",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "skill_id"))
-	private List<Skill> skills = new ArrayList<>();
-
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "service_handyman",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "service_id"))
-	private List<Service> services;
+	private Set<Service> services = new HashSet<>();
 
 }

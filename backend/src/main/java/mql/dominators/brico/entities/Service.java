@@ -1,15 +1,24 @@
 package mql.dominators.brico.entities;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.List;
 
-@Data
-@ToString
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+import java.util.Set;
+
+
+
 @Entity
 @Table(name = "services")
+@Getter
+@Setter
 public class Service {
 
     @Id
@@ -18,9 +27,11 @@ public class Service {
 
     private String title;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "services")
-    private List<Handyman> handymen;
+    private Set<Handyman> handymen;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = false)
     private Category category;
