@@ -1,3 +1,4 @@
+import { ServiceService } from './../../../core/service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/core/user.service';
@@ -15,14 +16,16 @@ export class ListProfileComponent implements OnInit {
   user: HandyManRequest = new HandyManRequest();
   username: String;
   experiences = [];
+  service:any = '';
   skills = [];
-  constructor(private userservice:UserService, private route: ActivatedRoute) {}
+  constructor(private userservice:UserService, private serviceservice: ServiceService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.username = this.route.snapshot.params.username;
     this.getProfile(this.username);
     this.getExperiences();
     this.getSkills();
+    this.getServices();
   }
 
   getProfile(username){
@@ -41,6 +44,14 @@ export class ListProfileComponent implements OnInit {
     this.userservice.getSkills(this.username).subscribe(
       skills=>{
         this.skills = skills.reverse();
+      }
+    )
+  }
+
+  getServices(){
+    this.serviceservice.getService(this.username).subscribe(
+      res=> {
+        this.service = res[0].title;
       }
     )
   }

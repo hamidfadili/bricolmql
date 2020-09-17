@@ -36,15 +36,16 @@
                              <div class="cst"><img [src]="user.photo ? photoRout+user.photo : '../assets/images/profile-avatar.jpg'" >
                                 </div>
                              <h3>{{user.username}} </h3>
-                             <span><i>{{ user.jobTitle }}</i> service x</span>
+                             <p><a>Service : {{ service }}</a></p>
+                             <span><i>{{ user.jobTitle }}</i> </span>
                              <p><a>{{ user.email }}</a></p>
                              <p>
                                 <i class="la la-map-marker"></i>
                                 {{ user.address?.address }} / {{ user.address?.city }}
                              </p>
                          </div>
-                         <div class="download-cv">
-                             <a href="#" title="">Download CV <i class="la la-download"></i></a>
+                         <div class="">
+                             <a href="#" title=""> <i class=""></i></a>
                          </div>
                      </div>
                      <ul class="cand-extralink">
@@ -90,11 +91,11 @@
                                  <div class="job-overview" id="info-brico">
                                      <h3>Informations sur le bricoleur</h3>
                                      <ul>
-                                         <li><i class="la la-money"></i><h3>Offerd Salary</h3><span>£15,000 - £20,000</span></li>
-                                         <li><i class="la la-mars-double"></i><h3>Gender</h3><span>{{ user.gender }}</span></li>
-                                         <li><i class="la la-puzzle-piece"></i><h3>Job</h3><span>{{ user.jobTitle }}</span></li>
-                                         <li><i class="la la-shield"></i><h3>Experience</h3><span>2 Years</span></li>
-                                         <li><i class="la la-line-chart "></i><h3>Qualification</h3><span>Bachelor Degree</span></li>
+                                        <li><i class="las la-landmark"></i><h3>Service</h3><span>{{ service }}</span></li>
+                                         <li><i class="la la-mars-double"></i><h3>Sexe</h3><span>{{ user.gender }}</span></li>
+                                         <li><i class="la la-puzzle-piece"></i><h3>Emploi</h3><span>{{ user.jobTitle }}</span></li>
+                                         <!-- <li><i class="la la-shield"></i><h3>Age</h3><span>{{ user.birthday }}</span></li> -->
+
                                      </ul>
                                  </div><!-- Job Overview -->
                                  <div class="job-overview" id="contact">
@@ -102,7 +103,7 @@
                                     <ul>
                                         <li><i class="la la-money"></i><h3>Email</h3><span>{{ user.email }}</span></li>
                                         <li><i class="la la-phone"></i><h3>Phone</h3><span>{{ user.phone }}</span></li>
-                                        <li><i class="la la-map"></i><h3>Addresse</h3><span>{{ user.address?.address }}</span></li>
+                                        <li><i class="la la-map"></i><h3>Adresse</h3><span>{{ user.address?.address }}</span></li>
                                         <li><i class="la la-city"></i><h3>Ville</h3><span>{{ user.address?.city }}</span></li>
                                     </ul>
                                 </div><!-- Job Overview -->
